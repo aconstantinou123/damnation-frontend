@@ -14,7 +14,9 @@ function LandingPage() {
     <>
       <main className="landing-page">
         <Title/>
+        <hr className="solid-thick"></hr>
         <ArticleMain articles={mainArticle}/>
+        <hr className="solid-thin"></hr>
         <ArticleList articles={nonMainArticles}/>
       </main>
       <Footer/>

@@ -2,3 +2,13 @@
   /* background-color: greenyellow; */
   width: 100%;
 }
+
+.solid-thick {
+  border-top: 3px solid black;
+  width: 95%;
+}
+
+.solid-thin {
+  border-top: 1px solid black;
+  width: 95%;
+}
