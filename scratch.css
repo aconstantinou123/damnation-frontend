@@ -1,0 +1,39 @@
+.article-summary  {
+  list-style-type: none;
+}
+
+.article-summary  > div {
+  max-height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.article-summary  > div > img {
+  width: 100%;
+  padding: 1rem .75rem;
+}
+
+.article-summary  > div > figcaption {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0,0,0,.7);
+  width: 100%;
+}
+
+.article-summary  > h3 {
+  padding: .75rem;
+  font-size: 1.25rem;
+}
+
+.article-summary  > h4 {
+  padding: .75rem;
+  padding-bottom: 0;
+  /* font-size: 1.25rem; */
+}
+
+.article-summary  > p {
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 1rem .75rem;
+  color: #666666;
+}

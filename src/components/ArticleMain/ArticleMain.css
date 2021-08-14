@@ -1,19 +1,18 @@
-/* articles styles */
-.articles {
+/* article-main styles */
+.article-main {
   padding: 1rem;
 }
 
-.articles > ul {
+.article-main > ul {
   display: grid;
   grid-template-columns: repeat(1, minmax(320px, 1fr));
   grid-gap: 1rem;
 }
 
 @media only screen and (min-width: 768px) {
-  .articles > ul {
+  .article-main > ul {
     display: grid;
-    grid-template-columns: repeat(3, minmax(320px, 1fr));
+    grid-template-columns: repeat(1, minmax(320px, 1fr));
     grid-gap: 1rem;
   }
 }
-
