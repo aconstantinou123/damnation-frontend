@@ -1,27 +1,58 @@
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { useEffect } from "react"
 
-import ArticleList from '../../components/ArticleList/ArticleList'
-import Title from '../../components/Title/Title'
-import Footer from '../../components/Footer/Footer'
-import ArticleMain from '../../components/ArticleMain/AricleMain'
+import ArticleList from "../../components/ArticleList/ArticleList"
+import Title from "../../components/Title/Title"
+import Footer from "../../components/Footer/Footer"
+import ArticleMain from "../../components/ArticleMain/ArticleMain"
 
-import articles from '../../data/data.json'
-import './LandingPage.css'
+import "./LandingPage.css"
 
-function LandingPage() {
-  const mainArticle = articles.filter(article => article.is_main)
-  const nonMainArticles = articles.filter(article => !article.is_main)
+import * as articleActions from "../../actions/articleActions"
+
+function LandingPage({ fetchArticles, articlesFetched, articles }) {
+  useEffect(() => {
+    if (!articlesFetched) {
+      fetchArticles();
+    }
+  }, [fetchArticles, articlesFetched]);
+
+  const mainArticle = articles.filter((article) => article.is_main);
+  const nonMainArticles = articles.filter((article) => !article.is_main);
   return (
     <>
       <main className="landing-page">
-        <Title/>
+        <Title />
         <hr className="solid-thick"></hr>
-        <ArticleMain articles={mainArticle}/>
-        <hr className="solid-thin"></hr>
-        <ArticleList articles={nonMainArticles}/>
+        {articlesFetched ? (
+          <>
+            <ArticleMain articles={mainArticle} />
+            <hr className="solid-thin"></hr>
+            <ArticleList articles={nonMainArticles} />
+          </>
+        ) : (
+          <div>Loading...</div>
+        )}
       </main>
-      <Footer/>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default LandingPage
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      ...articleActions,
+    },
+    dispatch
+  );
+}
+
+function mapStateToProps(state) {
+  return {
+    ...state.articleReducer,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
