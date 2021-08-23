@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import LandingPage from "./containers/LandingPage/LandingPage"
 import About from "./containers/About/About"
 import Article from "./containers/Article/Article"
+import CreateArticle from "./containers/CreateArticle/CreateArticle"
 
 import history from "./history"
 import store from "./store"
@@ -19,6 +20,9 @@ function App() {
     <Provider store={store}>
       <Router history={history}>
         <Switch>
+          <Route path="/create">
+            <CreateArticle/>
+          </Route>
           <Route path="/article/:id">
             <Article />
           </Route>

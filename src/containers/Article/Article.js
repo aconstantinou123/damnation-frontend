@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux"
 import { useEffect } from "react"
 
 import "./Article.css";
-// import articles from "../../data/data.json"
+
 import ArticleView from "../../components/ArticleView/ArticleView"
 
 import * as articleActions from '../../actions/articleActions'
@@ -28,8 +28,8 @@ const Article = ({ articles, articlesFetched, fetchArticles }) => {
       }
       
     </div>
-  );
-};
+  )
+}
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
@@ -37,14 +37,14 @@ function mapDispatchToProps(dispatch) {
       ...articleActions,
     },
     dispatch
-  );
+  )
 }
 
 function mapStateToProps(state) {
   return {
     ...state.articleReducer,
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Article);
+export default connect(mapStateToProps, mapDispatchToProps)(Article)
 

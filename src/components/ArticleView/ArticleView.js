@@ -1,4 +1,5 @@
 import './ArticleView.css'
+import ArticleContent from '../ArticleContent/ArticleContent'
 
 const ArticleView = ({ article }) => (
   <div className="article-view" key={article.id}>
@@ -7,7 +8,8 @@ const ArticleView = ({ article }) => (
     <div>
       <img src={article.img_url} alt={article.img_alt} />
     </div>
-    <p>{article.content}</p>
+    {/* <p>{article.content}</p> */}
+    <ArticleContent articleContent={article.content}/>
   </div>
 )
 

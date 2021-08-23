@@ -1,0 +1,30 @@
+.input-container {
+  display: block;
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 100%;
+}
+
+input, label {
+ display:block;
+ width: inherit;
+ height: 1.5rem;
+}
+
+input {
+ border: 1px solid #ddd;
+}
+
+.summary {
+  height: 10rem;
+  width: inherit;
+  border: 1px solid #ddd;
+  resize: none;
+}
+
+.is-main {
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}

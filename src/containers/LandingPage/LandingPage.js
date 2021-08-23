@@ -37,7 +37,7 @@ function LandingPage({ fetchArticles, articlesFetched, articles }) {
       </main>
       <Footer />
     </>
-  );
+  )
 }
 
 function mapDispatchToProps(dispatch) {
@@ -46,13 +46,13 @@ function mapDispatchToProps(dispatch) {
       ...articleActions,
     },
     dispatch
-  );
+  )
 }
 
 function mapStateToProps(state) {
   return {
     ...state.articleReducer,
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
