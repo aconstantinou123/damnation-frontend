@@ -1,16 +1,29 @@
-import './ArticleView.css'
 import ArticleContent from '../ArticleContent/ArticleContent'
 
-const ArticleView = ({ article }) => (
-  <div className="article-view" key={article.id}>
-    <h3>{article.title}</h3>
-    <p>By {article.author} {article.date}</p>  
-    <div>
-      <img src={article.img_url} alt={article.img_alt} />
+import history from '../../history'
+
+import './ArticleView.css'
+
+const ArticleView = ({ article, selectArticleToEdit }) => {
+  const handleEditClicked = () => {
+    selectArticleToEdit(article)
+    history.push(`/edit/${article.id}`)
+  }
+  return (
+    <div className="article-view" key={article.id}>
+      <div className='article-button-container'>
+        <button onClick={() => history.push('/')} className="go-back">Back</button>
+        <button onClick={handleEditClicked} className="edit-article">Edit Article</button>
+      </div>
+      <h3>{article.title}</h3>
+      <p>By {article.author} {article.date}</p>  
+      <div>
+        <img src={article.img_url} alt={article.img_alt} />
+      </div>
+      {/* <p>{article.content}</p> */}
+      <ArticleContent articleContent={article.content}/>
     </div>
-    {/* <p>{article.content}</p> */}
-    <ArticleContent articleContent={article.content}/>
-  </div>
-)
+  )
+}
 
 export default ArticleView

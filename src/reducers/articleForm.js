@@ -8,15 +8,18 @@ import {
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
+  SELECT_ARTICLE_TO_EDIT,
 } from '../constants/types'
 
 const defaultState = {
+  articleId: null,
+  articleDate: '',
   articleTitle: '',
   articleAuthor: '',
   articleImgUrl: '',
   articleSummary: '',
   articleIsMain: false,
-  articleContent: {},
+  articleContent: null,
   articleSubmitting: false,
   articleSubmitted: false, 
   articleError: null,
@@ -64,12 +67,14 @@ const createArticleReducer = (state = defaultState, action) => {
     case SUBMIT_CREATE_ARTICLE_SUCCESS:
       return {
         ...state,
+        articleId: '',
+        articleDate: '',
         articleTitle: '',
         articleAuthor: '',
         articleImgUrl: '',
         articleSummary: '',
         articleIsMain: false,
-        articleContent: {},
+        articleContent: null,
         articleSubmitting: false,
         articleSubmitted: true,
         articleError: null,
@@ -80,6 +85,18 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSubmitting: false,
         articleSubmitted: false,
         articleError: action.payload,
+      }
+    case SELECT_ARTICLE_TO_EDIT:
+      return {
+        ...state,
+        articleId: action.payload.id,
+        articleDate: action.payload.date,
+        articleTitle: action.payload.title,
+        articleAuthor: action.payload.author,
+        articleImgUrl: action.payload.img_url,
+        articleSummary: action.payload.summary,
+        articleIsMain: action.payload.is_main,
+        articleContent: action.payload.content,
       }
     default:
       return state

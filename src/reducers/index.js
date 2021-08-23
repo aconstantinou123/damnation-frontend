@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 
 import articleReducer from "./article"
-import createArticleReducer from './createArticle'
+import articleFormReducer from './articleForm'
 
 const rootReducer = combineReducers({
   articleReducer,
-  createArticleReducer,
+  articleFormReducer,
 })
 
 export default rootReducer

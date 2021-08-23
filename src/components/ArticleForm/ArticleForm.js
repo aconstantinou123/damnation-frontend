@@ -10,6 +10,8 @@ const ArticleForm = ({
   saveArticleSummary,
   saveArticleIsMain,
   saveArticleContent,
+  articleId,
+  articleDate,
   submitArticle,
   articleTitle,
   articleAuthor,
@@ -17,6 +19,7 @@ const ArticleForm = ({
   articleSummary,
   articleIsMain,
   articleContent,
+  formName,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -34,7 +37,7 @@ const ArticleForm = ({
     saveArticleSummary(e.target.value)
   }
 
-  const onIsMainChange = (e) => {
+  const onIsMainChange = () => {
     saveArticleIsMain()
   }
 
@@ -42,13 +45,14 @@ const ArticleForm = ({
     e.preventDefault()
     const body = {
       article: {
+        id: articleId, 
         title: articleTitle,
         author: articleAuthor,
         img_url: articleImgUrl,
         img_alt: 'alt',
-        date: moment().format('MMMM Do YYYY'),
+        date: articleDate || moment().format('MMMM Do YYYY'),
         summary: articleSummary,
-        is_main: false,
+        is_main: articleIsMain,
         content: articleContent
       }
     }
@@ -57,7 +61,7 @@ const ArticleForm = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <h3>Create new article</h3>
+      <h3>{formName}</h3>
       <div className="input-container">
         <label for="title">Title</label>
         <input
@@ -105,6 +109,7 @@ const ArticleForm = ({
           className="is-main"
           id="is-main"
           type="checkbox"
+          checked={articleIsMain}
           value={articleIsMain}
           name="is-main"
           onChange={onIsMainChange}
@@ -113,7 +118,10 @@ const ArticleForm = ({
       <div className="content-label">
         <p>Content</p>
       </div>
-      <ArticleTextEditor saveArticleContent={saveArticleContent} />
+      <ArticleTextEditor 
+        saveArticleContent={saveArticleContent}
+        articleContent={articleContent}
+      />
       <input type="submit" value="Submit"></input>
     </form>
   );

@@ -1,21 +1,21 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
-import "./CreateArticle.css";
+import "./EditArticle.css";
 
 import ArticleForm from "../../components/ArticleForm/ArticleForm"
 
 import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
 
-const CreateArticle = ({ 
+const EditArticle = ({ 
   saveArticleTitle,
   saveArticleAuthor,
   saveArticleImgUrl,
   saveArticleSummary,
   saveArticleIsMain,
   saveArticleContent,
-  submitArticleCreate,
+  submitArticleEdit,
   articleId,
   articleDate,
   articleTitle,
@@ -26,16 +26,16 @@ const CreateArticle = ({
   articleContent
 }) => {
   return (
-    <div className="create-article-container">
+    <div className="edit-article-container">
       <ArticleForm
-        formName='Create new article'
+        formName='Edit article'
         saveArticleTitle={saveArticleTitle}
         saveArticleAuthor={saveArticleAuthor}
         saveArticleImgUrl={saveArticleImgUrl}
         saveArticleSummary={saveArticleSummary}
         saveArticleIsMain={saveArticleIsMain}
         saveArticleContent={saveArticleContent}
-        submitArticle={submitArticleCreate}
+        submitArticle={submitArticleEdit}
         articleId={articleId}
         articleDate={articleDate}
         articleTitle={articleTitle}
@@ -66,5 +66,5 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle)
+export default connect(mapStateToProps, mapDispatchToProps)(EditArticle)
 

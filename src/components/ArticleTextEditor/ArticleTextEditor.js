@@ -1,13 +1,17 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw } from 'draft-js';
 import './ArticleTextEditor.css'
 import 'draft-js/dist/Draft.css';
-import { saveArticleContent } from '../../actions/createArticleActions';
 
 class ArticleTextEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    const { articleContent } = this.props
+    console.log('articleContent', articleContent)
+    
+    this.state = articleContent 
+      ? {  editorState: EditorState.createWithContent(convertFromRaw(articleContent)) }
+      : { editorState: EditorState.createEmpty() }
 
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => {

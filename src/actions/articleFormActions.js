@@ -11,6 +11,7 @@ import {
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
+  SELECT_ARTICLE_TO_EDIT,
 } from '../constants/types'
 
 export const saveArticleContent = (payload) => ({
@@ -56,13 +57,28 @@ export const submitArticleError = (error) => ({
   payload: error,
 })
 
+export const selectArticleToEdit = (payload) => ({
+  type: SELECT_ARTICLE_TO_EDIT,
+  payload
+})
 
-export const submitArticle = (body) => async (dispatch) => {
+export const submitArticleCreate = (body) => async (dispatch) => {
   dispatch(submitArticlePending())
   try {
     const response = await axios.post('http://localhost/api/article', body)
     dispatch(submitArticleSuccess(response.data))
     history.push('/')
+  } catch (err) {
+    dispatch(submitArticleError(err))
+  }
+}
+
+export const submitArticleEdit = (body) => async (dispatch) => {
+  dispatch(submitArticlePending())
+  try {
+    const response = await axios.put('http://localhost/api/article', body)
+    dispatch(submitArticleSuccess(response.data))
+    history.push(`/article/${body.article.id}`)
   } catch (err) {
     dispatch(submitArticleError(err))
   }
