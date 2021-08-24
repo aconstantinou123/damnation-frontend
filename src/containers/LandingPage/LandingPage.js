@@ -18,6 +18,7 @@ const LandingPage = ({
   articles,
   user,
   articleDeleteSuccess,
+  articleSubmitted,
   }) => {
   useEffect(() => {
     if (!articlesFetched) {
@@ -30,6 +31,12 @@ const LandingPage = ({
       fetchArticles()
     }
   }, [fetchArticles, articleDeleteSuccess])
+
+  useEffect(() => {
+    if(articleSubmitted) {
+      fetchArticles()
+    }
+  }, [fetchArticles, articleSubmitted])
 
   const mainArticle = articles.filter((article) => article.is_main);
   const nonMainArticles = articles.filter((article) => !article.is_main);
