@@ -3,6 +3,12 @@
   width: 100%;
 }
 
+.landing-page-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .solid-thick {
   border-top: 3px solid black;
   width: 95%;

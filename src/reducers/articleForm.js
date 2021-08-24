@@ -1,14 +1,17 @@
 import { 
+  DELETE_ARTICLE_PENDING,
+  DELETE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE_ERROR,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
   SAVE_ARTICLE_SUMMARY,
   SAVE_ARTICLE_IS_MAIN,
   SAVE_ARTICLE_IMG_URL,
+  SELECT_ARTICLE_TO_EDIT,
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
-  SELECT_ARTICLE_TO_EDIT,
 } from '../constants/types'
 
 const defaultState = {
@@ -23,6 +26,9 @@ const defaultState = {
   articleSubmitting: false,
   articleSubmitted: false, 
   articleError: null,
+  articleDeletePending: false,
+  articleDeleteSuccess: false,
+  articleDeleteError: null,
 }
 
 const createArticleReducer = (state = defaultState, action) => {
@@ -97,6 +103,27 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSummary: action.payload.summary,
         articleIsMain: action.payload.is_main,
         articleContent: action.payload.content,
+      }
+    case DELETE_ARTICLE_PENDING:
+      return {
+        ...state,
+        articleDeletePending: true,
+        articleDeleteSuccess: false,
+        articleDeleteError: null,
+      }
+    case DELETE_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        articleDeletePending: false,
+        articleDeleteSuccess: true,
+        articleDeleteError: null,
+      }
+    case DELETE_ARTICLE_ERROR:
+      return {
+        ...state,
+        articleDeletePending: false,
+        articleDeleteSuccess: false,
+        articleDeleteError: action.payload,
       }
     default:
       return state

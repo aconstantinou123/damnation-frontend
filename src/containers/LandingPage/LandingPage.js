@@ -1,6 +1,7 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { useEffect } from "react"
+import { Link } from 'react-router-dom'
 
 import ArticleList from "../../components/ArticleList/ArticleList"
 import Title from "../../components/Title/Title"
@@ -11,12 +12,24 @@ import "./LandingPage.css"
 
 import * as articleActions from "../../actions/articleActions"
 
-function LandingPage({ fetchArticles, articlesFetched, articles }) {
+const LandingPage = ({
+  fetchArticles,
+  articlesFetched,
+  articles,
+  user,
+  articleDeleteSuccess,
+  }) => {
   useEffect(() => {
     if (!articlesFetched) {
-      fetchArticles();
+      fetchArticles()
     }
   }, [fetchArticles, articlesFetched]);
+
+  useEffect(() => {
+    if(articleDeleteSuccess) {
+      fetchArticles()
+    }
+  }, [fetchArticles, articleDeleteSuccess])
 
   const mainArticle = articles.filter((article) => article.is_main);
   const nonMainArticles = articles.filter((article) => !article.is_main);
@@ -24,6 +37,17 @@ function LandingPage({ fetchArticles, articlesFetched, articles }) {
     <>
       <main className="landing-page">
         <Title />
+        <div className="landing-page-button-container">
+          <Link to="/about">About</Link>
+          {
+            user && (
+              <>
+                <Link to="/create">Create Article</Link>
+                <Link to="/logout">Logout</Link>
+              </>
+            )
+          }
+        </div>
         <hr className="solid-thick"></hr>
         {articlesFetched ? (
           <>
@@ -52,6 +76,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     ...state.articleReducer,
+    ...state.articleFormReducer,
+    ...state.userReducer,
   }
 }
 

@@ -15,7 +15,9 @@ const Article = ({
   articlesFetched,
   fetchArticles,
   selectArticleToEdit,
+  deleteArticle,
   articleSubmitted,
+  user,
 }) => {
 
   useEffect(() => {
@@ -41,7 +43,9 @@ const Article = ({
         articlesFetched
         ? <ArticleView 
             article={article}
+            user={user}
             selectArticleToEdit={selectArticleToEdit}
+            deleteArticle={deleteArticle}
           />
         : <div>Loading...</div>
       }
@@ -64,6 +68,7 @@ function mapStateToProps(state) {
   return {
     ...state.articleReducer,
     ...state.articleFormReducer,
+    ...state.userReducer,
   }
 }
 

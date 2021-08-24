@@ -1,0 +1,17 @@
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-wrapper > input {
+  display: none;
+}
+
+.login-wrapper > label {
+  display: inline;
+}
+
+.login-submit-container {
+  padding-top: 1rem;
+}

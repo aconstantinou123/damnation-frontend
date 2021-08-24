@@ -6,14 +6,17 @@
   width: 100%;
 }
 
-input, label {
- display:block;
- width: inherit;
- height: 1.5rem;
+.article-form-label {
+  display:block;
+  width: inherit;
+  height: 1.5rem;
 }
 
-input {
- border: 1px solid #ddd;
+.article-form-input {
+  border: 1px solid #ddd;
+  display:block;
+  width: inherit;
+  height: 1.5rem;
 }
 
 .summary {

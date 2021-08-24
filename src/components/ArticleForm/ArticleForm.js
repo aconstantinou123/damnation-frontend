@@ -63,8 +63,9 @@ const ArticleForm = ({
     <form onSubmit={handleSubmit}>
       <h3>{formName}</h3>
       <div className="input-container">
-        <label for="title">Title</label>
+        <label className="article-form-label" for="title">Title</label>
         <input
+          className="article-form-input"
           id="title"
           type="text"
           value={articleTitle}
@@ -73,8 +74,9 @@ const ArticleForm = ({
         />
       </div>
       <div className="input-container">
-        <label for="author">Author</label>
+        <label className="article-form-label" for="author">Author</label>
         <input
+          className="article-form-input"
           id="author"
           type="text"
           value={articleAuthor}
@@ -83,8 +85,9 @@ const ArticleForm = ({
         />
       </div>
       <div className="input-container">
-        <label for="image-url">Image Url</label>
+        <label className="article-form-label" for="image-url">Image Url</label>
         <input
+          className="article-form-input"
           id="image-url"
           type="text"
           value={articleImgUrl}
