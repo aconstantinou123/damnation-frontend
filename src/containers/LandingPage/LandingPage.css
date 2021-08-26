@@ -41,3 +41,17 @@
 .pagination > li {
   padding: 0.5rem;
 }
+
+.link {
+  text-decoration: none;
+  color: #5f5f5f;
+}
+
+.pagination > li > a {
+  color: black;
+  text-decoration: none;
+}
+
+.pagination > li > a:hover {
+  color: #5f5f5f;
+}

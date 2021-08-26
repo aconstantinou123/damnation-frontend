@@ -1,0 +1,13 @@
+.damnation-button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.damnation-button:hover {
+  color: #5f5f5f;
+}

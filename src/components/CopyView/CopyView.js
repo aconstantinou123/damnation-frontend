@@ -1,4 +1,5 @@
 import ArticleContent from '../ArticleContent/ArticleContent'
+import Button from '../Button/Button'
 
 import history from '../../history'
 
@@ -17,11 +18,11 @@ const CopyView = ({
   return (
     <div className="copy-view" key={copy.id}>
       <div className='copy-button-container'>
-        <button onClick={() => history.push('/')} className="go-back">Back</button>
+        <Button onClick={() => history.push('/')} name='Back'/>
         {
           user &&
           <>
-            <button onClick={handleEditClicked} className="edit-article">Edit Copy</button>
+            <Button onClick={handleEditClicked} name='Edit Content'/>
           </>
         }
       </div>

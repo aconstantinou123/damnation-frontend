@@ -1,4 +1,5 @@
 import ArticleContent from '../ArticleContent/ArticleContent'
+import Button from '../Button/Button'
 
 import history from '../../history'
 
@@ -21,12 +22,12 @@ const ArticleView = ({
   return (
     <div className="article-view" key={article.id}>
       <div className='article-button-container'>
-        <button onClick={() => history.push('/')} className="go-back">Back</button>
+        <Button onClick={() => history.push('/')} name='Back'/>
         {
           user &&
           <>
-            <button onClick={handleEditClicked} className="edit-article">Edit Article</button>
-            <button onClick={handleDeleteClicked} className="delete-article">Delete Article</button>
+            <Button onClick={handleEditClicked} name='Edit Article'/>
+            <Button onClick={handleDeleteClicked} name='Delete Article'/>
           </>
         }
       </div>

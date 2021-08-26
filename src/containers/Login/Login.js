@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { connect } from "react-redux"
-import { bindActionCreators } from "redux"
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import Button from '../../components/Button/Button'
 
 import * as userActions from '../../actions/userActions'
 
@@ -32,27 +33,27 @@ const Login = ({
   }
 
   return(
-    <div className="login-wrapper">
+    <div className='login-wrapper'>
       <h1>Please Log In</h1>
       <form onSubmit={handleOnSubmit}>
-        <label>
+        <label className='login-label'>
           <p>Email</p>
           <input 
-            type="text" 
+            type='text' 
             value={email}
             onChange={handleOnEmailChange}
           />
         </label>
-        <label>
+        <label className='login-label'>
           <p>Password</p>
           <input 
-            type="password"
+            type='password'
             value={password}
             onChange={handleOnPasswordChange}
           />
         </label>
-        <div className="login-submit-container">
-          <button type="submit">Submit</button>
+        <div className='login-submit-container'>
+          <button className='submit-button' type='submit'>Submit</button>
         </div>
         {
           (userError && userError.message === 'Request failed with status code 401') &&

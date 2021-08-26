@@ -125,7 +125,7 @@ const ArticleForm = ({
         saveArticleContent={saveArticleContent}
         articleContent={articleContent}
       />
-      <input type="submit" value="Submit"></input>
+      <input className='submit-button' type="submit" value="Submit"></input>
     </form>
   );
 };

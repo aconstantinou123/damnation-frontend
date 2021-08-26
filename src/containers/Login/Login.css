@@ -4,14 +4,24 @@
   align-items: center;
 }
 
-.login-wrapper > input {
-  display: none;
-}
-
-.login-wrapper > label {
+.login-label {
   display: inline;
 }
 
 .login-submit-container {
   padding-top: 1rem;
+}
+
+.submit-button {
+  background-color: #5f5f5f;
+  border: none;
+  color: black;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.submit-button:hover {
+  color: white;
 }

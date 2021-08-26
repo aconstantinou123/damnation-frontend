@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
+  padding-top: 1em;
 }
 
 .title > h1 {
@@ -10,5 +11,6 @@
 }
 
 .title > img {
-  max-width: 100px;
+  max-width: 40px;
+  margin-left: 0.5rem;
 }
