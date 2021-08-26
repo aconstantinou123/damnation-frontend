@@ -12,6 +12,7 @@ import {
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
+  RESET_SUBMIT,
 } from '../constants/types'
 
 const defaultState = {
@@ -91,6 +92,13 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSubmitting: false,
         articleSubmitted: false,
         articleError: action.payload,
+      }
+    case RESET_SUBMIT:
+      return {
+        ...state,
+        articleSubmitting: false,
+        articleSubmitted: false,
+        articleError: null,
       }
     case SELECT_ARTICLE_TO_EDIT:
       return {

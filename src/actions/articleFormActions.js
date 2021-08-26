@@ -16,6 +16,7 @@ import {
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
+  RESET_SUBMIT,
 } from '../constants/types'
 
 export const saveArticleContent = (payload) => ({
@@ -129,3 +130,7 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
     dispatch(deleteArticleError(err))
   }
 }
+
+export const resetSubmit = () => ({
+  type: RESET_SUBMIT,
+})

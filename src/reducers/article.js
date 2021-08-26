@@ -2,6 +2,14 @@ import {
   FETCH_ARTICLES_PENDING,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_ERROR,
+  FETCH_ARTICLE_PENDING,
+  FETCH_ARTICLE_SUCCESS,
+  FETCH_ARTICLE_ERROR,
+  SET_CURRENT_PAGE,
+  SET_ARTICLE_TO_VIEW,
+  FETCH_ARTICLE_COUNT_PENDING,
+  FETCH_ARTICLE_COUNT_SUCCESS,
+  FETCH_ARTICLE_COUNT_ERROR,
 } from '../constants/types'
 
 const defaultState = {
@@ -10,6 +18,15 @@ const defaultState = {
   articlesFetching: false,
   articlesFetched: false,
   articlesError: null,
+  currentPage: 1,
+  currentArticle: null,
+  articleFetching: false,
+  articleFetched: false,
+  articleError: null,
+  articleCountFetching: false,
+  articleCountFetched: false,
+  articleCountError: null,
+  articleCount: null,
 }
 
 const articleReducer = (state = defaultState, action) => {
@@ -37,6 +54,64 @@ const articleReducer = (state = defaultState, action) => {
         articlesFetching: false,
         articlesFetched: false,
         articlesError: action.payload,
+      }
+    case FETCH_ARTICLE_PENDING:
+      return {
+        ...state,
+        currentArticle: null,
+        articleFetching: true,
+        articleFetched: false,
+        articleError: null,
+      }
+    case FETCH_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        currentArticle: action.payload,
+        articleFetching: false,
+        articleFetched: true,
+        articleError: null,
+      }
+    case FETCH_ARTICLE_ERROR:
+      return {
+        ...state,
+        currentArticle: null,
+        articleFetching: false,
+        articleFetched: false,
+        articleError: action.payload,
+      }
+    case FETCH_ARTICLE_COUNT_PENDING:
+      return {
+        ...state,
+        articleCount: null,
+        articleCountFetching: true,
+        articleCountFetched: false,
+        articleCountError: null,
+      }
+    case FETCH_ARTICLE_COUNT_SUCCESS:
+      return {
+        ...state,
+        articleCount: action.payload,
+        articleCountFetching: false,
+        articleCountFetched: true,
+        articleCountError: null,
+      }
+    case FETCH_ARTICLE_COUNT_ERROR:
+      return {
+        ...state,
+        articleCount: null,
+        articleCountFetching: false,
+        articleCountFetched: false,
+        articleCountError: action.payload,
+      }
+    case SET_ARTICLE_TO_VIEW:
+      return {
+        ...state,
+        currentArticle: action.payload,
+      }
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
       }
     default:
       return state

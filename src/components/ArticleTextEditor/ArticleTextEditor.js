@@ -7,7 +7,6 @@ class ArticleTextEditor extends React.Component {
   constructor(props) {
     super(props);
     const { articleContent } = this.props
-    console.log('articleContent', articleContent)
     
     this.state = articleContent 
       ? {  editorState: EditorState.createWithContent(convertFromRaw(articleContent)) }

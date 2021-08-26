@@ -5,6 +5,14 @@ import {
   FETCH_ARTICLES_PENDING,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_ERROR,
+  FETCH_ARTICLE_PENDING,
+  FETCH_ARTICLE_SUCCESS,
+  FETCH_ARTICLE_ERROR,
+  FETCH_ARTICLE_COUNT_SUCCESS,
+  FETCH_ARTICLE_COUNT_PENDING,
+  FETCH_ARTICLE_COUNT_ERROR,
+  SET_CURRENT_PAGE,
+  SET_ARTICLE_TO_VIEW,
 } from '../constants/types'
 
 const articlesFetching = () => ({
@@ -21,13 +29,70 @@ const articlesError = (error) => ({
   payload: error,
 })
 
-export const fetchArticles = () => async (dispatch) => {
+export const fetchArticles = (pageNumber) => async (dispatch) => {
   dispatch(articlesFetching())
-  console.log('node env', process.env)
   try {
-    const response = await axios.get(`${APP_URL}/api/article`)
+    const response = await axios.get(`${APP_URL}/api/article?pageNumber=${pageNumber}`)
     dispatch(articlesFetched(response.data.data))
   } catch (err) {
     dispatch(articlesError(err))
+  }
+}
+
+export const setCurrentPage = (payload) => ({
+  type: SET_CURRENT_PAGE,
+  payload,
+})
+
+export const setArticleToView = (payload) => ({
+  type: SET_ARTICLE_TO_VIEW,
+  payload,
+})
+
+const articleFetching = () => ({
+  type: FETCH_ARTICLE_PENDING,
+})
+
+const articleFetched = (payload) => ({
+  type: FETCH_ARTICLE_SUCCESS,
+  payload,
+})
+
+const articleError = (error) => ({
+  type: FETCH_ARTICLE_ERROR,
+  payload: error,
+})
+
+export const fetchArticle = (id) => async (dispatch) => {
+  dispatch(articleFetching())
+  try {
+    const response = await axios.get(`${APP_URL}/api/article/${id}`)
+    dispatch(articleFetched(response.data.data))
+  } catch (err) {
+    dispatch(articleError(err))
+  }
+}
+
+const articleCountFetching = () => ({
+  type: FETCH_ARTICLE_COUNT_PENDING,
+})
+
+const articleCountFetched = (payload) => ({
+  type: FETCH_ARTICLE_COUNT_SUCCESS,
+  payload,
+})
+
+const articleCountError = (error) => ({
+  type: FETCH_ARTICLE_COUNT_ERROR,
+  payload: error,
+})
+
+export const fetchArticleCount = () => async (dispatch) => {
+  dispatch(articleCountFetching())
+  try {
+    const response = await axios.get(`${APP_URL}/api/article-count`)
+    dispatch(articleCountFetched(response.data.total))
+  } catch (err) {
+    dispatch(articleCountError(err))
   }
 }

@@ -11,38 +11,38 @@ import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
 
 const Article = ({ 
-  articles,
-  articlesFetched,
-  fetchArticles,
+  articleFetching,
+  articleFetched,
   selectArticleToEdit,
   deleteArticle,
   articleSubmitted,
   user,
+  currentArticle,
+  fetchArticle,
+  resetSubmit,
 }) => {
 
+  const { id } = useParams()
   useEffect(() => {
-    if (!articlesFetched) {
-      fetchArticles();
+    if (!currentArticle) {
+      fetchArticle(id);
     }
     
-  }, [fetchArticles, articlesFetched]);
+  }, [fetchArticle, currentArticle, id]);
 
 
   useEffect(() => {
     if (articleSubmitted) {
-      fetchArticles();
+      fetchArticle(id)
+      resetSubmit()
     }
-  }, [fetchArticles, articleSubmitted]);
-
-
-  const { id } = useParams()
-  const article = articles.find(article => article.id === id)
+  }, [fetchArticle, currentArticle, id, articleSubmitted, resetSubmit]);
   return (
     <div className="article-container">
       {
-        articlesFetched
+        articleFetched || currentArticle
         ? <ArticleView 
-            article={article}
+            article={currentArticle}
             user={user}
             selectArticleToEdit={selectArticleToEdit}
             deleteArticle={deleteArticle}

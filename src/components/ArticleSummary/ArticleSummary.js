@@ -2,13 +2,17 @@ import history from "../../history"
 
 import "./ArticleSummary.css"
 
-const ArticleSummary = ({ article }) => {
+const ArticleSummary = ({ article, setArticleToView }) => {
   const summaryClass = article.is_main? "article-summary-main" : "article-summary"
+  const handleOnClick = () => {
+    setArticleToView(article)
+    history.push(`/article/${article.id}`)
+  }
   return (
     <li
       className={summaryClass}
       key={article.id}
-      onClick={() => history.push(`/article/${article.id}`)}
+      onClick={handleOnClick}
     >
       <h3>{article.title}</h3>
       <div>

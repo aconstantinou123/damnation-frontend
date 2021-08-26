@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { useEffect } from "react"
 import { Link } from 'react-router-dom'
-import ReactPaginate from 'react-paginate'
+import Pagination from "react-js-pagination";
 
 import ArticleList from "../../components/ArticleList/ArticleList"
 import Title from "../../components/Title/Title"
@@ -18,29 +18,45 @@ const LandingPage = ({
   articlesFetched,
   articles,
   user,
-  articleDeleteSuccess,
+  currentPage,
+  setCurrentPage,
+  setArticleToView,
+  articleCount,
+  fetchArticleCount,
+  articleCountFetched,
   articleSubmitted,
+  articleDeleteSuccess
   }) => {
-  useEffect(() => {
-    if (!articlesFetched) {
-      fetchArticles()
-    }
-  }, [fetchArticles, articlesFetched]);
+
+  
 
   useEffect(() => {
-    if(articleDeleteSuccess) {
-      fetchArticles()
-    }
-  }, [fetchArticles, articleDeleteSuccess])
+      fetchArticles(currentPage)
+  }, [currentPage, fetchArticles]);
 
   useEffect(() => {
-    if(articleSubmitted) {
-      fetchArticles()
+    if (articleSubmitted) {
+      fetchArticleCount()
     }
-  }, [fetchArticles, articleSubmitted])
+  }, [articleSubmitted, fetchArticleCount]);
 
-  const handlePageClick = data => console.log(data) 
+  useEffect(() => {
+    if (articleDeleteSuccess) {
+      fetchArticleCount()
+    }
+  }, [articleDeleteSuccess, fetchArticleCount]);
 
+  useEffect(() => {
+    if (!articleCountFetched) {
+      fetchArticleCount()
+    }
+  }, [fetchArticleCount, articleCountFetched])
+
+  const handlePageChange = data => {
+    setCurrentPage(data)
+  }
+
+  const itemsPerPage = currentPage === 1 ? 10 : 9
   const mainArticle = articles.filter((article) => article.is_main);
   const nonMainArticles = articles.filter((article) => !article.is_main);
   return (
@@ -64,25 +80,35 @@ const LandingPage = ({
         </div>
         {articlesFetched ? (
           <>
-            <ArticleMain articles={mainArticle} />
-            <div className="hr-container">
-              <hr className="solid-thin"></hr>
-            </div>
-            <ArticleList articles={nonMainArticles} />
-            <div className='pagination-container'>
-              <ReactPaginate
-                previousLabel={'previous'}
-                nextLabel={'next'}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={10}
-                marginPagesDisplayed={1}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                containerClassName={'pagination'}
-                activeClassName={'active'}
-                />
-            </div>
+            {
+              mainArticle.length ? (
+                <>
+                  <ArticleMain 
+                    articles={mainArticle}
+                    setArticleToView={setArticleToView}
+                  />
+                  <div className="hr-container">
+                    <hr className="solid-thin"></hr>
+                  </div>
+                </>
+              ) : <></>
+            }
+            <ArticleList 
+              articles={nonMainArticles}
+              setArticleToView={setArticleToView}
+            />
+            {
+              articleCount &&
+                <div className='pagination-container'>
+                  <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={itemsPerPage}
+                    totalItemsCount={articleCount}
+                    pageRangeDisplayed={5}
+                    onChange={handlePageChange}
+                  />
+                </div>
+            }
           </>
         ) : (
           <div>Loading...</div>
