@@ -9,12 +9,35 @@
   align-items: center;
 }
 
+.hr-container {
+  margin: 3rem;
+}
+
 .solid-thick {
   border-top: 3px solid black;
-  width: 95%;
+  width: 100%;
 }
 
 .solid-thin {
   border-top: 1px solid black;
-  width: 95%;
+  width: 100%;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.pagination-container {
+  width: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.pagination > li {
+  padding: 0.5rem;
 }

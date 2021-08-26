@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {
+  APP_URL,
   FETCH_ARTICLES_PENDING,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_ERROR,
@@ -22,8 +23,9 @@ const articlesError = (error) => ({
 
 export const fetchArticles = () => async (dispatch) => {
   dispatch(articlesFetching())
+  console.log('node env', process.env)
   try {
-    const response = await axios.get('http://localhost/api/article')
+    const response = await axios.get(`${APP_URL}/api/article`)
     dispatch(articlesFetched(response.data.data))
   } catch (err) {
     dispatch(articlesError(err))

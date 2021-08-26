@@ -2,6 +2,7 @@ import axios from 'axios'
 import history from '../history'
 
 import {
+  APP_URL,
   DELETE_ARTICLE_PENDING,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
@@ -70,7 +71,7 @@ export const submitArticleCreate = (body) => async (dispatch, getState) => {
   const { userReducer } = getState()
   const { token } = userReducer
   try {
-    const response = await axios.post('http://localhost/api/article', body, {
+    const response = await axios.post(`${APP_URL}/api/article`, body, {
       headers: {
       'Authorization': `Bearer ${token}` 
       }
@@ -87,7 +88,7 @@ export const submitArticleEdit = (body) => async (dispatch, getState) => {
   const { userReducer } = getState()
   const { token } = userReducer
   try {
-    const response = await axios.put('http://localhost/api/article', body, {
+    const response = await axios.put(`${APP_URL}/api/article`, body, {
       headers: {
       'Authorization': `Bearer ${token}` 
       }
@@ -117,7 +118,7 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
   const { userReducer } = getState()
   const { token } = userReducer
   try {
-    await axios.delete(`http://localhost/api/article/${id}`, {
+    await axios.delete(`${APP_URL}/api/article/${id}`, {
       headers: {
       'Authorization': `Bearer ${token}` 
       }

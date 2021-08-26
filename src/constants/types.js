@@ -1,3 +1,5 @@
+export const APP_URL = process.env.NODE_ENV === 'production' ? 'https://thedamnation.co.uk' : 'http://localhost'
+
 export const FETCH_ARTICLES_PENDING = 'FETCH_ARTICLES_PENDING'
 export const FETCH_ARTICLES_SUCCESS = 'FETCH_ARTICLES_SUCCESS'
 export const FETCH_ARTICLES_ERROR = 'FETCH_ARTICLES_ERROR'

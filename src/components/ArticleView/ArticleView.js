@@ -33,7 +33,7 @@ const ArticleView = ({
       <h3>{article.title}</h3>
       <p>By {article.author} {article.date}</p>  
       <div>
-        <img src={article.img_url} alt={article.img_alt} />
+        <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
       </div>
       {/* <p>{article.content}</p> */}
       <ArticleContent articleContent={article.content}/>

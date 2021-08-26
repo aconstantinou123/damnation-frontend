@@ -12,6 +12,7 @@ import CreateArticle from './containers/CreateArticle/CreateArticle'
 import EditArticle from './containers/EditArticle/EditArticle'
 import Login from './containers/Login/Login'
 import Logout from './containers/Logout/Logout'
+import Submissions from './containers/Submissions/Submissions'
 import PrivateRoute from './routes/PrivateRoute'
 
 import history from './history'
@@ -30,6 +31,7 @@ const App = () => {
         <Switch>
           <Route path='/login' component={Login}/>
           <Route path='/logout' component={Logout}/>
+          <Route path='/submissions' component={Submissions}/>
           <PrivateRoute path='/create' component={CreateArticle}/>
           <PrivateRoute path='/edit/:id' component={EditArticle}/>
           <Route path='/article/:id' component={Article}/>

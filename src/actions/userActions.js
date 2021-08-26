@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {
+  APP_URL,
   LOGIN_PENDING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
@@ -28,7 +29,7 @@ const loginError = (error) => ({
 export const login = (body) => async (dispatch) => {
   dispatch(loginPending())
   try {
-    const response = await axios.post('http://localhost/api/login', body, { withCredentials: true })
+    const response = await axios.post(`${APP_URL}/api/login`, body, { withCredentials: true })
     dispatch(loginSuccess(response.data))
     history.push('/')
   } catch (err) {
@@ -39,7 +40,7 @@ export const login = (body) => async (dispatch) => {
 export const persistLogin = () => async (dispatch) => {
   dispatch(loginPending())
   try {
-    const response = await axios.post('http://localhost/api/persist-login', {}, { withCredentials: true })
+    const response = await axios.post(`${APP_URL}/api/persist-login`, {}, { withCredentials: true })
     dispatch(loginSuccess(response.data))
   } catch (err) {
     dispatch(loginError(err))
@@ -62,7 +63,7 @@ const logoutError = (error) => ({
 export const logout = () => async (dispatch) => {
   dispatch(logoutPending())
   try {
-    await axios.post('http://localhost/api/logout', {}, { withCredentials: true })
+    await axios.post(`${APP_URL}/api/logout`, {}, { withCredentials: true })
     dispatch(logoutSuccess())
     history.push('/')
   } catch (err) {
