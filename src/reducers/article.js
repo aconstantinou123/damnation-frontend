@@ -5,11 +5,12 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
-  SET_CURRENT_PAGE,
-  SET_ARTICLE_TO_VIEW,
   FETCH_ARTICLE_COUNT_PENDING,
   FETCH_ARTICLE_COUNT_SUCCESS,
   FETCH_ARTICLE_COUNT_ERROR,
+  RESET_ARTICLE_COUNT,
+  SET_CURRENT_PAGE,
+  SET_ARTICLE_TO_VIEW,
 } from '../constants/types'
 
 const defaultState = {
@@ -112,6 +113,13 @@ const articleReducer = (state = defaultState, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      }
+    case RESET_ARTICLE_COUNT:
+      return {
+        ...state,
+        articleCountFetching: false,
+        articleCountFetched: false,
+        articleCountError: null,
       }
     default:
       return state

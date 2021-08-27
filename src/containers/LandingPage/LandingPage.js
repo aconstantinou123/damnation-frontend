@@ -1,13 +1,12 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Pagination from 'react-js-pagination';
 
 import ArticleList from '../../components/ArticleList/ArticleList'
-import Title from '../../components/Title/Title'
 import Footer from '../../components/Footer/Footer'
 import ArticleMain from '../../components/ArticleMain/ArticleMain'
+import Header from '../../components/Header/Header'
 
 import './LandingPage.css'
 
@@ -25,14 +24,20 @@ const LandingPage = ({
   fetchArticleCount,
   articleCountFetched,
   articleSubmitted,
-  articleDeleteSuccess
+  articleDeleteSuccess,
+  resetArticleCount,
   }) => {
 
   
 
   useEffect(() => {
       fetchArticles(currentPage)
-  }, [currentPage, fetchArticles]);
+      resetArticleCount()
+  }, [currentPage, fetchArticles, resetArticleCount]);
+
+  useEffect(() => {
+    return () => setCurrentPage(1)
+  }, [setCurrentPage])
 
   useEffect(() => {
     if (articleSubmitted) {
@@ -62,22 +67,9 @@ const LandingPage = ({
   return (
     <>
       <main className='landing-page'>
-        <Title />
-        <div className='landing-page-button-container'>
-          <Link className='link' to='/about'>About</Link>
-          <Link className='link' to='/submissions'>Submissions</Link>
-          {
-            user && (
-              <>
-                <Link className='link' to='/create'>Create Article</Link>
-                <Link className='link' to='/logout'>Logout</Link>
-              </>
-            )
-          }
-        </div>
-        <div className='hr-container'>
-          <hr className='solid-thick'></hr>
-        </div>
+        <Header
+          user={user}
+        />
         {articlesFetched ? (
           <>
             {

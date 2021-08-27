@@ -14,6 +14,8 @@ import Login from './containers/Login/Login'
 import Logout from './containers/Logout/Logout'
 import Submissions from './containers/Submissions/Submissions'
 import PrivateRoute from './routes/PrivateRoute'
+import Archive from './containers/Archive/Archive'
+import ArchiveArticles from './containers/ArchiveArticles/ArchiveArticles'
 
 import history from './history'
 import store from './store'
@@ -32,6 +34,8 @@ const App = () => {
           <Route path='/login' component={Login}/>
           <Route path='/logout' component={Logout}/>
           <Route path='/submissions' component={Submissions}/>
+          <Route path='/archive/:date' component={ArchiveArticles}/>
+          <Route path='/archive' component={Archive}/>
           <PrivateRoute path='/create' component={CreateArticle}/>
           <PrivateRoute path='/edit/:id' component={EditArticle}/>
           <Route path='/article/:id' component={Article}/>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Button from '../../components/Button/Button'
 
 import * as userActions from '../../actions/userActions'
 

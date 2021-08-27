@@ -2,5 +2,8 @@
   width: 50rem;
   align-items: center;
   text-align: center;
-  padding: 3rem;
+}
+
+.copy-content {
+  padding: 2rem;
 }

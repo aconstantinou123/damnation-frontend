@@ -11,6 +11,7 @@ import {
   FETCH_ARTICLE_COUNT_SUCCESS,
   FETCH_ARTICLE_COUNT_PENDING,
   FETCH_ARTICLE_COUNT_ERROR,
+  RESET_ARTICLE_COUNT,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
 } from '../constants/types'
@@ -29,10 +30,11 @@ const articlesError = (error) => ({
   payload: error,
 })
 
-export const fetchArticles = (pageNumber) => async (dispatch) => {
+export const fetchArticles = (pageNumber, date = '') => async (dispatch) => {
+  const dateToSearch = date ? `&date=${date}` : ''
   dispatch(articlesFetching())
   try {
-    const response = await axios.get(`${APP_URL}/api/article?pageNumber=${pageNumber}`)
+    const response = await axios.get(`${APP_URL}/api/article?pageNumber=${pageNumber}${dateToSearch}`)
     dispatch(articlesFetched(response.data.data))
   } catch (err) {
     dispatch(articlesError(err))
@@ -87,12 +89,17 @@ const articleCountError = (error) => ({
   payload: error,
 })
 
-export const fetchArticleCount = () => async (dispatch) => {
+export const fetchArticleCount = (date = '') => async (dispatch) => {
+  const dateToSearch = date ? `?date=${date}` : ''
   dispatch(articleCountFetching())
   try {
-    const response = await axios.get(`${APP_URL}/api/article-count`)
+    const response = await axios.get(`${APP_URL}/api/article-count${dateToSearch}`)
     dispatch(articleCountFetched(response.data.total))
   } catch (err) {
     dispatch(articleCountError(err))
   }
 }
+
+export const resetArticleCount = () => ({
+  type: RESET_ARTICLE_COUNT,
+})

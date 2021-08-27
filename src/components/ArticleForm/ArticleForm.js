@@ -50,7 +50,7 @@ const ArticleForm = ({
         author: articleAuthor,
         img_url: articleImgUrl,
         img_alt: 'alt',
-        date: articleDate || moment().format('MMMM Do YYYY'),
+        date: articleDate || moment().format('Do MMMM YYYY'),
         summary: articleSummary,
         is_main: articleIsMain,
         content: articleContent
