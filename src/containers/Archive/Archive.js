@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux'
 
 import ArchiveView from '../../components/ArchiveView/ArchiveView'
 
-import * as archiveActionCreators from '../../actions/archiveActions'
+import * as archiveActions from '../../actions/archiveActions'
+import * as articleActions from '../../actions/articleActions'
 
 import './Archive.css';
 
@@ -13,11 +14,16 @@ const Archive = ({
   fetchArchiveDates,
   archiveDates,
   user,
+  setCurrentPage,
 }) => {
 
   useEffect(() => {
     fetchArchiveDates()
   }, [fetchArchiveDates])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [setCurrentPage])
 
   return (
     <div className='archive-container'>
@@ -37,7 +43,8 @@ const Archive = ({
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      ...archiveActionCreators,
+      ...archiveActions,
+      ...articleActions,
     },
     dispatch
   )
@@ -47,6 +54,7 @@ function mapStateToProps(state) {
   return {
     ...state.archiveReducer,
     ...state.userReducer,
+    ...state.articleReducer,
   }
 }
 

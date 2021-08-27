@@ -4,20 +4,20 @@ import Header from '../Header/Header'
 
 import history from '../../history'
 
-import './CopyView.css'
+import './ContentView.css'
 
-const CopyView = ({ 
-  copy,
-  // selectArticleToEdit,
+const ContentView = ({ 
+  content,
+  selectContentToEdit,
   user,
 }) => {
   const handleEditClicked = () => {
-    // selectArticleToEdit(article)
-    // history.push(`/edit/${article.id}`)
+    selectContentToEdit(content)
+    history.push(`/content/${content.id}`)
   }
 
   return (
-    <div className="copy-view" key={copy.id}>
+    <div className="copy-view" key={content.id}>
       <div className='copy-button-container'>
         <Header
           user={user}
@@ -30,12 +30,12 @@ const CopyView = ({
           </>
         }
       </div>
-      <h3>{copy.title}</h3>
+      <h3>{content.title}</h3>
       <div className='copy-content'>
-        <ArticleContent articleContent={copy.content}/>
+        <ArticleContent articleContent={content.content}/>
       </div>
     </div>
   )
 }
 
-export default CopyView
+export default ContentView

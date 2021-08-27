@@ -4,25 +4,42 @@ import Button from '../Button/Button'
 import history from '../../history'
 
 import './ArticleView.css'
+import { useState } from 'react'
+import Modal from '../Modal/Modal'
 
 const ArticleView = ({ 
   article,
   selectArticleToEdit,
   user,
-  deleteArticle
+  deleteArticle,
+  location,
 }) => {
+  const [showModal, setShowModal] = useState(false)
   const handleEditClicked = () => {
     selectArticleToEdit(article)
     history.push(`/edit/${article.id}`)
   }
 
   const handleDeleteClicked = () => {
+    setShowModal(!showModal)
+    console.log(showModal)
+  }
+
+  const handleModalClose = () => {
+    setShowModal(false)
+  }
+
+  const handleModalAction = () => {
     deleteArticle(article.id)
+  }
+
+  const handleBackClicked = () => {
+    history.push(location)
   }
   return (
     <div className="article-view" key={article.id}>
       <div className='article-button-container'>
-        <Button onClick={() => history.push('/')} name='Back'/>
+        <Button onClick={handleBackClicked} name='Back'/>
         {
           user &&
           <>
@@ -38,6 +55,14 @@ const ArticleView = ({
       </div>
       {/* <p>{article.content}</p> */}
       <ArticleContent articleContent={article.content}/>
+      {
+        showModal &&
+        <Modal
+          handleClose={handleModalClose}
+          modalAction={handleModalAction}
+          text='Are you sure?'    
+        />
+      }
     </div>
   )
 }

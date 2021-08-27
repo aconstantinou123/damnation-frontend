@@ -1,27 +1,34 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import ContentView from '../../components/ContentView/ContentView'
 
-import './Submissions.css';
+import './Submissions.css'
 
-import CopyView from '../../components/CopyView/CopyView'
-import copy from './SubmissionCopy.json'
+import * as contentActions from '../../actions/contentActions'
+import { useEffect } from 'react';
 
 
 const Submissions = ({ 
-  // selectSubmissionsToEdit,
+  fetchContent,
+  fetchedContent,
+  content,
   user,
+  setContentToEdit,
 }) => {
 
-
+  useEffect(() => {
+    fetchContent()
+  }, [fetchContent])
+  const { submissions } = content
   return (
     <div className='submissions-container'>
       {
-        true
-        ? <CopyView 
-            copy={copy}
+        fetchedContent
+        ? <ContentView 
+            content={submissions}
             user={user}
-            // selectSubmissionsToEdit={selectSubmissionsToEdit}
+            selectContentToEdit={setContentToEdit}
           />
         : <div>Loading...</div>
       }
@@ -33,6 +40,7 @@ const Submissions = ({
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
+      ...contentActions,
     },
     dispatch
   )
@@ -41,6 +49,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     ...state.userReducer,
+    ...state.contentReducer,
   }
 }
 

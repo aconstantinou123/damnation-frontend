@@ -6,6 +6,7 @@ import {
   FETCH_ARTICLE_DATES_PENDING,
   FETCH_ARTICLE_DATES_SUCCESS,
   FETCH_ARTICLE_DATES_ERROR,
+  SET_ARCHIVE_LOCATION,
 } from '../constants/types'
 
 const archiveDatesFetching = () => ({
@@ -34,3 +35,8 @@ export const fetchArchiveDates = () => async (dispatch) => {
     dispatch(articleDatesError(err))
   }
 }
+
+export const setArchiveLocation = (payload) => ({
+  type: SET_ARCHIVE_LOCATION,
+  payload,
+})

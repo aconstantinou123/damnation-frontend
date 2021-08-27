@@ -2,15 +2,16 @@ import {
   FETCH_ARTICLE_DATES_PENDING,
   FETCH_ARTICLE_DATES_SUCCESS,
   FETCH_ARTICLE_DATES_ERROR,
+  SET_ARCHIVE_LOCATION,
 } from '../constants/types'
 
 
 const defaultState = {
   archiveDates: [],
-  archiveArticles: [],
   archiveDatesFetching: false,
   archiveDatesFetched: false,
   archiveDatesError: null,
+  archiveLocation: ''
 }
 
 const archiveReducer = (state = defaultState, action) => {
@@ -38,6 +39,11 @@ const archiveReducer = (state = defaultState, action) => {
         archiveDatesFetching: false,
         archiveDatesFetched: false,
         archiveDatesError: null
+      }
+    case SET_ARCHIVE_LOCATION:
+      return {
+        ...state,
+        archiveLocation: action.payload,
       }
     default:
       return state

@@ -8,9 +8,13 @@ import Footer from '../../components/Footer/Footer'
 import ArticleMain from '../../components/ArticleMain/ArticleMain'
 import Header from '../../components/Header/Header'
 
+import * as archiveActions from '../../actions/archiveActions'
+import * as articleActions from '../../actions/articleActions'
+
+import history from '../../history'
+
 import './LandingPage.css'
 
-import * as articleActions from '../../actions/articleActions'
 
 const LandingPage = ({
   fetchArticles,
@@ -26,18 +30,18 @@ const LandingPage = ({
   articleSubmitted,
   articleDeleteSuccess,
   resetArticleCount,
+  setArchiveLocation,
   }) => {
-
-  
 
   useEffect(() => {
       fetchArticles(currentPage)
       resetArticleCount()
-  }, [currentPage, fetchArticles, resetArticleCount]);
+  }, [currentPage, fetchArticles, resetArticleCount])
 
   useEffect(() => {
-    return () => setCurrentPage(1)
-  }, [setCurrentPage])
+    const location = history.location.pathname
+    setArchiveLocation(location)
+  }, [setArchiveLocation])
 
   useEffect(() => {
     if (articleSubmitted) {
@@ -116,6 +120,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       ...articleActions,
+      ...archiveActions,
     },
     dispatch
   )

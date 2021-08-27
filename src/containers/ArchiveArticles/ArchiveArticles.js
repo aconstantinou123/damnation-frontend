@@ -8,6 +8,9 @@ import Header from '../../components/Header/Header'
 import ArticleList from '../../components/ArticleList/ArticleList'
 
 import * as articleActions from '../../actions/articleActions'
+import * as archiveActions from '../../actions/archiveActions'
+
+import history from '../../history'
 
 import './ArchiveArticles.css'
 
@@ -24,6 +27,8 @@ const ArchiveArticle = ({
   articleDeleteSuccess,
   articleCountFetched,
   resetArticleCount,
+  setArchiveLocation,
+  archiveLocation,
 }) => {
 
   const { date } = useParams()
@@ -36,6 +41,11 @@ const ArchiveArticle = ({
   useEffect(() => {
     return () => setCurrentPage(1)
   }, [setCurrentPage])
+
+  useEffect(() => {
+    const location = history.location.pathname
+    setArchiveLocation(location)
+  }, [setArchiveLocation])
 
   useEffect(() => {
     if (articleSubmitted) {
@@ -55,10 +65,10 @@ const ArchiveArticle = ({
     }
   }, [fetchArticleCount, articleCountFetched, date])
 
+
   const handlePageChange = data => {
     setCurrentPage(data)
   }
-
   return (
     <>
       <Header
@@ -88,6 +98,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       ...articleActions,
+      ...archiveActions,
     },
     dispatch
   )

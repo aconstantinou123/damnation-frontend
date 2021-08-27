@@ -11,7 +11,6 @@ import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
 
 const Article = ({ 
-  articleFetching,
   articleFetched,
   selectArticleToEdit,
   deleteArticle,
@@ -20,6 +19,7 @@ const Article = ({
   currentArticle,
   fetchArticle,
   resetSubmit,
+  archiveLocation,
 }) => {
 
   const { id } = useParams()
@@ -46,6 +46,7 @@ const Article = ({
             user={user}
             selectArticleToEdit={selectArticleToEdit}
             deleteArticle={deleteArticle}
+            location={archiveLocation}
           />
         : <div>Loading...</div>
       }
@@ -68,6 +69,7 @@ function mapStateToProps(state) {
   return {
     ...state.articleReducer,
     ...state.articleFormReducer,
+    ...state.archiveReducer,
     ...state.userReducer,
   }
 }
