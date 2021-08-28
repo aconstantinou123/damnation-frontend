@@ -27,15 +27,11 @@ const Archive = ({
 
   return (
     <div className='archive-container'>
-      {
-        archiveDatesFetched
-        ? <ArchiveView
-            archiveDates={archiveDates}
-            user={user}
-          />
-        : <div>Loading...</div>
-      }
-      
+      <ArchiveView
+        archiveDates={archiveDates}
+        user={user}
+        archiveDatesFetched={archiveDatesFetched}
+      />
     </div>
   )
 }

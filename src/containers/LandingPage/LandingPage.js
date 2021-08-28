@@ -7,11 +7,13 @@ import ArticleList from '../../components/ArticleList/ArticleList'
 import Footer from '../../components/Footer/Footer'
 import ArticleMain from '../../components/ArticleMain/ArticleMain'
 import Header from '../../components/Header/Header'
+import Loading from '../../components/Loading/Loading'
 
 import * as archiveActions from '../../actions/archiveActions'
 import * as articleActions from '../../actions/articleActions'
 
 import history from '../../history'
+// import Loading from '../../assets/loading.gif'
 
 import './LandingPage.css'
 
@@ -64,7 +66,6 @@ const LandingPage = ({
   const handlePageChange = data => {
     setCurrentPage(data)
   }
-
   const itemsPerPage = currentPage === 1 ? 10 : 9
   const mainArticle = articles.filter((article) => article.is_main);
   const nonMainArticles = articles.filter((article) => !article.is_main);
@@ -108,7 +109,7 @@ const LandingPage = ({
             }
           </>
         ) : (
-          <div>Loading...</div>
+          <Loading/>
         )}
       </main>
       <Footer />

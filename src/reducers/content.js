@@ -47,7 +47,7 @@ const contentReducer = (state = defaultState, action) => {
           ...state.content,
           submissions: action.payload
             .find(content => content.type === 'submissions')
-        }
+        },
       }
     case FETCH_CONTENT_ERROR:
       return {

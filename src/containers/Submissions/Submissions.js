@@ -23,16 +23,12 @@ const Submissions = ({
   const { submissions } = content
   return (
     <div className='submissions-container'>
-      {
-        fetchedContent
-        ? <ContentView 
-            content={submissions}
-            user={user}
-            selectContentToEdit={setContentToEdit}
-          />
-        : <div>Loading...</div>
-      }
-      
+      <ContentView 
+        content={submissions}
+        fetchedContent={fetchContent}
+        user={user}
+        selectContentToEdit={setContentToEdit}
+      />
     </div>
   )
 }

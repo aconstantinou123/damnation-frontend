@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import Loading from '../components/Loading/Loading'
+
 const PrivateRoute = ({
   userFetching,
   user,
@@ -15,7 +17,7 @@ const PrivateRoute = ({
     {...rest}
     render={(props) => {
       if (userFetching) {
-        return <h3>Loading...</h3>
+        return <Loading/>
       }
       if (!user && !userFetching) {
         return <Redirect to="/" />

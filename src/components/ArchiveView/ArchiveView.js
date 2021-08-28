@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 import Button from '../Button/Button'
 import Header from '../Header/Header'
+import Loading from '../../components/Loading/Loading'
 
 import history from '../../history'
 
@@ -10,6 +11,7 @@ import './ArchiveView.css'
 const ArchiveView = ({ 
   archiveDates,
   user,
+  archiveDatesFetched,
 }) => {
   const renderArchiveDates = () => {
     return archiveDates.map(date => {
@@ -27,11 +29,19 @@ const ArchiveView = ({
         <Header
           user={user}
         />
-        <Button onClick={() => history.push('/')} name='Back'/>
       </div>
-      <div className='archive-dates'>
-        {renderArchiveDates()}
-      </div>
+      {
+        archiveDatesFetched ? (
+          <>
+            <Button onClick={() => history.push('/')} name='Back'/>
+            <div className='archive-dates'>
+              {renderArchiveDates()}
+            </div>
+          </>
+        ) : (
+         <Loading/>
+        )
+      }
     </div>
   )
 }

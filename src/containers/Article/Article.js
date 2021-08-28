@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import "./Article.css";
 
 import ArticleView from "../../components/ArticleView/ArticleView"
+import Loading from "../../components/Loading/Loading"
 
 import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
@@ -48,7 +49,7 @@ const Article = ({
             deleteArticle={deleteArticle}
             location={archiveLocation}
           />
-        : <div>Loading...</div>
+        : <Loading/>
       }
       
     </div>

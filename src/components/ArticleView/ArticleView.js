@@ -22,7 +22,6 @@ const ArticleView = ({
 
   const handleDeleteClicked = () => {
     setShowModal(!showModal)
-    console.log(showModal)
   }
 
   const handleModalClose = () => {

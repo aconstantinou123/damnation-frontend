@@ -79,11 +79,9 @@ export const submitEditContent = (body) => async (dispatch, getState) => {
       'Authorization': `Bearer ${token}` 
       }
     })
-    console.log(response.data)
     dispatch(submitEditContentSuccess(response.data))
     history.push(`/submissions`)
   } catch (err) {
-    console.log(err)
     dispatch(submitEditContentError(err))
   }
 }

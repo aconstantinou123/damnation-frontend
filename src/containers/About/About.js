@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import Loading from '../../components/Loading/Loading'
 
 import './About.css';
 
@@ -19,7 +20,7 @@ const About = ({
       {
         true
         ? <h2>About</h2>
-        : <div>Loading...</div>
+        : <Loading/>
       }
       
     </div>

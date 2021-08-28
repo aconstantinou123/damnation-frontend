@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 
 import Header from '../../components/Header/Header'
 import ArticleList from '../../components/ArticleList/ArticleList'
+import Loading from '../../components/Loading/Loading'
 
 import * as articleActions from '../../actions/articleActions'
 import * as archiveActions from '../../actions/archiveActions'
@@ -22,13 +23,13 @@ const ArchiveArticle = ({
   setCurrentPage,
   user,
   fetchArticles,
+  articlesFetched,
   articleSubmitted,
   fetchArticleCount,
   articleDeleteSuccess,
   articleCountFetched,
   resetArticleCount,
   setArchiveLocation,
-  archiveLocation,
 }) => {
 
   const { date } = useParams()
@@ -74,21 +75,29 @@ const ArchiveArticle = ({
       <Header
         user={user}
       />
-      <ArticleList 
-        articles={articles}
-        setArticleToView={setArticleToView}
-      />
       {
-        articleCount &&
-          <div className='pagination-container'>
-            <Pagination
-              activePage={currentPage}
-              itemsCountPerPage={9}
-              totalItemsCount={articleCount}
-              pageRangeDisplayed={5}
-              onChange={handlePageChange}
+        articlesFetched ? (
+          <>
+            <ArticleList 
+              articles={articles}
+              setArticleToView={setArticleToView}
             />
-          </div>
+            {
+              articleCount &&
+                <div className='pagination-container'>
+                  <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={9}
+                    totalItemsCount={articleCount}
+                    pageRangeDisplayed={5}
+                    onChange={handlePageChange}
+                  />
+                </div>
+            }
+          </>
+        ) : (
+          <Loading/>
+        )
       }
     </>
   )
