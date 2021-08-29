@@ -28,3 +28,23 @@
   border-top: 3px solid black;
   width: 100%;
 }
+
+.search-container button {
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  color: #5f5f5f;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+.search-input {
+  border: 1px solid #ddd;
+  color: #5f5f5f;
+}
+
+.search-input:focus {
+  outline: none;
+}

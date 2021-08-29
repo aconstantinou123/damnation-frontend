@@ -20,6 +20,7 @@ const ArticleForm = ({
   articleIsMain,
   articleContent,
   formName,
+  articleError,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -71,6 +72,7 @@ const ArticleForm = ({
           value={articleTitle}
           name="title"
           onChange={onTitleChange}
+          required
         />
       </div>
       <div className="input-container">
@@ -82,6 +84,7 @@ const ArticleForm = ({
           value={articleAuthor}
           name="author"
           onChange={onAuthorChange}
+          required
         />
       </div>
       <div className="input-container">
@@ -93,6 +96,7 @@ const ArticleForm = ({
           value={articleImgUrl}
           name="image-url"
           onChange={onImgUrlChange}
+          required
         />
       </div>
       <div className="input-container">
@@ -104,6 +108,7 @@ const ArticleForm = ({
           value={articleSummary}
           name="summary"
           onChange={onSummaryChange}
+          required
         />
       </div>
       <div className="is-main-container">
@@ -125,6 +130,11 @@ const ArticleForm = ({
         saveArticleContent={saveArticleContent}
         articleContent={articleContent}
       />
+      {
+        articleError && (
+          <p className='article-error'>{articleError}</p>
+        )
+      }
       <input className='submit-button' type="submit" value="Submit"></input>
     </form>
   );

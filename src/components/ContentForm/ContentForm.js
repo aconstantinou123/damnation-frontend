@@ -9,6 +9,7 @@ const ContentForm = ({
   content,
   formName,
   resetContentState,
+  contentError,
 }) => {
   const onTitleChange = (e) => {
     saveContentTitle(e.target.value)
@@ -39,12 +40,18 @@ const ContentForm = ({
           value={content.title}
           name="title"
           onChange={onTitleChange}
+          required
         />
       </div>
       <ArticleTextEditor 
         saveArticleContent={saveContentText}
         articleContent={content.content}
       />
+      {
+        contentError && (
+          <p className='content-error'>{contentError}</p>
+        )
+      }
       <input className='submit-button' type="submit" value="Submit"></input>
     </form>
   );

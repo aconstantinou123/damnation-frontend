@@ -7,8 +7,28 @@ import * as articleActions from '../../actions/articleActions'
 
 import './Header.css'
 
-const Header = ({ user, setCurrentPage }) => {
-  const handleHomeClick = () => setCurrentPage(1)
+const Header = ({ 
+  user,
+  setCurrentPage,
+  searchArticles,
+  setSearchValue,
+  searchValue,
+  resetArticleCount,
+  fetchArticles,
+}) => {
+  const handleHomeClick = () => {
+    setCurrentPage(1)
+    fetchArticles(1)
+    resetArticleCount()
+  }
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    searchArticles(searchValue)
+    resetArticleCount()
+  }
+  const handleSearchOnChange = (e) => {
+    setSearchValue(e.target.value)
+  }
   return (
   <>
     <Title />
@@ -25,6 +45,19 @@ const Header = ({ user, setCurrentPage }) => {
           </>
         )
       }
+      <div className="search-container">
+        <form onSubmit={handleSearchSubmit}>
+          <input 
+            className='search-input' 
+            type="text" 
+            placeholder="Search.." 
+            name="search"
+            value={searchValue}
+            onChange={handleSearchOnChange}
+            />
+          <button type="submit">Submit</button>
+        </form>
+    </div>
     </div>
     <div className='hr-container'>
       <hr className='solid-thick'></hr>

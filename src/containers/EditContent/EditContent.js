@@ -13,6 +13,7 @@ const EditContent = ({
   submitEditContent,
   contentToEdit,
   resetContentState,
+  contentError,
 }) => {
   return (
     <div className="edit-content-container">
@@ -23,6 +24,7 @@ const EditContent = ({
         saveContentText={saveContentText}
         submitContent={submitEditContent}
         content={contentToEdit}
+        contentError={contentError}
       />
     </div>
   )

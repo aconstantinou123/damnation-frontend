@@ -35,7 +35,7 @@ const ContentView = ({
                   <Button onClick={handleEditClicked} name='Edit Content'/>
                 </>
               }
-            <h3>{content.title}</h3>
+            <h3 className='content-title'>{content.title}</h3>
             <div className='copy-content'>
               <ArticleContent articleContent={content.content}/>
             </div>

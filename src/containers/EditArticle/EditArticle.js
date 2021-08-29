@@ -23,7 +23,8 @@ const EditArticle = ({
   articleImgUrl,
   articleSummary,
   articleIsMain,
-  articleContent
+  articleContent,
+  articleError,
 }) => {
   return (
     <div className="edit-article-container">
@@ -44,6 +45,7 @@ const EditArticle = ({
         articleSummary={articleSummary}
         articleIsMain={articleIsMain}
         articleContent={articleContent}
+        articleError={articleError}
       />
     </div>
   )

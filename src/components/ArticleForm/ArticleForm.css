@@ -54,3 +54,8 @@ textarea {
 .submit-button:hover {
   color: white;
 }
+
+.article-error {
+  color: red;
+  padding-top: 1rem;
+}

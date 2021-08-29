@@ -11,6 +11,10 @@ import {
   RESET_ARTICLE_COUNT,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
+  SEARCH_ARTICLES_PENDING,
+  SEARCH_ARTICLES_SUCCESS,
+  SEARCH_ARTICLES_ERROR,
+  SET_SEARCH_VALUE,
 } from '../constants/types'
 
 const defaultState = {
@@ -28,6 +32,10 @@ const defaultState = {
   articleCountFetched: false,
   articleCountError: null,
   articleCount: null,
+  searchArticlesFetching: false,
+  searchArticlesFetched: false,
+  searchArticlesError: null,
+  searchValue: '',
 }
 
 const articleReducer = (state = defaultState, action) => {
@@ -103,6 +111,36 @@ const articleReducer = (state = defaultState, action) => {
         articleCountFetching: false,
         articleCountFetched: false,
         articleCountError: action.payload,
+      }
+    case SEARCH_ARTICLES_PENDING:
+      return {
+        ...state,
+        searchArticlesFetching: true,
+        searchArticlesFetched: false,
+        articles:[],
+        searchArticlesError: null,
+      }
+    case SEARCH_ARTICLES_SUCCESS:
+      return {
+        ...state,
+        searchArticlesFetching: false,
+        searchArticlesFetched: true,
+        articles:action.payload,
+        searchArticlesError: null,
+        searchValue: '',
+      }
+    case SEARCH_ARTICLES_ERROR:
+      return {
+        ...state,
+        searchArticlesFetching: false,
+        searchArticlesFetched: false,
+        articles: [],
+        searchArticlesError: action.payload,
+      }
+    case SET_SEARCH_VALUE:
+      return {
+        ...state,
+        searchValue: action.payload,
       }
     case SET_ARTICLE_TO_VIEW:
       return {

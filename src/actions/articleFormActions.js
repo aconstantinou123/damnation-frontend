@@ -71,6 +71,11 @@ export const submitArticleCreate = (body) => async (dispatch, getState) => {
   dispatch(submitArticlePending())
   const { userReducer } = getState()
   const { token } = userReducer
+  const { article } = body
+  const { content } = article
+  if (!content) {
+    return dispatch(submitArticleError('Article contents required'))
+  }
   try {
     const response = await axios.post(`${APP_URL}/api/article`, body, {
       headers: {
@@ -88,6 +93,11 @@ export const submitArticleEdit = (body) => async (dispatch, getState) => {
   dispatch(submitArticlePending())
   const { userReducer } = getState()
   const { token } = userReducer
+  const { article } = body
+  const { content } = article
+  if (!content) {
+    return dispatch(submitArticleError('Article contents required'))
+  }
   try {
     const response = await axios.put(`${APP_URL}/api/article`, body, {
       headers: {

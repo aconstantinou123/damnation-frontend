@@ -23,7 +23,8 @@ const CreateArticle = ({
   articleImgUrl,
   articleSummary,
   articleIsMain,
-  articleContent
+  articleContent,
+  articleError,
 }) => {
   return (
     <div className="create-article-container">
@@ -44,6 +45,7 @@ const CreateArticle = ({
         articleSummary={articleSummary}
         articleIsMain={articleIsMain}
         articleContent={articleContent}
+        articleError={articleError}
       />
     </div>
   )

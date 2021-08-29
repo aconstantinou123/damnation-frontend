@@ -73,6 +73,10 @@ export const submitEditContent = (body) => async (dispatch, getState) => {
   dispatch(submitEditContentPending())
   const { userReducer } = getState()
   const { token } = userReducer
+  const { content } = body.content
+  if (!content) {
+    return dispatch(submitEditContentError('Article contents required'))
+  }
   try {
     const response = await axios.put(`${APP_URL}/api/content`, body, {
       headers: {
