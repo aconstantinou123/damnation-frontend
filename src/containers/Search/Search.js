@@ -31,14 +31,18 @@ const Search = ({
   resetArticleCount,
   setArchiveLocation,
   setSearchValue,
+  resetSearchFetchedState,
 }) => {
 
   const { search } = useParams()
 
   useEffect(() => {
+    const location = history.location.pathname
     setSearchValue(search)
-    searchArticles(search, currentPage)
-  }, [currentPage, searchArticles, resetArticleCount, setSearchValue, search]);
+    setArchiveLocation(location)
+    resetArticleCount()
+    resetSearchFetchedState()
+  }, [setSearchValue, search, setArchiveLocation, resetSearchFetchedState, resetArticleCount])
 
   useEffect(() => {
     return () => {
@@ -46,11 +50,6 @@ const Search = ({
       setSearchValue('')
     }
   }, [setCurrentPage, setSearchValue])
-
-  useEffect(() => {
-    const location = history.location.pathname
-    setArchiveLocation(location)
-  }, [setArchiveLocation])
 
   useEffect(() => {
     if (articleSubmitted) {
@@ -70,8 +69,15 @@ const Search = ({
     }
   }, [fetchArticleCount, articleCountFetched])
 
+  useEffect(() => {
+    if (!searchArticlesFetched) {
+      searchArticles(search, currentPage)
+    }
+  }, [searchArticlesFetched, searchArticles, currentPage, search])
+
 
   const handlePageChange = data => {
+    resetSearchFetchedState()
     setCurrentPage(data)
   }
   return (

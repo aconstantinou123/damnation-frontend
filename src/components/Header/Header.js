@@ -2,20 +2,22 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import Title from '../Title/Title'
+import history from '../../history'
 
 import * as articleActions from '../../actions/articleActions'
+import * as archiveActions from '../../actions/archiveActions'
 
 import './Header.css'
 
 const Header = ({ 
   user,
   setCurrentPage,
-  searchArticles,
   setSearchValue,
   searchValue,
   resetArticleCount,
   fetchArticles,
-  currentPage,
+  setArchiveLocation,
+  resetSearchFetchedState,
 }) => {
   const handleHomeClick = () => {
     setCurrentPage(1)
@@ -28,8 +30,11 @@ const Header = ({
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     setCurrentPage(1)
-    searchArticles(searchValue, currentPage)
+    resetSearchFetchedState()
     resetArticleCount()
+    const location = history.location.pathname
+    setArchiveLocation(location)
+    history.push(`/search/${searchValue}`)
   }
   const handleSearchOnChange = (e) => {
     setSearchValue(e.target.value)
@@ -74,6 +79,7 @@ const mapDispatchToProps  = (dispatch) => {
   return bindActionCreators(
     {
       ...articleActions,
+      ...archiveActions,
     },
     dispatch
   )

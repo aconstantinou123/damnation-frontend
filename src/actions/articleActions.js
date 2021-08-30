@@ -18,6 +18,7 @@ import {
   SEARCH_ARTICLES_SUCCESS,
   SEARCH_ARTICLES_ERROR,
   SET_SEARCH_VALUE,
+  RESET_SEARCH_FETCHED_STATE,
 } from '../constants/types'
 
 import history from '../history'
@@ -141,4 +142,8 @@ export const searchArticles = (query, pageNumber) => async (dispatch) => {
 export const setSearchValue = (payload) => ({
   type: SET_SEARCH_VALUE,
   payload,
+})
+
+export const resetSearchFetchedState = () => ({
+  type: RESET_SEARCH_FETCHED_STATE,
 })
