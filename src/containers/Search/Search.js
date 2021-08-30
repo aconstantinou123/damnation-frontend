@@ -93,7 +93,7 @@ const Search = ({
               setArticleToView={setArticleToView}
             />
             {
-              articleCount &&
+              articleCount ?
                 <div className='pagination-container'>
                   <Pagination
                     activePage={currentPage}
@@ -103,6 +103,7 @@ const Search = ({
                     onChange={handlePageChange}
                   />
                 </div>
+                : <></>
             }
           </>
         ) : (

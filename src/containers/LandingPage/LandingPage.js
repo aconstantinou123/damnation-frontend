@@ -91,10 +91,14 @@ const LandingPage = ({
                 </>
               ) : <></>
             }
-            <ArticleList 
-              articles={nonMainArticles}
-              setArticleToView={setArticleToView}
-            />
+            {
+              nonMainArticles.length ?
+              <ArticleList 
+                articles={nonMainArticles}
+                setArticleToView={setArticleToView}
+              />
+              : <></>
+            }
             {
               articleCount &&
                 <div className='pagination-container'>

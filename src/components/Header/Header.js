@@ -16,8 +16,6 @@ const Header = ({
   searchValue,
   resetArticleCount,
   fetchArticles,
-  setArchiveLocation,
-  resetSearchFetchedState,
 }) => {
   const handleHomeClick = () => {
     setCurrentPage(1)
@@ -30,10 +28,6 @@ const Header = ({
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     setCurrentPage(1)
-    resetSearchFetchedState()
-    resetArticleCount()
-    const location = history.location.pathname
-    setArchiveLocation(location)
     history.push(`/search/${searchValue}`)
   }
   const handleSearchOnChange = (e) => {
