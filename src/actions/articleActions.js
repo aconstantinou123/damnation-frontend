@@ -20,6 +20,8 @@ import {
   SET_SEARCH_VALUE,
 } from '../constants/types'
 
+import history from '../history'
+
 const articlesFetching = () => ({
   type: FETCH_ARTICLES_PENDING,
 })
@@ -125,11 +127,12 @@ const searchArticleError = (error) => ({
   payload: error,
 })
 
-export const searchArticles = (query) => async (dispatch) => {
+export const searchArticles = (query, pageNumber) => async (dispatch) => {
   dispatch(searchArticlePending())
   try {
-    const response = await axios.get(`${APP_URL}/api/search?query=${query}`)
+    const response = await axios.get(`${APP_URL}/api/search?query=${query}&pageNumber=${pageNumber}`)
     dispatch(searchArticleSuccess(response.data.data))
+    history.push(`/search/${query}`)
   } catch (err) {
     dispatch(searchArticleError(err))
   }

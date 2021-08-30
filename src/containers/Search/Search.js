@@ -1,44 +1,51 @@
+import Pagination from 'react-js-pagination'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useEffect } from 'react'
-import Pagination from 'react-js-pagination';
+import { useParams } from 'react-router-dom'
 
-import ArticleList from '../../components/ArticleList/ArticleList'
-import Footer from '../../components/Footer/Footer'
-import ArticleMain from '../../components/ArticleMain/ArticleMain'
 import Header from '../../components/Header/Header'
+import ArticleList from '../../components/ArticleList/ArticleList'
 import Loading from '../../components/Loading/Loading'
 
-import * as archiveActions from '../../actions/archiveActions'
 import * as articleActions from '../../actions/articleActions'
+import * as archiveActions from '../../actions/archiveActions'
 
 import history from '../../history'
-// import Loading from '../../assets/loading.gif'
 
-import './LandingPage.css'
+import './Search.css'
 
-
-const LandingPage = ({
-  fetchArticles,
-  articlesFetched,
+const Search = ({
   articles,
-  user,
-  currentPage,
-  setCurrentPage,
   setArticleToView,
   articleCount,
-  fetchArticleCount,
-  articleCountFetched,
+  currentPage,
+  setCurrentPage,
+  user,
+  searchArticles,
+  searchArticlesFetched,
   articleSubmitted,
+  fetchArticleCount,
   articleDeleteSuccess,
+  articleCountFetched,
   resetArticleCount,
   setArchiveLocation,
-  }) => {
+  setSearchValue,
+}) => {
+
+  const { search } = useParams()
 
   useEffect(() => {
-      fetchArticles(currentPage)
-      resetArticleCount()
-  }, [currentPage, fetchArticles, resetArticleCount])
+    setSearchValue(search)
+    searchArticles(search, currentPage)
+  }, [currentPage, searchArticles, resetArticleCount, setSearchValue, search]);
+
+  useEffect(() => {
+    return () => {
+      setCurrentPage(1)
+      setSearchValue('')
+    }
+  }, [setCurrentPage, setSearchValue])
 
   useEffect(() => {
     const location = history.location.pathname
@@ -63,45 +70,28 @@ const LandingPage = ({
     }
   }, [fetchArticleCount, articleCountFetched])
 
+
   const handlePageChange = data => {
     setCurrentPage(data)
   }
-  
-  const itemsPerPage = currentPage === 1 ? 10 : 9
-  const mainArticle = articles.filter((article) => article.is_main);
-  const nonMainArticles = articles.filter((article) => !article.is_main);
   return (
     <>
-      <main className='landing-page'>
-        <Header
-          user={user}
-        />
-        {articlesFetched ? (
+      <Header
+        user={user}
+      />
+      {
+        searchArticlesFetched ? (
           <>
-            {
-              mainArticle.length ? (
-                <>
-                  <ArticleMain 
-                    articles={mainArticle}
-                    setArticleToView={setArticleToView}
-                  />
-                  <div className='hr-container'>
-                    <hr className='solid-thin'></hr>
-                  </div>
-                </>
-              ) : <></>
-            }
             <ArticleList 
-              articles={nonMainArticles}
+              articles={articles}
               setArticleToView={setArticleToView}
             />
             {
               articleCount &&
                 <div className='pagination-container'>
                   <Pagination
-                    // className="pagination"
                     activePage={currentPage}
-                    itemsCountPerPage={itemsPerPage}
+                    itemsCountPerPage={9}
                     totalItemsCount={articleCount}
                     pageRangeDisplayed={5}
                     onChange={handlePageChange}
@@ -111,14 +101,13 @@ const LandingPage = ({
           </>
         ) : (
           <Loading/>
-        )}
-      </main>
-      <Footer />
+        )
+      }
     </>
   )
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       ...articleActions,
@@ -128,12 +117,13 @@ function mapDispatchToProps(dispatch) {
   )
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
+    ...state.archiveReducer,
     ...state.articleReducer,
     ...state.articleFormReducer,
     ...state.userReducer,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

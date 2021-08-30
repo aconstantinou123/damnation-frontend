@@ -48,3 +48,9 @@
 .search-input:focus {
   outline: none;
 }
+
+@media only screen and (max-width: 450px) {
+  .search-container {
+    padding-top: 1.5rem;
+  }
+}

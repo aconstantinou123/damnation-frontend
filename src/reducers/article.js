@@ -127,7 +127,6 @@ const articleReducer = (state = defaultState, action) => {
         searchArticlesFetched: true,
         articles:action.payload,
         searchArticlesError: null,
-        searchValue: '',
       }
     case SEARCH_ARTICLES_ERROR:
       return {
