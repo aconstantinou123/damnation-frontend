@@ -14,19 +14,28 @@ const Header = ({
   setCurrentPage,
   setSearchValue,
   searchValue,
+  resetDate,
 }) => {
   const handleHomeClick = () => {
     setCurrentPage(1)
+    resetDate()
   }
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     setCurrentPage(1)
     history.push(`/search/${searchValue}`)
+    resetDate()
   }
 
   const handleSearchOnChange = (e) => {
     setSearchValue(e.target.value)
+  }
+
+  const handleCreateArticleClick = () => {
+    resetDate()
+    setCurrentPage(1)
+    setSearchValue('')
   }
 
   return (
@@ -40,7 +49,7 @@ const Header = ({
       {
         user && (
           <>
-            <Link className='link' to='/create'>Create Article</Link>
+            <Link className='link' to='/create' onClick={handleCreateArticleClick}>Create Article</Link>
             <Link className='link' to='/logout'>Logout</Link>
           </>
         )

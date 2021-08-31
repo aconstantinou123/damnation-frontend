@@ -7,35 +7,28 @@ import {
   FETCH_ARTICLE_ERROR,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
-  SEARCH_ARTICLES_PENDING,
-  SEARCH_ARTICLES_SUCCESS,
-  SEARCH_ARTICLES_ERROR,
   SET_SEARCH_VALUE,
-  RESET_SEARCH_FETCHED_STATE,
   RESET_ARTICLE_FETCHED_STATE,
   SET_LOCATION,
+  SET_DATE,
+  RESET_DATE,
 } from '../constants/types'
 
 const defaultState = {
   articles: [],
+  articleCount: null,
   mainArticle: {},
+  currentPage: 1,
+  currentArticle: null,
   articlesFetching: false,
   articlesFetched: false,
   articlesError: null,
-  currentPage: 1,
-  currentArticle: null,
   articleFetching: false,
   articleFetched: false,
   articleError: null,
-  articleCountFetching: false,
-  articleCountFetched: false,
-  articleCountError: null,
-  articleCount: null,
-  searchArticlesFetching: false,
-  searchArticlesFetched: false,
-  searchArticlesError: null,
   searchValue: '',
   location: '/',
+  date: '',
 }
 
 const articleReducer = (state = defaultState, action) => {
@@ -98,40 +91,6 @@ const articleReducer = (state = defaultState, action) => {
         articleFetched: false,
         articleError: action.payload,
       }
-    case SEARCH_ARTICLES_PENDING:
-      return {
-        ...state,
-        searchArticlesFetching: true,
-        searchArticlesFetched: false,
-        articles:[],
-        articleCount: null,
-        searchArticlesError: null,
-      }
-    case SEARCH_ARTICLES_SUCCESS:
-      return {
-        ...state,
-        searchArticlesFetching: false,
-        searchArticlesFetched: true,
-        articles:action.payload.data,
-        articleCount: action.payload.count,
-        searchArticlesError: null,
-      }
-    case SEARCH_ARTICLES_ERROR:
-      return {
-        ...state,
-        searchArticlesFetching: false,
-        searchArticlesFetched: false,
-        articles: [],
-        articleCount: null,
-        searchArticlesError: action.payload,
-      }
-    case RESET_SEARCH_FETCHED_STATE:
-      return {
-        ...state,
-        searchArticlesFetching: false,
-        searchArticlesFetched: false,
-        searchArticlesError: null,
-      }
     case SET_SEARCH_VALUE:
       return {
         ...state,
@@ -151,6 +110,16 @@ const articleReducer = (state = defaultState, action) => {
       return {
         ...state,
         location: action.payload,
+      }
+    case SET_DATE:
+      return {
+        ...state,
+        date: action.payload,
+      }
+    case RESET_DATE:
+      return {
+        ...state,
+        date: '',
       }
     default:
       return state

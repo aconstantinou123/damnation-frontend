@@ -22,12 +22,11 @@ const Search = ({
   currentPage,
   setCurrentPage,
   user,
-  searchArticles,
-  searchArticlesFetched,
-  resetArticleCount,
   setLocation,
   setSearchValue,
-  resetSearchFetchedState,
+  articlesFetched,
+  fetchArticles,
+  resetArticleFetchedState,
 }) => {
 
   const { search } = useParams()
@@ -36,8 +35,8 @@ const Search = ({
     const location = history.location.pathname
     setSearchValue(search)
     setLocation(location)
-    resetSearchFetchedState()
-  }, [setSearchValue, search, setLocation, resetSearchFetchedState, resetArticleCount])
+    resetArticleFetchedState()
+  }, [setSearchValue, search, setLocation, resetArticleFetchedState, currentPage])
 
   useEffect(() => {
     return () => {
@@ -46,14 +45,13 @@ const Search = ({
   }, [setCurrentPage, setSearchValue])
 
   useEffect(() => {
-    if (!searchArticlesFetched) {
-      searchArticles(search, currentPage)
+    if (!articlesFetched) {
+      fetchArticles()
     }
-  }, [searchArticlesFetched, searchArticles, currentPage, search])
+  }, [articlesFetched, fetchArticles])
 
 
   const handlePageChange = data => {
-    resetSearchFetchedState()
     setCurrentPage(data)
   }
   return (
@@ -62,7 +60,7 @@ const Search = ({
         user={user}
       />
       {
-        searchArticlesFetched ? (
+        articlesFetched ? (
           <>
             <ArticleList 
               articles={articles}

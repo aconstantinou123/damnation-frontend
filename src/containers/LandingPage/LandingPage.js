@@ -40,9 +40,9 @@ const LandingPage = ({
 
   useEffect(() => {
     if (!articlesFetched) {
-      fetchArticles(currentPage)
+      fetchArticles()
     }
-  }, [articlesFetched, fetchArticles, currentPage])
+  }, [articlesFetched, fetchArticles])
 
   const handlePageChange = data => {
     setCurrentPage(data)

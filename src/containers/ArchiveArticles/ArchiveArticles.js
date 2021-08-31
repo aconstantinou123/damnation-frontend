@@ -27,21 +27,30 @@ const ArchiveArticle = ({
   resetArticleCount,
   setLocation,
   resetArticleFetchedState,
+  setDate,
 }) => {
 
   const { date } = useParams()
 
   useEffect(() => {
     const location = history.location.pathname
+    setDate(date)
     setLocation(location)
     resetArticleFetchedState()
-  }, [currentPage, setLocation, resetArticleCount, resetArticleFetchedState])
+  }, [
+    currentPage,
+    setLocation,
+    resetArticleCount,
+    resetArticleFetchedState,
+    setDate,
+    date
+  ])
 
   useEffect(() => {
     if (!articlesFetched) {
-      fetchArticles(currentPage, date)
+      fetchArticles()
     }
-  }, [fetchArticles, articlesFetched, date, currentPage])
+  }, [fetchArticles, articlesFetched])
 
 
   const handlePageChange = data => {
