@@ -30,6 +30,10 @@ const LandingPage = ({
   resetArticleCount,
   setLocation,
   resetArticleFetchedState,
+  fetchMainArticle,
+  mainArticle,
+  mainArticleFetched,
+  resetMainArticleState,
   }) => {
 
   useEffect(() => {
@@ -39,17 +43,28 @@ const LandingPage = ({
   }, [currentPage, resetArticleCount, resetArticleFetchedState, setLocation])
 
   useEffect(() => {
+    return () => {
+      resetMainArticleState()
+    }
+  }, [resetMainArticleState])
+
+  useEffect(() => {
     if (!articlesFetched) {
-      fetchArticles()
+      fetchArticles(true)
     }
   }, [articlesFetched, fetchArticles])
+
+  useEffect(() => {
+    if (!mainArticleFetched && currentPage === 1) {
+      fetchMainArticle()
+    }
+  }, [mainArticleFetched, fetchMainArticle, currentPage])
 
   const handlePageChange = data => {
     setCurrentPage(data)
   }
   
-  const mainArticle = articles.filter((article) => article.is_main);
-  const nonMainArticles = articles.filter((article) => !article.is_main);
+
   return (
     <>
       <main className='landing-page'>
@@ -60,7 +75,7 @@ const LandingPage = ({
           {articlesFetched ? (
             <>
               {
-                mainArticle.length ? (
+                (mainArticle.length && currentPage === 1) ? (
                   <>
                     <ArticleMain 
                       articles={mainArticle}
@@ -73,9 +88,9 @@ const LandingPage = ({
                 ) : <></>
               }
               {
-                nonMainArticles.length ?
+                articles.length ?
                 <ArticleList 
-                  articles={nonMainArticles}
+                  articles={articles}
                   setArticleToView={setArticleToView}
                 />
                 : <></>

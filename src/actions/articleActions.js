@@ -8,6 +8,9 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
+  FETCH_MAIN_ARTICLE_PENDING,
+  FETCH_MAIN_ARTICLE_SUCCESS,
+  FETCH_MAIN_ARTICLE_ERROR,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
   SET_SEARCH_VALUE,
@@ -15,6 +18,7 @@ import {
   SET_LOCATION,
   SET_DATE,
   RESET_DATE,
+  RESET_MAIN_ARTICLE_STATE,
 } from '../constants/types'
 
 const articlesFetching = () => ({
@@ -31,20 +35,49 @@ const articlesError = (error) => ({
   payload: error,
 })
 
-export const fetchArticles = () => async (dispatch, getState) => {
+export const fetchArticles = (notMain) => async (dispatch, getState) => {
   const { articleReducer } = getState()
   const { date, currentPage, searchValue } = articleReducer
   const page = `pageNumber=${currentPage}`
   const dateToSearch = date ? `&date=${date}` : ''
   const search = searchValue ? `&query=${searchValue}` : ''
+  const isMainArticle = notMain ? `&main=false` : ''
   dispatch(articlesFetching())
   try {
-    const response = await axios.get(`${APP_URL}/api/article?${page}${dateToSearch}${search}`)
+    const response = await axios.get(`${APP_URL}/api/article?${page}${dateToSearch}${search}${isMainArticle}`)
     dispatch(articlesFetched(response.data))
   } catch (err) {
     dispatch(articlesError(err))
   }
 }
+
+const fetchMainArticlePending = () => ({
+  type: FETCH_MAIN_ARTICLE_PENDING,
+})
+
+const fetchMainArticleSuccess = (payload) => ({
+  type: FETCH_MAIN_ARTICLE_SUCCESS,
+  payload,
+})
+
+const fetchMainArticleError = (error) => ({
+  type: FETCH_MAIN_ARTICLE_ERROR,
+  payload: error,
+})
+
+export const fetchMainArticle = () => async (dispatch) => {
+  dispatch(fetchMainArticlePending())
+  try {
+    const response = await axios.get(`${APP_URL}/api/article?pageNumber=1&main=true`)
+    dispatch(fetchMainArticleSuccess(response.data))
+  } catch (err) {
+    dispatch(fetchMainArticleError(err))
+  }
+}
+
+export const resetMainArticleState = () => ({
+  type: RESET_MAIN_ARTICLE_STATE,
+})
 
 export const setCurrentPage = (payload) => ({
   type: SET_CURRENT_PAGE,

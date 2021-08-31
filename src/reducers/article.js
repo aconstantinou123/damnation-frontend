@@ -5,10 +5,14 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
+  FETCH_MAIN_ARTICLE_PENDING,
+  FETCH_MAIN_ARTICLE_SUCCESS,
+  FETCH_MAIN_ARTICLE_ERROR,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
   SET_SEARCH_VALUE,
   RESET_ARTICLE_FETCHED_STATE,
+  RESET_MAIN_ARTICLE_STATE,
   SET_LOCATION,
   SET_DATE,
   RESET_DATE,
@@ -16,8 +20,8 @@ import {
 
 const defaultState = {
   articles: [],
+  mainArticle: [],
   articleCount: null,
-  mainArticle: {},
   currentPage: 1,
   currentArticle: null,
   articlesFetching: false,
@@ -26,6 +30,9 @@ const defaultState = {
   articleFetching: false,
   articleFetched: false,
   articleError: null,
+  mainArticleFetching: false,
+  mainArticleFetched: false,
+  mainArticleError: null,
   searchValue: '',
   location: '/',
   date: '',
@@ -46,7 +53,7 @@ const articleReducer = (state = defaultState, action) => {
       return {
         ...state,
         articles: action.payload.data,
-        articleCount: action.payload.count,
+        articleCount: action.payload.count + state.mainArticle.length,
         articlesFetching: false,
         articlesFetched: true,
         articlesError: null,
@@ -59,6 +66,37 @@ const articleReducer = (state = defaultState, action) => {
         articlesFetching: false,
         articlesFetched: false,
         articlesError: action.payload,
+      }
+    case FETCH_MAIN_ARTICLE_PENDING:
+      return {
+        ...state,
+        mainArticleFetching: true,
+        mainArticleFetched: false,
+        mainArticleError: null,
+      }
+    case FETCH_MAIN_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        mainArticleFetching: false,
+        mainArticleFetched: true,
+        mainArticle: action.payload.data,
+        articleCount: state.articleCount + action.payload.count,
+        mainArticleError: null,
+      }
+    case FETCH_MAIN_ARTICLE_ERROR:
+      return {
+        ...state,
+        mainArticleFetching: false,
+        mainArticleFetched: false,
+        mainArticleError: action.payload,
+      }
+    case RESET_MAIN_ARTICLE_STATE:
+      return {
+        ...state,
+        mainArticleFetching: false,
+        mainArticleFetched: false,
+        mainArticleError: null,
+        mainArticle: []
       }
     case RESET_ARTICLE_FETCHED_STATE:
       return {
