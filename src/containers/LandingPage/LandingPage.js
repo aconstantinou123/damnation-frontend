@@ -27,8 +27,6 @@ const LandingPage = ({
   setCurrentPage,
   setArticleToView,
   articleCount,
-  fetchArticleCount,
-  articleCountFetched,
   resetArticleCount,
   setLocation,
   resetArticleFetchedState,
@@ -37,21 +35,8 @@ const LandingPage = ({
   useEffect(() => {
     const location = history.location.pathname
     setLocation(location)
-    resetArticleCount()
     resetArticleFetchedState()
   }, [currentPage, resetArticleCount, resetArticleFetchedState, setLocation])
-
-  useEffect(() => {
-    return () => {
-      setCurrentPage(1)
-    }
-  }, [setCurrentPage])
-
-  useEffect(() => {
-    if (!articleCountFetched) {
-      fetchArticleCount()
-    }
-  }, [fetchArticleCount, articleCountFetched])
 
   useEffect(() => {
     if (!articlesFetched) {
@@ -63,7 +48,6 @@ const LandingPage = ({
     setCurrentPage(data)
   }
   
-  const itemsPerPage = currentPage === 1 ? 10 : 9
   const mainArticle = articles.filter((article) => article.is_main);
   const nonMainArticles = articles.filter((article) => !article.is_main);
   return (
@@ -101,7 +85,7 @@ const LandingPage = ({
                   <Pagination
                     // className="pagination"
                     activePage={currentPage}
-                    itemsCountPerPage={itemsPerPage}
+                    itemsCountPerPage={9}
                     totalItemsCount={articleCount}
                     pageRangeDisplayed={5}
                     onChange={handlePageChange}

@@ -24,8 +24,6 @@ const ArchiveArticle = ({
   user,
   fetchArticles,
   articlesFetched,
-  fetchArticleCount,
-  articleCountFetched,
   resetArticleCount,
   setLocation,
   resetArticleFetchedState,
@@ -37,18 +35,7 @@ const ArchiveArticle = ({
     const location = history.location.pathname
     setLocation(location)
     resetArticleFetchedState()
-    resetArticleCount()
-  }, [currentPage, setLocation, resetArticleCount, resetArticleFetchedState]);
-
-  useEffect(() => {
-    return () => setCurrentPage(1)
-  }, [setCurrentPage])
-
-  useEffect(() => {
-    if (!articleCountFetched) {
-      fetchArticleCount(date)
-    }
-  }, [fetchArticleCount, articleCountFetched, date])
+  }, [currentPage, setLocation, resetArticleCount, resetArticleFetchedState])
 
   useEffect(() => {
     if (!articlesFetched) {

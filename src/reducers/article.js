@@ -5,10 +5,6 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
-  FETCH_ARTICLE_COUNT_PENDING,
-  FETCH_ARTICLE_COUNT_SUCCESS,
-  FETCH_ARTICLE_COUNT_ERROR,
-  RESET_ARTICLE_COUNT,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
   SEARCH_ARTICLES_PENDING,
@@ -48,6 +44,7 @@ const articleReducer = (state = defaultState, action) => {
       return {
         ...state,
         articles: [],
+        articleCount: null,
         articlesFetching: true,
         articlesFetched: false,
         articlesError: null,
@@ -55,7 +52,8 @@ const articleReducer = (state = defaultState, action) => {
     case FETCH_ARTICLES_SUCCESS:
       return {
         ...state,
-        articles: action.payload,
+        articles: action.payload.data,
+        articleCount: action.payload.count,
         articlesFetching: false,
         articlesFetched: true,
         articlesError: null,
@@ -64,6 +62,7 @@ const articleReducer = (state = defaultState, action) => {
       return {
         ...state,
         articles: [],
+        articleCount: null,
         articlesFetching: false,
         articlesFetched: false,
         articlesError: action.payload,
@@ -99,36 +98,13 @@ const articleReducer = (state = defaultState, action) => {
         articleFetched: false,
         articleError: action.payload,
       }
-    case FETCH_ARTICLE_COUNT_PENDING:
-      return {
-        ...state,
-        articleCount: null,
-        articleCountFetching: true,
-        articleCountFetched: false,
-        articleCountError: null,
-      }
-    case FETCH_ARTICLE_COUNT_SUCCESS:
-      return {
-        ...state,
-        articleCount: action.payload,
-        articleCountFetching: false,
-        articleCountFetched: true,
-        articleCountError: null,
-      }
-    case FETCH_ARTICLE_COUNT_ERROR:
-      return {
-        ...state,
-        articleCount: null,
-        articleCountFetching: false,
-        articleCountFetched: false,
-        articleCountError: action.payload,
-      }
     case SEARCH_ARTICLES_PENDING:
       return {
         ...state,
         searchArticlesFetching: true,
         searchArticlesFetched: false,
         articles:[],
+        articleCount: null,
         searchArticlesError: null,
       }
     case SEARCH_ARTICLES_SUCCESS:
@@ -136,7 +112,8 @@ const articleReducer = (state = defaultState, action) => {
         ...state,
         searchArticlesFetching: false,
         searchArticlesFetched: true,
-        articles:action.payload,
+        articles:action.payload.data,
+        articleCount: action.payload.count,
         searchArticlesError: null,
       }
     case SEARCH_ARTICLES_ERROR:
@@ -145,6 +122,7 @@ const articleReducer = (state = defaultState, action) => {
         searchArticlesFetching: false,
         searchArticlesFetched: false,
         articles: [],
+        articleCount: null,
         searchArticlesError: action.payload,
       }
     case RESET_SEARCH_FETCHED_STATE:
@@ -168,13 +146,6 @@ const articleReducer = (state = defaultState, action) => {
       return {
         ...state,
         currentPage: action.payload,
-      }
-    case RESET_ARTICLE_COUNT:
-      return {
-        ...state,
-        articleCountFetching: false,
-        articleCountFetched: false,
-        articleCountError: null,
       }
     case SET_LOCATION:
       return {

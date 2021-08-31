@@ -14,25 +14,21 @@ const Header = ({
   setCurrentPage,
   setSearchValue,
   searchValue,
-  resetArticleCount,
-  resetArticleFetchedState,
 }) => {
   const handleHomeClick = () => {
     setCurrentPage(1)
-    resetArticleFetchedState()
-    
   }
-  const handleArchiveClick = () => {
-    resetArticleCount()
-  }
+
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     setCurrentPage(1)
     history.push(`/search/${searchValue}`)
   }
+
   const handleSearchOnChange = (e) => {
     setSearchValue(e.target.value)
   }
+
   return (
   <>
     <Title />
@@ -40,7 +36,7 @@ const Header = ({
       {/* <Link className='link' to='/about'>About</Link> */}
       <Link className='link' to='/submissions'>Submissions</Link>
       <Link className='link' to='/' onClick={handleHomeClick}>Home</Link>
-      <Link className='link' to='/archive' onClick={handleArchiveClick}>Archive</Link>
+      <Link className='link' to='/archive'>Archive</Link>
       {
         user && (
           <>

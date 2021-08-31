@@ -24,8 +24,6 @@ const Search = ({
   user,
   searchArticles,
   searchArticlesFetched,
-  fetchArticleCount,
-  articleCountFetched,
   resetArticleCount,
   setLocation,
   setSearchValue,
@@ -38,22 +36,14 @@ const Search = ({
     const location = history.location.pathname
     setSearchValue(search)
     setLocation(location)
-    resetArticleCount()
     resetSearchFetchedState()
   }, [setSearchValue, search, setLocation, resetSearchFetchedState, resetArticleCount])
 
   useEffect(() => {
     return () => {
-      setCurrentPage(1)
       setSearchValue('')
     }
   }, [setCurrentPage, setSearchValue])
-
-  useEffect(() => {
-    if (!articleCountFetched) {
-      fetchArticleCount()
-    }
-  }, [fetchArticleCount, articleCountFetched])
 
   useEffect(() => {
     if (!searchArticlesFetched) {

@@ -8,10 +8,6 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
-  FETCH_ARTICLE_COUNT_SUCCESS,
-  FETCH_ARTICLE_COUNT_PENDING,
-  FETCH_ARTICLE_COUNT_ERROR,
-  RESET_ARTICLE_COUNT,
   SET_CURRENT_PAGE,
   SET_ARTICLE_TO_VIEW,
   SEARCH_ARTICLES_PENDING,
@@ -44,7 +40,7 @@ export const fetchArticles = (pageNumber, date = '') => async (dispatch) => {
   dispatch(articlesFetching())
   try {
     const response = await axios.get(`${APP_URL}/api/article?pageNumber=${pageNumber}${dateToSearch}`)
-    dispatch(articlesFetched(response.data.data))
+    dispatch(articlesFetched(response.data))
   } catch (err) {
     dispatch(articlesError(err))
   }
@@ -84,38 +80,6 @@ export const fetchArticle = (id) => async (dispatch) => {
   }
 }
 
-const articleCountFetching = () => ({
-  type: FETCH_ARTICLE_COUNT_PENDING,
-})
-
-const articleCountFetched = (payload) => ({
-  type: FETCH_ARTICLE_COUNT_SUCCESS,
-  payload,
-})
-
-const articleCountError = (error) => ({
-  type: FETCH_ARTICLE_COUNT_ERROR,
-  payload: error,
-})
-
-export const fetchArticleCount = (date = '') => async (dispatch, getState) => {
-  const { articleReducer } = getState()
-  const { searchValue } = articleReducer
-  const dateToSearch = date && !searchValue ? `?date=${date}` : ''
-  const queryToSearch = searchValue ? `?query=${searchValue}` : ''
-  dispatch(articleCountFetching())
-  try {
-    const response = await axios.get(`${APP_URL}/api/article-count${dateToSearch}${queryToSearch}`)
-    dispatch(articleCountFetched(response.data.total))
-  } catch (err) {
-    dispatch(articleCountError(err))
-  }
-}
-
-export const resetArticleCount = () => ({
-  type: RESET_ARTICLE_COUNT,
-})
-
 const searchArticlePending = () => ({
   type: SEARCH_ARTICLES_PENDING,
 })
@@ -134,7 +98,7 @@ export const searchArticles = (query, pageNumber) => async (dispatch) => {
   dispatch(searchArticlePending())
   try {
     const response = await axios.get(`${APP_URL}/api/search?query=${query}&pageNumber=${pageNumber}`)
-    dispatch(searchArticleSuccess(response.data.data))
+    dispatch(searchArticleSuccess(response.data))
     history.push(`/search/${query}`)
   } catch (err) {
     dispatch(searchArticleError(err))
