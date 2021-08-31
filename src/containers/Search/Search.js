@@ -52,18 +52,6 @@ const Search = ({
   }, [setCurrentPage, setSearchValue])
 
   useEffect(() => {
-    if (articleSubmitted) {
-      fetchArticleCount()
-    }
-  }, [articleSubmitted, fetchArticleCount]);
-
-  useEffect(() => {
-    if (articleDeleteSuccess) {
-      fetchArticleCount()
-    }
-  }, [articleDeleteSuccess, fetchArticleCount]);
-
-  useEffect(() => {
     if (!articleCountFetched) {
       fetchArticleCount()
     }

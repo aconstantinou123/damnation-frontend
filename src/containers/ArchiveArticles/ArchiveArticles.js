@@ -24,47 +24,37 @@ const ArchiveArticle = ({
   user,
   fetchArticles,
   articlesFetched,
-  articleSubmitted,
   fetchArticleCount,
-  articleDeleteSuccess,
   articleCountFetched,
   resetArticleCount,
   setArchiveLocation,
+  resetArticleFetchedState,
 }) => {
 
   const { date } = useParams()
 
   useEffect(() => {
-    fetchArticles(currentPage, date)
+    const location = history.location.pathname
+    setArchiveLocation(location)
+    resetArticleFetchedState()
     resetArticleCount()
-  }, [currentPage, fetchArticles, date, resetArticleCount]);
+  }, [currentPage, setArchiveLocation, resetArticleCount, resetArticleFetchedState]);
 
   useEffect(() => {
     return () => setCurrentPage(1)
   }, [setCurrentPage])
 
   useEffect(() => {
-    const location = history.location.pathname
-    setArchiveLocation(location)
-  }, [setArchiveLocation])
-
-  useEffect(() => {
-    if (articleSubmitted) {
-      fetchArticleCount(date)
-    }
-  }, [articleSubmitted, fetchArticleCount, date]);
-
-  useEffect(() => {
-    if (articleDeleteSuccess) {
-      fetchArticleCount(date)
-    }
-  }, [articleDeleteSuccess, fetchArticleCount, date]);
-
-  useEffect(() => {
     if (!articleCountFetched) {
       fetchArticleCount(date)
     }
   }, [fetchArticleCount, articleCountFetched, date])
+
+  useEffect(() => {
+    if (!articlesFetched) {
+      fetchArticles(currentPage, date)
+    }
+  }, [fetchArticles, articlesFetched, date, currentPage])
 
 
   const handlePageChange = data => {

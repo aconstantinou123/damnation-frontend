@@ -15,12 +15,12 @@ const Header = ({
   setSearchValue,
   searchValue,
   resetArticleCount,
-  fetchArticles,
+  resetArticleFetchedState,
 }) => {
   const handleHomeClick = () => {
     setCurrentPage(1)
-    fetchArticles(1)
-    resetArticleCount()
+    resetArticleFetchedState()
+    
   }
   const handleArchiveClick = () => {
     resetArticleCount()

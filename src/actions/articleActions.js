@@ -19,6 +19,7 @@ import {
   SEARCH_ARTICLES_ERROR,
   SET_SEARCH_VALUE,
   RESET_SEARCH_FETCHED_STATE,
+  RESET_ARTICLE_FETCHED_STATE,
 } from '../constants/types'
 
 import history from '../history'
@@ -146,4 +147,8 @@ export const setSearchValue = (payload) => ({
 
 export const resetSearchFetchedState = () => ({
   type: RESET_SEARCH_FETCHED_STATE,
+})
+
+export const resetArticleFetchedState = () => ({
+  type: RESET_ARTICLE_FETCHED_STATE,
 })

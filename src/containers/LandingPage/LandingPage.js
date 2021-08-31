@@ -33,35 +33,33 @@ const LandingPage = ({
   articleDeleteSuccess,
   resetArticleCount,
   setArchiveLocation,
+  resetArticleFetchedState,
   }) => {
-
-  useEffect(() => {
-      fetchArticles(currentPage)
-      resetArticleCount()
-  }, [currentPage, fetchArticles, resetArticleCount])
 
   useEffect(() => {
     const location = history.location.pathname
     setArchiveLocation(location)
-  }, [setArchiveLocation])
+    resetArticleCount()
+    resetArticleFetchedState()
+  }, [currentPage, resetArticleCount, resetArticleFetchedState, setArchiveLocation])
 
   useEffect(() => {
-    if (articleSubmitted) {
-      fetchArticleCount()
+    return () => {
+      setCurrentPage(1)
     }
-  }, [articleSubmitted, fetchArticleCount]);
-
-  useEffect(() => {
-    if (articleDeleteSuccess) {
-      fetchArticleCount()
-    }
-  }, [articleDeleteSuccess, fetchArticleCount]);
+  }, [setCurrentPage])
 
   useEffect(() => {
     if (!articleCountFetched) {
       fetchArticleCount()
     }
   }, [fetchArticleCount, articleCountFetched])
+
+  useEffect(() => {
+    if (!articlesFetched) {
+      fetchArticles(currentPage)
+    }
+  }, [articlesFetched, fetchArticles, currentPage])
 
   const handlePageChange = data => {
     setCurrentPage(data)
