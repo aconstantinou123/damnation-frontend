@@ -29,19 +29,17 @@ const LandingPage = ({
   articleCount,
   fetchArticleCount,
   articleCountFetched,
-  articleSubmitted,
-  articleDeleteSuccess,
   resetArticleCount,
-  setArchiveLocation,
+  setLocation,
   resetArticleFetchedState,
   }) => {
 
   useEffect(() => {
     const location = history.location.pathname
-    setArchiveLocation(location)
+    setLocation(location)
     resetArticleCount()
     resetArticleFetchedState()
-  }, [currentPage, resetArticleCount, resetArticleFetchedState, setArchiveLocation])
+  }, [currentPage, resetArticleCount, resetArticleFetchedState, setLocation])
 
   useEffect(() => {
     return () => {

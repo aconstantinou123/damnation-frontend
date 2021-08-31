@@ -17,6 +17,7 @@ import {
   SET_SEARCH_VALUE,
   RESET_SEARCH_FETCHED_STATE,
   RESET_ARTICLE_FETCHED_STATE,
+  SET_LOCATION,
 } from '../constants/types'
 
 const defaultState = {
@@ -38,6 +39,7 @@ const defaultState = {
   searchArticlesFetched: false,
   searchArticlesError: null,
   searchValue: '',
+  location: '/',
 }
 
 const articleReducer = (state = defaultState, action) => {
@@ -173,6 +175,11 @@ const articleReducer = (state = defaultState, action) => {
         articleCountFetching: false,
         articleCountFetched: false,
         articleCountError: null,
+      }
+    case SET_LOCATION:
+      return {
+        ...state,
+        location: action.payload,
       }
     default:
       return state

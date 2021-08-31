@@ -24,12 +24,10 @@ const Search = ({
   user,
   searchArticles,
   searchArticlesFetched,
-  articleSubmitted,
   fetchArticleCount,
-  articleDeleteSuccess,
   articleCountFetched,
   resetArticleCount,
-  setArchiveLocation,
+  setLocation,
   setSearchValue,
   resetSearchFetchedState,
 }) => {
@@ -39,10 +37,10 @@ const Search = ({
   useEffect(() => {
     const location = history.location.pathname
     setSearchValue(search)
-    setArchiveLocation(location)
+    setLocation(location)
     resetArticleCount()
     resetSearchFetchedState()
-  }, [setSearchValue, search, setArchiveLocation, resetSearchFetchedState, resetArticleCount])
+  }, [setSearchValue, search, setLocation, resetSearchFetchedState, resetArticleCount])
 
   useEffect(() => {
     return () => {

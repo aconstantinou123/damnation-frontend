@@ -20,6 +20,7 @@ import {
   SET_SEARCH_VALUE,
   RESET_SEARCH_FETCHED_STATE,
   RESET_ARTICLE_FETCHED_STATE,
+  SET_LOCATION,
 } from '../constants/types'
 
 import history from '../history'
@@ -151,4 +152,9 @@ export const resetSearchFetchedState = () => ({
 
 export const resetArticleFetchedState = () => ({
   type: RESET_ARTICLE_FETCHED_STATE,
+})
+
+export const setLocation = (payload) => ({
+  type: SET_LOCATION,
+  payload,
 })

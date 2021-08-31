@@ -20,7 +20,7 @@ const Article = ({
   currentArticle,
   fetchArticle,
   resetSubmit,
-  archiveLocation,
+  location,
 }) => {
 
   const { id } = useParams()
@@ -47,7 +47,7 @@ const Article = ({
             user={user}
             selectArticleToEdit={selectArticleToEdit}
             deleteArticle={deleteArticle}
-            location={archiveLocation}
+            location={location}
           />
         : <Loading/>
       }
@@ -70,7 +70,6 @@ function mapStateToProps(state) {
   return {
     ...state.articleReducer,
     ...state.articleFormReducer,
-    ...state.archiveReducer,
     ...state.userReducer,
   }
 }

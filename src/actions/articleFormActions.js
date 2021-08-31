@@ -127,8 +127,8 @@ const deleteArticleError = (error) => ({
 export const deleteArticle = (id) => async (dispatch, getState) => {
   dispatch(deleteArticlePending())
   const { userReducer } = getState()
-  const { archiveReducer } = getState()
-  const { archiveLocation } = archiveReducer
+  const { articleReducer } = getState()
+  const { location } = articleReducer
   const { token } = userReducer
   try {
     await axios.delete(`${APP_URL}/api/article/${id}`, {
@@ -137,7 +137,7 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
       }
     })
     dispatch(deleteArticleSuccess())
-    history.push(archiveLocation)
+    history.push(location)
   } catch (err) {
     dispatch(deleteArticleError(err))
   }
