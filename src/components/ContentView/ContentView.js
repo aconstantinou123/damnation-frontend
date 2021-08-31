@@ -7,43 +7,38 @@ import history from '../../history'
 
 import './ContentView.css'
 
-const ContentView = ({ 
+const ContentView = ({
   content,
   selectContentToEdit,
   user,
   fetchedContent,
 }) => {
   const handleEditClicked = () => {
-    selectContentToEdit(content)
+    selectContentToEdit(content);
     history.push(`/content/${content.id}`)
-  }
+  };
 
   return (
-    <div className="copy-view" key={content.id}>
-            <div className='copy-button-container'>
-              <Header
-                user={user}
-              />
-            </div>
-            {
-              (fetchedContent && content.content) ? (
-                <>
-              <Button onClick={() => history.push('/')} name='Back'/>
-              {
-                user &&
-                <>
-                  <Button onClick={handleEditClicked} name='Edit Content'/>
-                </>
-              }
-            <h3 className='content-title'>{content.title}</h3>
+    <div className='copy-view' key={content.id}>
+      <Header user={user} />
+      {fetchedContent && content.content ? (
+        <>
+          <Button onClick={() => history.push('/')} name='Back' />
+          {user && (
+            <>
+              <Button onClick={handleEditClicked} name='Edit Content' />
+            </>
+          )}
+          <div className='copy-content-container'>
             <div className='copy-content'>
-              <ArticleContent articleContent={content.content}/>
+              <h3 className='content-title'>{content.title}</h3>
+              <ArticleContent articleContent={content.content} />
             </div>
-          </>
-        ) : (
-            <Loading/>
-        )
-      }
+          </div>
+        </>
+      ) : (
+        <Loading />
+      )}
     </div>
   )
 }

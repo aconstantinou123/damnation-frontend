@@ -1,11 +1,25 @@
 .copy-view {
-  width: 50rem;
   align-items: center;
   text-align: center;
 }
 
-.copy-content {
-  padding: 2rem;
+.copy-content-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .copy-content {
+    padding: 2rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .copy-content {
+    padding: 2rem;
+    max-width: 60%;
+  }
 }
 
 .content-title {

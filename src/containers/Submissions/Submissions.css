@@ -1,5 +1,9 @@
-.submissions-container {
+.submissions-page {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.submissions-container {
+  max-width: 1150px;
 }

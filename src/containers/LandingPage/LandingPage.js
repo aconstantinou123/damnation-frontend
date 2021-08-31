@@ -53,49 +53,51 @@ const LandingPage = ({
   return (
     <>
       <main className='landing-page'>
-        <Header
-          user={user}
-        />
-        {articlesFetched ? (
-          <>
-            {
-              mainArticle.length ? (
-                <>
-                  <ArticleMain 
-                    articles={mainArticle}
-                    setArticleToView={setArticleToView}
-                  />
-                  <div className='hr-container'>
-                    <hr className='solid-thin'></hr>
+        <div className='landing-page-container'>
+          `<Header
+            user={user}
+          />
+          {articlesFetched ? (
+            <>
+              {
+                mainArticle.length ? (
+                  <>
+                    <ArticleMain 
+                      articles={mainArticle}
+                      setArticleToView={setArticleToView}
+                    />
+                    <div className='hr-container'>
+                      <hr className='solid-thin'></hr>
+                    </div>
+                  </>
+                ) : <></>
+              }
+              {
+                nonMainArticles.length ?
+                <ArticleList 
+                  articles={nonMainArticles}
+                  setArticleToView={setArticleToView}
+                />
+                : <></>
+              }
+              {
+                articleCount &&
+                  <div className='pagination-container'>
+                    <Pagination
+                      // className="pagination"
+                      activePage={currentPage}
+                      itemsCountPerPage={9}
+                      totalItemsCount={articleCount}
+                      pageRangeDisplayed={5}
+                      onChange={handlePageChange}
+                    />
                   </div>
-                </>
-              ) : <></>
-            }
-            {
-              nonMainArticles.length ?
-              <ArticleList 
-                articles={nonMainArticles}
-                setArticleToView={setArticleToView}
-              />
-              : <></>
-            }
-            {
-              articleCount &&
-                <div className='pagination-container'>
-                  <Pagination
-                    // className="pagination"
-                    activePage={currentPage}
-                    itemsCountPerPage={9}
-                    totalItemsCount={articleCount}
-                    pageRangeDisplayed={5}
-                    onChange={handlePageChange}
-                  />
-                </div>
-            }
-          </>
-        ) : (
-          <Loading/>
-        )}
+              }
+            </>
+          ) : (
+            <Loading/>
+          )}
+        </div>
       </main>
       <Footer />
     </>

@@ -1,3 +1,13 @@
+.archive-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.archive-page-container {
+  max-width: 1150px;
+}
+
 .pagination-container {
   width: 100;
   display: flex;

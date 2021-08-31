@@ -1,3 +1,13 @@
+.search-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.search-page-container {
+  max-width: 1150px;
+}
+
 .pagination-container {
   width: 100;
   display: flex;

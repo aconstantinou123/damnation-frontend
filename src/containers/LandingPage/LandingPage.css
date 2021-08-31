@@ -1,6 +1,12 @@
 .landing-page {
   /* background-color: greenyellow; */
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.landing-page-container {
+  max-width: 1150px;
 }
 
 .hr-container {

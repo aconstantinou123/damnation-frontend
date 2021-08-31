@@ -57,36 +57,38 @@ const ArchiveArticle = ({
     setCurrentPage(data)
   }
   return (
-    <>
-      <Header
-        user={user}
-      />
-      {
-        articlesFetched ? (
-          <>
-            <ArticleList 
-              articles={articles}
-              setArticleToView={setArticleToView}
-            />
-            {
-              articleCount &&
-                <div className='pagination-container'>
-                  <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={9}
-                    totalItemsCount={articleCount}
-                    pageRangeDisplayed={5}
-                    onChange={handlePageChange}
-                  />
-                </div>
-            }
-          </>
-        ) : (
-          <Loading/>
-        )
-      }
-    </>
-  )
+    <main className='archive-page'>
+      <div className='archive-page-container'>
+          <Header
+            user={user}
+          />
+          {
+            articlesFetched ? (
+              <>
+                <ArticleList 
+                  articles={articles}
+                  setArticleToView={setArticleToView}
+                />
+                {
+                  articleCount &&
+                    <div className='pagination-container'>
+                      <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={9}
+                        totalItemsCount={articleCount}
+                        pageRangeDisplayed={5}
+                        onChange={handlePageChange}
+                      />
+                    </div>
+                }
+              </>
+            ) : (
+              <Loading/>
+            )
+          }
+        </div>
+      </main>
+    )
 }
 
 const mapDispatchToProps = (dispatch) => {
