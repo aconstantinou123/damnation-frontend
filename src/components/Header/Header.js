@@ -42,6 +42,8 @@ const Header = ({
   <>
     <Title />
     <div className='header-button-container'>
+      <div className='header-div-1'></div>
+      <div className='header-div-2'>
       {/* <Link className='link' to='/about'>About</Link> */}
       <Link className='link' to='/submissions'>Submissions</Link>
       <Link className='link' to='/' onClick={handleHomeClick}>Home</Link>
@@ -49,26 +51,29 @@ const Header = ({
       {
         user && (
           <>
-            <Link className='link' to='/create' onClick={handleCreateArticleClick}>Create Article</Link>
+            <Link className='link' to='/create' onClick={handleCreateArticleClick}>Create</Link>
             <Link className='link' to='/logout'>Logout</Link>
           </>
         )
       }
-      <div className="search-container">
-        <form onSubmit={handleSearchSubmit}>
-          <input 
-            className='search-input' 
-            type="text" 
-            placeholder="Search.." 
-            name="search"
-            value={searchValue}
-            onChange={handleSearchOnChange}
-            />
-          <button type="submit">Submit</button>
-        </form>
+      </div>
+      <div className='header-div-3'>
+        <div className="search-container">
+          <form onSubmit={handleSearchSubmit}>
+            <input 
+              className='search-input' 
+              type="text" 
+              placeholder="Search.." 
+              name="search"
+              value={searchValue}
+              onChange={handleSearchOnChange}
+              />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
-    </div>
-    <div className='hr-container'>
+    <div className='header-hr-container'>
       <hr className='solid-thick'></hr>
     </div>
   </>
