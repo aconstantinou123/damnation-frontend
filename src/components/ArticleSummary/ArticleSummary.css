@@ -5,6 +5,7 @@ ul {
 
 .article-summary  {
   list-style-type: none;
+  cursor: pointer;
 }
 
 .article-summary  > div {
@@ -45,6 +46,8 @@ ul {
 
 .article-summary-main  {
   list-style-type: none;
+  cursor: pointer;
+
 }
 
 .article-summary-main  > div {
