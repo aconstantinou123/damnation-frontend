@@ -6,4 +6,5 @@
 
 .submissions-container {
   max-width: 1150px;
+  min-height: calc(100vh - 3.6rem);
 }

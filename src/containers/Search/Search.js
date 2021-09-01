@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import Header from '../../components/Header/Header'
 import ArticleList from '../../components/ArticleList/ArticleList'
 import Loading from '../../components/Loading/Loading'
+import Footer from '../../components/Footer/Footer'
 
 import * as articleActions from '../../actions/articleActions'
 import * as archiveActions from '../../actions/archiveActions'
@@ -55,38 +56,41 @@ const Search = ({
     setCurrentPage(data)
   }
   return (
-    <main className='search-page'>
-      <div className='search-page-container'>
-          <Header
-            user={user}
-          />
-          {
-            articlesFetched ? (
-              <>
-                <ArticleList 
-                  articles={articles}
-                  setArticleToView={setArticleToView}
-                />
-                {
-                  articleCount ?
-                    <div className='pagination-container'>
-                      <Pagination
-                        activePage={currentPage}
-                        itemsCountPerPage={9}
-                        totalItemsCount={articleCount}
-                        pageRangeDisplayed={5}
-                        onChange={handlePageChange}
-                      />
-                    </div>
-                    : <></>
-                }
-              </>
-            ) : (
-              <Loading/>
-            )
-          }
-      </div>
-    </main>
+    <>
+      <main className='search-page'>
+        <div className='search-page-container'>
+            <Header
+              user={user}
+            />
+            {
+              articlesFetched ? (
+                <>
+                  <ArticleList 
+                    articles={articles}
+                    setArticleToView={setArticleToView}
+                  />
+                  {
+                    articleCount ?
+                      <div className='pagination-container'>
+                        <Pagination
+                          activePage={currentPage}
+                          itemsCountPerPage={9}
+                          totalItemsCount={articleCount}
+                          pageRangeDisplayed={5}
+                          onChange={handlePageChange}
+                        />
+                      </div>
+                      : <></>
+                  }
+                </>
+              ) : (
+                <Loading/>
+              )
+            }
+        </div>
+      </main>
+      <Footer/>
+    </>
   )
 }
 

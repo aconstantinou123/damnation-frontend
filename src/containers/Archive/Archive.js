@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import ArchiveView from '../../components/ArchiveView/ArchiveView'
+import Footer from '../../components/Footer/Footer'
 
 import * as archiveActions from '../../actions/archiveActions'
 import * as articleActions from '../../actions/articleActions'
@@ -26,13 +27,16 @@ const Archive = ({
   }, [setCurrentPage])
 
   return (
-    <div className='archive-container'>
-      <ArchiveView
-        archiveDates={archiveDates}
-        user={user}
-        archiveDatesFetched={archiveDatesFetched}
-      />
-    </div>
+    <>
+      <div className='archive-container'>
+        <ArchiveView
+          archiveDates={archiveDates}
+          user={user}
+          archiveDatesFetched={archiveDatesFetched}
+        />
+      </div>
+      <Footer/>
+    </>
   )
 }
 

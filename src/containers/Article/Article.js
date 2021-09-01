@@ -1,12 +1,14 @@
-import { connect } from "react-redux"
-import { useParams } from "react-router-dom"
-import { bindActionCreators } from "redux"
-import { useEffect } from "react"
+import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { useEffect } from 'react'
 
-import "./Article.css";
+import './Article.css';
 
-import ArticleView from "../../components/ArticleView/ArticleView"
-import Loading from "../../components/Loading/Loading"
+import ArticleView from '../../components/ArticleView/ArticleView'
+import Loading from '../../components/Loading/Loading'
+import Footer from '../../components/Footer/Footer'
+import Header from '../../components/Header/Header'
 
 import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
@@ -39,20 +41,24 @@ const Article = ({
     }
   }, [fetchArticle, currentArticle, id, articleSubmitted, resetSubmit]);
   return (
-    <div className="article-container">
-      {
-        articleFetched || currentArticle
-        ? <ArticleView 
-            article={currentArticle}
-            user={user}
-            selectArticleToEdit={selectArticleToEdit}
-            deleteArticle={deleteArticle}
-            location={location}
-          />
-        : <Loading/>
-      }
-      
-    </div>
+    <>
+      <Header/>
+      <div className='article-container'>
+        {
+          articleFetched || currentArticle
+          ? <ArticleView 
+              article={currentArticle}
+              user={user}
+              selectArticleToEdit={selectArticleToEdit}
+              deleteArticle={deleteArticle}
+              location={location}
+            />
+          : <Loading/>
+        }
+        
+      </div>
+      <Footer/>
+    </>
   )
 }
 

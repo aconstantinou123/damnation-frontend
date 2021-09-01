@@ -1,3 +1,8 @@
 .article-content {
   padding-top: 2em;
 }
+
+.DraftEditor-root {
+  font-family: 'Hina Mincho', serif;
+  /* width: 100%; */
+}

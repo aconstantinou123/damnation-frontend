@@ -1,17 +1,17 @@
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import ContentView from '../../components/ContentView/ContentView'
+import Footer from '../../components/Footer/Footer'
 
 import './Submissions.css'
 
 import * as contentActions from '../../actions/contentActions'
-import { useEffect } from 'react';
 
 
 const Submissions = ({ 
   fetchContent,
-  fetchedContent,
   content,
   user,
   setContentToEdit,
@@ -22,16 +22,19 @@ const Submissions = ({
   }, [fetchContent])
   const { submissions } = content
   return (
-    <div className='submissions-page'>
-      <div className='submissions-container'>
-        <ContentView 
-          content={submissions}
-          fetchedContent={fetchContent}
-          user={user}
-          selectContentToEdit={setContentToEdit}
-        />
+    <>
+      <div className='submissions-page'>
+        <div className='submissions-container'>
+          <ContentView 
+            content={submissions}
+            fetchedContent={fetchContent}
+            user={user}
+            selectContentToEdit={setContentToEdit}
+          />
+        </div>
       </div>
-    </div>
+      <Footer/>
+    </>
   )
 }
 

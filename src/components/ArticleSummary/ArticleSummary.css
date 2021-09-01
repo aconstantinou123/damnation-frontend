@@ -68,10 +68,12 @@ ul {
 .article-summary-main > h3 {
   padding: .75rem;
   font-size: 1.25rem;
+  padding-bottom: 0;
 }
 
 .article-summary-main > h4 {
   padding: .75rem;
+  padding-top: 2rem;
   padding-bottom: 0;
 
 }

@@ -1,32 +1,23 @@
 /* Typography imported from Google Fonts */
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro:200,400');
+/* @import url('https://fonts.googleapis.com/css?family=Playfair+Display|Source+Sans+Pro:200,400'); */
+@import url('https://fonts.googleapis.com/css2?family=Besley|Hina+Mincho:200,400');
 
 body {
   padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Besley', serif;
 }
 
-p, a {
-  font-family: 'Source Sans Pro', sans-serif;
+p, a, button, input, textarea, label {
+  font-family:  'Hina Mincho', serif;
 }
 
 /* Generic styles */
 html {
   scroll-behavior: smooth;
 }
-
-/* a {
-  background-color: goldenrod;
-  text-decoration: none;
-  color: white;
-  border-radius: .25rem;
-  text-align: center;
-  display: inline-block;
-  transition: all .3s;
-} */
 
 a:hover {
   opacity: .6;
