@@ -42,20 +42,21 @@ const Article = ({
   }, [fetchArticle, currentArticle, id, articleSubmitted, resetSubmit]);
   return (
     <>
-      <Header/>
-      <div className='article-container'>
-        {
-          articleFetched || currentArticle
-          ? <ArticleView 
-              article={currentArticle}
-              user={user}
-              selectArticleToEdit={selectArticleToEdit}
-              deleteArticle={deleteArticle}
-              location={location}
-            />
-          : <Loading/>
-        }
-        
+      <div className='article-page'>
+        <div className='article-container'>
+          <Header/>
+          {
+            articleFetched || currentArticle
+            ? <ArticleView 
+                article={currentArticle}
+                user={user}
+                selectArticleToEdit={selectArticleToEdit}
+                deleteArticle={deleteArticle}
+                location={location}
+              />
+            : <Loading/>
+          }
+        </div>
       </div>
       <Footer/>
     </>

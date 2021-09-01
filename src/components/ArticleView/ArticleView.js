@@ -37,7 +37,6 @@ const ArticleView = ({
   }
   return (
     <div className="article-view" key={article.id}>
-      <div className='article-button-container'>
         <Button onClick={handleBackClicked} name='Back'/>
         {
           user &&
@@ -46,14 +45,17 @@ const ArticleView = ({
             <Button onClick={handleDeleteClicked} name='Delete Article'/>
           </>
         }
+      <div className='article-view-content-container'>
+        <div className='article-view-content'>
+          <h3>{article.title}</h3>
+          <p>By {article.author} {article.date}</p>  
+          <div>
+            <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
+          </div>
+          <ArticleContent articleContent={article.content}/>
+        </div>
       </div>
-      <h3>{article.title}</h3>
-      <p>By {article.author} {article.date}</p>  
-      <div>
-        <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
-      </div>
-      {/* <p>{article.content}</p> */}
-      <ArticleContent articleContent={article.content}/>
+      
       {
         showModal &&
         <Modal

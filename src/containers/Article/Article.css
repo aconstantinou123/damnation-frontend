@@ -1,6 +1,10 @@
-.article-container {
+.article-page {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.article-container {
+  max-width: 1150px;
   min-height: calc(100vh - 3.6rem);
 }
