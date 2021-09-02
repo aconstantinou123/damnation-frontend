@@ -56,6 +56,7 @@ const ArchiveArticle = ({
 
   const handlePageChange = data => {
     setCurrentPage(data)
+    window.scrollTo(0, 0)
   }
   return (
     <>

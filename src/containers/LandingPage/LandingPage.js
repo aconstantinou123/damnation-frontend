@@ -13,7 +13,6 @@ import * as archiveActions from '../../actions/archiveActions'
 import * as articleActions from '../../actions/articleActions'
 
 import history from '../../history'
-// import Loading from '../../assets/loading.gif'
 
 import './LandingPage.css'
 
@@ -62,6 +61,7 @@ const LandingPage = ({
 
   const handlePageChange = data => {
     setCurrentPage(data)
+    window.scrollTo(0, 0)
   }
   
 
