@@ -26,9 +26,10 @@ export const fetchArchiveDates = () => async (dispatch) => {
   dispatch(archiveDatesFetching())
   try {
     const response = await axios.get(`${APP_URL}/api/article-dates`)
-    const sortedDates = response.data.dates.sort((a, b) => {
-      return moment(moment(b)).diff(moment(a));
-    })
+    const sortedDates = response.data.dates
+      .map(strDate => moment(strDate, 'MMMM YYYY'))
+      .sort((a, b) => moment(b).diff(a))
+      .map(date => date.format('MMMM YYYY'))
     dispatch(archiveDatesFetched(sortedDates))
   } catch (err) {
     dispatch(articleDatesError(err))

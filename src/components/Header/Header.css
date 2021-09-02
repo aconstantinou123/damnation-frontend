@@ -7,6 +7,7 @@
 
 .social-media-container > img {
   height: 2rem;
+  cursor: pointer;
 }
 
 .header-button-container {
@@ -23,7 +24,7 @@
   align-items: center;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   .header-button-container {
     padding-top: 2rem;
     padding-left: 3rem;
@@ -96,7 +97,7 @@
   outline: none;
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 1000px) {
   .search-container {
     padding-top: 1.5rem;
   }
