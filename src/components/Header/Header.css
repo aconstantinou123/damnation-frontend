@@ -1,3 +1,14 @@
+.social-media-container {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 3rem;
+  padding-top: 1rem;
+}
+
+.social-media-container > img {
+  height: 2rem;
+}
+
 .header-button-container {
   padding-top: 2rem;
   display: flex;

@@ -38,8 +38,20 @@ const Header = ({
     setSearchValue('')
   }
 
+  const onEmailClick = () => {
+    window.open('mailto:damnationsubs@gmail.com?subject=Subject&body=Hello%20Damnation%20team')
+  }
+
+  const onTwitterClick = () => {
+    window.open('https://twitter.com/DamnationLit')
+  }
+
   return (
   <>
+    <div className='social-media-container'>
+      <img src='/assets/twitter.png' alt='Twitter logo' onClick={onTwitterClick}/>
+      <img src='/assets/email.png' alt='Email logo' onClick={onEmailClick}/>
+    </div>
     <Title />
     <div className='header-button-container'>
       <div className='header-div-1'></div>

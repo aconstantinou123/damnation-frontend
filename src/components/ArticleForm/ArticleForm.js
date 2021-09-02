@@ -1,7 +1,7 @@
 import moment from 'moment'
-import ArticleTextEditor from "../ArticleTextEditor/ArticleTextEditor"
+import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
 
-import "./ArticleForm.css"
+import './ArticleForm.css'
 
 const ArticleForm = ({
   saveArticleTitle,
@@ -63,67 +63,67 @@ const ArticleForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <h3>{formName}</h3>
-      <div className="input-container">
-        <label className="article-form-label" for="title">Title</label>
+      <div className='input-container'>
+        <label className='article-form-label' for='title'>Title</label>
         <input
-          className="article-form-input"
-          id="title"
-          type="text"
+          className='article-form-input'
+          id='title'
+          type='text'
           value={articleTitle}
-          name="title"
+          name='title'
           onChange={onTitleChange}
           required
         />
       </div>
-      <div className="input-container">
-        <label className="article-form-label" for="author">Author</label>
+      <div className='input-container'>
+        <label className='article-form-label' for='author'>Author</label>
         <input
-          className="article-form-input"
-          id="author"
-          type="text"
+          className='article-form-input'
+          id='author'
+          type='text'
           value={articleAuthor}
-          name="author"
+          name='author'
           onChange={onAuthorChange}
           required
         />
       </div>
-      <div className="input-container">
-        <label className="article-form-label" for="image-url">Image Url</label>
+      <div className='input-container'>
+        <label className='article-form-label' for='image-url'>Image Url</label>
         <input
-          className="article-form-input"
-          id="image-url"
-          type="text"
+          className='article-form-input'
+          id='image-url'
+          type='text'
           value={articleImgUrl}
-          name="image-url"
+          name='image-url'
           onChange={onImgUrlChange}
           required
         />
       </div>
-      <div className="input-container">
-        <label for="summary">Summary</label>
+      <div className='input-container'>
+        <label for='summary'>Summary</label>
         <textarea
-          className="summary"
-          id="summary"
-          type="text"
+          className='summary'
+          id='summary'
+          type='text'
           value={articleSummary}
-          name="summary"
+          name='summary'
           onChange={onSummaryChange}
           required
         />
       </div>
-      <div className="is-main-container">
-        <label for="is-main">Main Article?</label>
+      <div className='is-main-container'>
+        <label for='is-main'>Main Article?</label>
         <input
-          className="is-main"
-          id="is-main"
-          type="checkbox"
+          className='is-main'
+          id='is-main'
+          type='checkbox'
           checked={articleIsMain}
           value={articleIsMain}
-          name="is-main"
+          name='is-main'
           onChange={onIsMainChange}
         />
       </div>
-      <div className="content-label">
+      <div className='content-label'>
         <p>Content</p>
       </div>
       <ArticleTextEditor 
@@ -135,7 +135,7 @@ const ArticleForm = ({
           <p className='article-error'>{articleError}</p>
         )
       }
-      <input className='submit-button' type="submit" value="Submit"></input>
+      <input className='submit-button' type='submit' value='Submit'></input>
     </form>
   );
 };
