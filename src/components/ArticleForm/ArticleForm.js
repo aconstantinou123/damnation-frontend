@@ -1,6 +1,8 @@
 import moment from 'moment'
 import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
 
+import history from '../../history'
+
 import './ArticleForm.css'
 
 const ArticleForm = ({
@@ -61,10 +63,12 @@ const ArticleForm = ({
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>{formName}</h3>
+    <form className='article-form' onSubmit={handleSubmit}>
+      <div className='article-form-header-container'>
+        <h3>{formName}</h3>
+      </div>
       <div className='input-container'>
-        <label className='article-form-label' for='title'>Title</label>
+        <label className='article-form-label' htmlFor='title'>Title</label>
         <input
           className='article-form-input'
           id='title'
@@ -76,7 +80,7 @@ const ArticleForm = ({
         />
       </div>
       <div className='input-container'>
-        <label className='article-form-label' for='author'>Author</label>
+        <label className='article-form-label' htmlFor='author'>Author</label>
         <input
           className='article-form-input'
           id='author'
@@ -88,7 +92,7 @@ const ArticleForm = ({
         />
       </div>
       <div className='input-container'>
-        <label className='article-form-label' for='image-url'>Image Url</label>
+        <label className='article-form-label' htmlFor='image-url'>Image Url</label>
         <input
           className='article-form-input'
           id='image-url'
@@ -100,7 +104,7 @@ const ArticleForm = ({
         />
       </div>
       <div className='input-container'>
-        <label for='summary'>Summary</label>
+        <label htmlFor='summary'>Summary</label>
         <textarea
           className='summary'
           id='summary'
@@ -112,7 +116,7 @@ const ArticleForm = ({
         />
       </div>
       <div className='is-main-container'>
-        <label for='is-main'>Main Article?</label>
+        <label htmlFor='is-main'>Main Article?</label>
         <input
           className='is-main'
           id='is-main'
@@ -123,19 +127,24 @@ const ArticleForm = ({
           onChange={onIsMainChange}
         />
       </div>
-      <div className='content-label'>
-        <p>Content</p>
+      <div className='article-form-text-editor'>
+        <div className='content-label'>
+          <p>Content</p>
+        </div>
+          <ArticleTextEditor 
+            saveArticleContent={saveArticleContent}
+            articleContent={articleContent}
+          />
       </div>
-      <ArticleTextEditor 
-        saveArticleContent={saveArticleContent}
-        articleContent={articleContent}
-      />
       {
         articleError && (
           <p className='article-error'>{articleError}</p>
         )
       }
-      <input className='submit-button' type='submit' value='Submit'></input>
+      <div className='article-form-submit-container'>
+        <input className='submit-button' type='submit' value='Submit'></input>
+        <button className='submit-button' onClick={() => history.goBack()}>Cancel</button>
+      </div>
     </form>
   );
 };

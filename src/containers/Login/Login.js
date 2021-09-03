@@ -34,7 +34,7 @@ const Login = ({
   return(
     <div className='login-wrapper'>
       <h1>Please Log In</h1>
-      <form onSubmit={handleOnSubmit}>
+      <form className='login-form' onSubmit={handleOnSubmit}>
         <label className='login-label'>
           <p>Email</p>
           <input 
@@ -52,7 +52,7 @@ const Login = ({
           />
         </label>
         <div className='login-submit-container'>
-          <button className='submit-button' type='submit'>Submit</button>
+          <button className='login-submit-button' type='submit'>Submit</button>
         </div>
         {
           (userError && userError.message === 'Request failed with status code 401') &&

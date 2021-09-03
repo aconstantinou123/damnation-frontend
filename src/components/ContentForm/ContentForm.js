@@ -1,6 +1,8 @@
-import ArticleTextEditor from "../ArticleTextEditor/ArticleTextEditor"
+import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
 
-import "./ContentForm.css"
+import history from '../../history'
+
+import './ContentForm.css'
 
 const ContentForm = ({
   saveContentTitle,
@@ -31,14 +33,14 @@ const ContentForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <h3>{formName}</h3>
-      <div className="input-container">
-        <label className="content-form-label" for="title">Title</label>
+      <div className='content-form-input-container'>
+        <label className='content-form-label' for='title'>Title</label>
         <input
-          className="content-form-input"
-          id="title"
-          type="text"
+          className='content-form-input'
+          id='title'
+          type='text'
           value={content.title}
-          name="title"
+          name='title'
           onChange={onTitleChange}
           required
         />
@@ -52,7 +54,10 @@ const ContentForm = ({
           <p className='content-error'>{contentError}</p>
         )
       }
-      <input className='submit-button' type="submit" value="Submit"></input>
+      <div className='content-form-submit-container'>
+        <input className='content-form-submit-button' type='submit' value='Submit'></input>
+        <button className='content-form-submit-button' onClick={() => history.goBack()}>Cancel</button>
+      </div>
     </form>
   );
 };
