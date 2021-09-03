@@ -52,7 +52,10 @@ const Header = ({
       <img src='/assets/twitter.png' alt='Twitter logo' onClick={onTwitterClick}/>
       <img src='/assets/email.png' alt='Email logo' onClick={onEmailClick}/>
     </div>
-    <Title />
+    <Title
+      setCurrentPage={setCurrentPage}
+      resetDate={resetDate}
+    />
     <div className='header-button-container'>
       <div className='header-div-1'></div>
       <div className='header-div-2'>
