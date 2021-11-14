@@ -69,7 +69,7 @@ const LandingPage = ({
     <>
       <main className='landing-page'>
         <div className='landing-page-container'>
-          `<Header
+          <Header
             user={user}
           />
           {articlesFetched ? (
