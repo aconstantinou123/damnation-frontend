@@ -102,7 +102,7 @@ const LandingPage = ({
                       // className="pagination"
                       activePage={currentPage}
                       itemsCountPerPage={9}
-                      totalItemsCount={articleCount}
+                      totalItemsCount={articleCount - 1}
                       pageRangeDisplayed={5}
                       onChange={handlePageChange}
                     />
