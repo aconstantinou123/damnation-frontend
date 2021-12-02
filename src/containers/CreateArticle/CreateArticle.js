@@ -8,14 +8,17 @@ import ArticleForm from "../../components/ArticleForm/ArticleForm"
 import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
 
-const CreateArticle = ({ 
+const CreateArticle = ({
+  setFileUploaded,
   saveArticleTitle,
   saveArticleAuthor,
   saveArticleImgUrl,
   saveArticleSummary,
   saveArticleIsMain,
   saveArticleContent,
+  saveArticleFile,
   submitArticleCreate,
+  selectedFile,
   articleId,
   articleDate,
   articleTitle,
@@ -25,18 +28,22 @@ const CreateArticle = ({
   articleIsMain,
   articleContent,
   articleError,
+  articleFileUploaded,
 }) => {
   return (
     <div className="create-article-container">
       <ArticleForm
         formName='Create new article'
+        setFileUploaded={setFileUploaded}
         saveArticleTitle={saveArticleTitle}
         saveArticleAuthor={saveArticleAuthor}
         saveArticleImgUrl={saveArticleImgUrl}
         saveArticleSummary={saveArticleSummary}
         saveArticleIsMain={saveArticleIsMain}
         saveArticleContent={saveArticleContent}
+        saveArticleFile={saveArticleFile}
         submitArticle={submitArticleCreate}
+        selectedFile={selectedFile}
         articleId={articleId}
         articleDate={articleDate}
         articleTitle={articleTitle}
@@ -46,6 +53,7 @@ const CreateArticle = ({
         articleIsMain={articleIsMain}
         articleContent={articleContent}
         articleError={articleError}
+        articleFileUploaded={articleFileUploaded}
       />
     </div>
   )

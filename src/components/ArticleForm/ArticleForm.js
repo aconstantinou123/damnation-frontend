@@ -1,17 +1,21 @@
 import moment from 'moment'
-import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
 
+import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
+import FileUploadPage from '../FileUpload/FileUpload';
 import history from '../../history'
 
 import './ArticleForm.css'
 
 const ArticleForm = ({
+  setFileUploaded,
   saveArticleTitle,
   saveArticleAuthor,
   saveArticleImgUrl,
   saveArticleSummary,
   saveArticleIsMain,
   saveArticleContent,
+  saveArticleFile,
+  selectedFile,
   articleId,
   articleDate,
   submitArticle,
@@ -23,6 +27,7 @@ const ArticleForm = ({
   articleContent,
   formName,
   articleError,
+  articleFileUploaded,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -127,7 +132,7 @@ const ArticleForm = ({
           onChange={onIsMainChange}
         />
       </div>
-      <div className='article-form-text-editor'>
+      {/* <div className='article-form-text-editor'>
         <div className='content-label'>
           <p>Content</p>
         </div>
@@ -135,7 +140,13 @@ const ArticleForm = ({
             saveArticleContent={saveArticleContent}
             articleContent={articleContent}
           />
-      </div>
+      </div> */}
+      <FileUploadPage
+        setFileUploaded={setFileUploaded}
+        saveArticleFile={saveArticleFile}
+        articleFileUploaded={articleFileUploaded}
+        selectedFile={selectedFile}
+      />
       {
         articleError && (
           <p className='article-error'>{articleError}</p>

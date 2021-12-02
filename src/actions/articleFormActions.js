@@ -6,6 +6,7 @@ import {
   DELETE_ARTICLE_PENDING,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
+  SET_FILE_UPLOADED,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
@@ -13,6 +14,9 @@ import {
   SAVE_ARTICLE_SUMMARY,
   SAVE_ARTICLE_IS_MAIN,
   SELECT_ARTICLE_TO_EDIT,
+  SAVE_ARTICLE_FILE_PENDING,
+  SAVE_ARTICLE_FILE_SUCCESS,
+  SAVE_ARTICLE_FILE_ERROR,
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
@@ -50,8 +54,50 @@ export const saveArticleIsMain = () => ({
 
 export const selectArticleToEdit = (payload) => ({
   type: SELECT_ARTICLE_TO_EDIT,
-  payload
+  payload,
 })
+
+export const setFileUploaded = (payload) => ({
+  type: SET_FILE_UPLOADED,
+  payload,
+})
+
+export const saveArticleFilePending = () => ({
+  type: SAVE_ARTICLE_FILE_PENDING,
+})
+
+export const saveArticleFileSuccess = (payload) => ({
+  type: SAVE_ARTICLE_FILE_SUCCESS,
+  payload,
+})
+
+export const saveArticleFileError = (error) => ({
+  type: SAVE_ARTICLE_FILE_ERROR,
+  payload: error
+})
+
+export const saveArticleFile = (selectedFile) => async (dispatch, getState) => {
+  dispatch(saveArticleFilePending())
+  const { userReducer } = getState()
+  const { token } = userReducer
+  if (!selectedFile) {
+    return dispatch(saveArticleFileError('Article file required'))
+  }
+  try {
+    const formData = new FormData()
+		formData.append('File', selectedFile)
+    const response = await axios.post(`${APP_URL}/api/file`, formData, {
+      headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
+      }
+    })
+    dispatch(saveArticleFileSuccess(response.data.filename))
+    // history.push('/')
+  } catch (err) {
+    dispatch(saveArticleFileError(err))
+  }
+}
 
 const submitArticlePending = () => ({
   type: SUBMIT_CREATE_ARTICLE_PENDING,

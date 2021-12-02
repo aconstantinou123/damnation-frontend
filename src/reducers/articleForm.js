@@ -2,12 +2,16 @@ import {
   DELETE_ARTICLE_PENDING,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
+  SET_FILE_UPLOADED,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
   SAVE_ARTICLE_SUMMARY,
   SAVE_ARTICLE_IS_MAIN,
   SAVE_ARTICLE_IMG_URL,
+  SAVE_ARTICLE_FILE_PENDING,
+  SAVE_ARTICLE_FILE_SUCCESS,
+  SAVE_ARTICLE_FILE_ERROR,
   SELECT_ARTICLE_TO_EDIT,
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
@@ -30,6 +34,12 @@ const defaultState = {
   articleDeletePending: false,
   articleDeleteSuccess: false,
   articleDeleteError: null,
+  articleFileUploaded: false,
+  articleFileSaving: false,
+  articleFileSaved: false,
+  articleFileUrl: '',
+  selectedFile: null,
+  articleFileError: null
 }
 
 const createArticleReducer = (state = defaultState, action) => {
@@ -64,6 +74,35 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleContent: action.payload,
       }
+    case SET_FILE_UPLOADED:
+      return {
+        ...state,
+        selectedFile: action.payload,
+        articleFileUploaded: true,
+      }
+    case SAVE_ARTICLE_FILE_PENDING:
+      return {
+        ...state,
+        articleFileSaving: true,
+        articleFileSaved: false,
+        articleFileError: null,
+      }
+    case SAVE_ARTICLE_FILE_SUCCESS:
+      return {
+        ...state,
+        articleFileSaving: false,
+        articleFileSaved: true,
+        articleFileUrl: action.payload,
+        articleFileError: null,
+      }
+    case SAVE_ARTICLE_FILE_ERROR:
+      return {
+        ...state,
+        articleFileSaving: false,
+        articleFileSaved: false,
+        articleFileUrl: '',
+        articleFileError: action.payload,
+      }
     case SUBMIT_CREATE_ARTICLE_PENDING:
       return {
         ...state,
@@ -85,6 +124,9 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSubmitting: false,
         articleSubmitted: true,
         articleError: null,
+        articleFileUploaded: false,
+        articleFileUrl: '',
+        selectedFile: null,
       }
     case SUBMIT_CREATE_ARTICLE_ERROR:
       return {
