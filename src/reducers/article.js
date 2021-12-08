@@ -5,6 +5,9 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
+  FETCH_EXTERNAL_FILE_PENDING,
+  FETCH_EXTERNAL_FILE_SUCCESS,
+  FETCH_EXTERNAL_FILE_ERROR,
   FETCH_MAIN_ARTICLE_PENDING,
   FETCH_MAIN_ARTICLE_SUCCESS,
   FETCH_MAIN_ARTICLE_ERROR,
@@ -30,6 +33,10 @@ const defaultState = {
   articleFetching: false,
   articleFetched: false,
   articleError: null,
+  externalFileFetching: false,
+  externalFileFetched: false,
+  externalFile: null,
+  externalFileError: null,
   mainArticleFetching: false,
   mainArticleFetched: false,
   mainArticleError: null,
@@ -66,6 +73,30 @@ const articleReducer = (state = defaultState, action) => {
         articlesFetching: false,
         articlesFetched: false,
         articlesError: action.payload,
+      }
+    case FETCH_EXTERNAL_FILE_PENDING:
+      return {
+        ...state,
+        externalFileFetching: true,
+        externalFileFetched: false,
+        externalFile: null,
+        externalFileError: null,
+      }
+    case FETCH_EXTERNAL_FILE_SUCCESS:
+      return {
+        ...state,
+        externalFileFetching: false,
+        externalFileFetched: true,
+        externalFile: action.payload,
+        externalFileError: null,
+      }
+    case FETCH_EXTERNAL_FILE_ERROR:
+      return {
+        ...state,
+        externalFileFetching: false,
+        externalFileFetched: false,
+        externalFile: null,
+        externalFileError: action.payload,
       }
     case FETCH_MAIN_ARTICLE_PENDING:
       return {

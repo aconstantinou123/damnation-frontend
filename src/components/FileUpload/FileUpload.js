@@ -2,7 +2,6 @@ import './FileUpload.css'
 
 const FileUploadPage = ({ 
   setFileUploaded,
-  saveArticleFile,
   articleFileUploaded,
   selectedFile,
  }) => {
@@ -10,10 +9,6 @@ const FileUploadPage = ({
 	const changeHandler = (event) => {
 		setFileUploaded(event.target.files[0])
 	}
-
-	const handleSubmission = () => {
-    saveArticleFile(selectedFile)
-	};
 
 	return(
    <div>
@@ -31,9 +26,6 @@ const FileUploadPage = ({
 			) : (
 				<p>Select a file to show details</p>
 			)}
-			<div>
-				<button onClick={handleSubmission}>Submit</button>
-			</div>
 		</div>
 	)
 }

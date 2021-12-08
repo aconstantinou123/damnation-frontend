@@ -21,6 +21,8 @@ const Article = ({
   user,
   currentArticle,
   fetchArticle,
+  fetchExternalFile,
+  externalFile,
   resetSubmit,
   location,
 }) => {
@@ -32,6 +34,13 @@ const Article = ({
     }
     
   }, [fetchArticle, currentArticle, id]);
+
+  useEffect(() => {
+    if (currentArticle && currentArticle.filename) {
+      fetchExternalFile(currentArticle.filename)
+    }
+    
+  }, [currentArticle, fetchExternalFile]);
 
 
   useEffect(() => {
@@ -50,6 +59,7 @@ const Article = ({
             ? <ArticleView 
                 article={currentArticle}
                 user={user}
+                externalFile={externalFile}
                 selectArticleToEdit={selectArticleToEdit}
                 deleteArticle={deleteArticle}
                 location={location}

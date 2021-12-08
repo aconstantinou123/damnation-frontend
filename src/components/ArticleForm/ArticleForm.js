@@ -8,6 +8,7 @@ import './ArticleForm.css'
 
 const ArticleForm = ({
   setFileUploaded,
+  setIsExternalFile,
   saveArticleTitle,
   saveArticleAuthor,
   saveArticleImgUrl,
@@ -28,6 +29,8 @@ const ArticleForm = ({
   formName,
   articleError,
   articleFileUploaded,
+  articleIsExternalFile,
+  articleFileName,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -49,6 +52,10 @@ const ArticleForm = ({
     saveArticleIsMain()
   }
 
+  const onIsExternalChange = () => {
+    setIsExternalFile()
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const body = {
@@ -61,10 +68,15 @@ const ArticleForm = ({
         date: articleDate || moment().format('Do MMMM YYYY'),
         summary: articleSummary,
         is_main: articleIsMain,
-        content: articleContent
+        content: articleContent || null,
+        filename: articleFileName || null,
       }
     }
-    submitArticle(body)
+    if(articleIsExternalFile) {
+      saveArticleFile(body)
+    } else {
+      submitArticle(body)
+    }
   }
 
   return (
@@ -132,21 +144,39 @@ const ArticleForm = ({
           onChange={onIsMainChange}
         />
       </div>
-      {/* <div className='article-form-text-editor'>
-        <div className='content-label'>
-          <p>Content</p>
-        </div>
-          <ArticleTextEditor 
-            saveArticleContent={saveArticleContent}
-            articleContent={articleContent}
-          />
-      </div> */}
-      <FileUploadPage
-        setFileUploaded={setFileUploaded}
-        saveArticleFile={saveArticleFile}
-        articleFileUploaded={articleFileUploaded}
-        selectedFile={selectedFile}
-      />
+      <div className='is-main-container'>
+        <label htmlFor='is-external'>Upload File?</label>
+        <input
+          className='is-main'
+          id='is-external'
+          type='checkbox'
+          checked={articleIsExternalFile}
+          value={articleIsExternalFile}
+          name='is-external'
+          onChange={onIsExternalChange}
+        />
+      </div>
+      {
+        !articleIsExternalFile ? (
+          <div className='article-form-text-editor'>
+            <div className='content-label'>
+              <p>Content</p>
+            </div>
+              <ArticleTextEditor 
+                saveArticleContent={saveArticleContent}
+                articleContent={articleContent}
+              />
+          </div>
+        ) : (
+          <div className='article-form-text-editor'>
+            <FileUploadPage
+              setFileUploaded={setFileUploaded}
+              articleFileUploaded={articleFileUploaded}
+              selectedFile={selectedFile}
+            />
+          </div>
+        )
+      }
       {
         articleError && (
           <p className='article-error'>{articleError}</p>

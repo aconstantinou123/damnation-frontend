@@ -7,6 +7,7 @@ import {
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
   SET_FILE_UPLOADED,
+  SET_IS_EXTERNAL_FILE,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
@@ -57,6 +58,10 @@ export const selectArticleToEdit = (payload) => ({
   payload,
 })
 
+export const setIsExternalFile = () => ({
+  type: SET_IS_EXTERNAL_FILE,
+})
+
 export const setFileUploaded = (payload) => ({
   type: SET_FILE_UPLOADED,
   payload,
@@ -76,24 +81,32 @@ export const saveArticleFileError = (error) => ({
   payload: error
 })
 
-export const saveArticleFile = (selectedFile) => async (dispatch, getState) => {
+export const saveArticleFile = (body) => async (dispatch, getState) => {
   dispatch(saveArticleFilePending())
   const { userReducer } = getState()
+  const { articleFormReducer } = getState()
   const { token } = userReducer
+  const { selectedFile } = articleFormReducer
   if (!selectedFile) {
     return dispatch(saveArticleFileError('Article file required'))
   }
   try {
     const formData = new FormData()
 		formData.append('File', selectedFile)
-    const response = await axios.post(`${APP_URL}/api/file`, formData, {
+    const response = await axios.post(`${APP_URL}/api/files`, formData, {
       headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'multipart/form-data',
       }
     })
     dispatch(saveArticleFileSuccess(response.data.filename))
-    // history.push('/')
+    dispatch(submitArticleCreate({
+      ...body,
+      article: {
+        ...body.article,
+        filename: response.data.filename
+      }
+    }))
   } catch (err) {
     dispatch(saveArticleFileError(err))
   }
@@ -118,8 +131,8 @@ export const submitArticleCreate = (body) => async (dispatch, getState) => {
   const { userReducer } = getState()
   const { token } = userReducer
   const { article } = body
-  const { content } = article
-  if (!content) {
+  const { content, filename } = article
+  if (!content && !filename) {
     return dispatch(submitArticleError('Article contents required'))
   }
   try {

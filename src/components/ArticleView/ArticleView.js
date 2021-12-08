@@ -13,6 +13,7 @@ const ArticleView = ({
   user,
   deleteArticle,
   location,
+  externalFile
 }) => {
   const [showModal, setShowModal] = useState(false)
   const handleEditClicked = () => {
@@ -35,6 +36,17 @@ const ArticleView = ({
   const handleBackClicked = () => {
     history.push(location)
   }
+
+  const handleArticleLinkClicked = () => {
+    const data = `data:image/jpeg;charset=utf-8;base64,${externalFile}`
+    const w = window.open('about:blank')
+    const image = new Image()
+    image.src = data
+    setTimeout(function(){
+      w.document.write(image.outerHTML)
+    }, 0)
+  }
+
   return (
     <div className="article-view" key={article.id}>
         <Button onClick={handleBackClicked} name='Back'/>
@@ -52,7 +64,13 @@ const ArticleView = ({
           <div>
             <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
           </div>
-          <ArticleContent articleContent={article.content}/>
+          {
+            article.content ? (
+              <ArticleContent articleContent={article.content}/>
+            ) : (
+              <Button onClick={handleArticleLinkClicked} name='View Article'/>
+            )
+          }
         </div>
       </div>
       

@@ -3,6 +3,7 @@ import {
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
   SET_FILE_UPLOADED,
+  SET_IS_EXTERNAL_FILE,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
@@ -26,6 +27,7 @@ const defaultState = {
   articleAuthor: '',
   articleImgUrl: '',
   articleSummary: '',
+  articleIsExternalFile: false,
   articleIsMain: false,
   articleContent: null,
   articleSubmitting: false,
@@ -37,7 +39,7 @@ const defaultState = {
   articleFileUploaded: false,
   articleFileSaving: false,
   articleFileSaved: false,
-  articleFileUrl: '',
+  articleFileName: '',
   selectedFile: null,
   articleFileError: null
 }
@@ -74,6 +76,13 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleContent: action.payload,
       }
+    case SET_IS_EXTERNAL_FILE:
+      return {
+        ...state,
+        articleIsExternalFile: !state.articleIsExternalFile,
+        articleContent: null,
+        selectedFile: null,
+      }
     case SET_FILE_UPLOADED:
       return {
         ...state,
@@ -92,7 +101,7 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleFileSaving: false,
         articleFileSaved: true,
-        articleFileUrl: action.payload,
+        articleFileName: action.payload,
         articleFileError: null,
       }
     case SAVE_ARTICLE_FILE_ERROR:
@@ -100,7 +109,7 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleFileSaving: false,
         articleFileSaved: false,
-        articleFileUrl: '',
+        articleFileName: '',
         articleFileError: action.payload,
       }
     case SUBMIT_CREATE_ARTICLE_PENDING:
@@ -125,7 +134,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSubmitted: true,
         articleError: null,
         articleFileUploaded: false,
-        articleFileUrl: '',
+        articleFileName: '',
         selectedFile: null,
       }
     case SUBMIT_CREATE_ARTICLE_ERROR:

@@ -9,6 +9,7 @@ import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
 
 const CreateArticle = ({
+  setIsExternalFile,
   setFileUploaded,
   saveArticleTitle,
   saveArticleAuthor,
@@ -29,11 +30,14 @@ const CreateArticle = ({
   articleContent,
   articleError,
   articleFileUploaded,
+  articleIsExternalFile,
+  articleFileName,
 }) => {
   return (
     <div className="create-article-container">
       <ArticleForm
         formName='Create new article'
+        setIsExternalFile={setIsExternalFile}
         setFileUploaded={setFileUploaded}
         saveArticleTitle={saveArticleTitle}
         saveArticleAuthor={saveArticleAuthor}
@@ -54,6 +58,8 @@ const CreateArticle = ({
         articleContent={articleContent}
         articleError={articleError}
         articleFileUploaded={articleFileUploaded}
+        articleIsExternalFile={articleIsExternalFile}
+        articleFileName={articleFileName}
       />
     </div>
   )

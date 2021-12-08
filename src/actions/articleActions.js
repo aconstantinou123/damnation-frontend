@@ -8,6 +8,9 @@ import {
   FETCH_ARTICLE_PENDING,
   FETCH_ARTICLE_SUCCESS,
   FETCH_ARTICLE_ERROR,
+  FETCH_EXTERNAL_FILE_PENDING,
+  FETCH_EXTERNAL_FILE_SUCCESS,
+  FETCH_EXTERNAL_FILE_ERROR,
   FETCH_MAIN_ARTICLE_PENDING,
   FETCH_MAIN_ARTICLE_SUCCESS,
   FETCH_MAIN_ARTICLE_ERROR,
@@ -48,6 +51,33 @@ export const fetchArticles = (notMain) => async (dispatch, getState) => {
     dispatch(articlesFetched(response.data))
   } catch (err) {
     dispatch(articlesError(err))
+  }
+}
+
+const fetchExternalFilePending = () => ({
+  type: FETCH_EXTERNAL_FILE_PENDING,
+})
+
+const fetchExternalFileSuccess = (payload) => ({
+  type: FETCH_EXTERNAL_FILE_SUCCESS,
+  payload,
+})
+
+const fetchExternalFileError = (error) => ({
+  type: FETCH_EXTERNAL_FILE_ERROR,
+  payload: error
+})
+
+export const fetchExternalFile = (filename) => async (dispatch) => {
+  dispatch(fetchExternalFilePending())
+  try {
+    const response = await axios.get(`${APP_URL}/api/files/${filename}`, {
+      responseType: 'arraybuffer',
+    })
+    const data = Buffer.from(response.data, "binary").toString("base64")
+    dispatch(fetchExternalFileSuccess(data))
+  } catch (err) {
+    dispatch(fetchExternalFileError(err))
   }
 }
 
