@@ -6,25 +6,28 @@ import {
   DELETE_ARTICLE_PENDING,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
-  SET_FILE_UPLOADED,
-  SET_IS_EXTERNAL_FILE,
+  DELETE_ARTICLE_FILE_PENDING,
+  DELETE_ARTICLE_FILE_SUCCESS,
+  DELETE_ARTICLE_FILE_ERROR,
+  EDIT_ARTICLE_FILE_PENDING,
+  EDIT_ARTICLE_FILE_SUCCESS,
+  EDIT_ARTICLE_FILE_ERROR,
+  RESET_SUBMIT,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
   SAVE_ARTICLE_IMG_URL,
   SAVE_ARTICLE_SUMMARY,
   SAVE_ARTICLE_IS_MAIN,
-  SELECT_ARTICLE_TO_EDIT,
   SAVE_ARTICLE_FILE_PENDING,
   SAVE_ARTICLE_FILE_SUCCESS,
   SAVE_ARTICLE_FILE_ERROR,
-  EDIT_ARTICLE_FILE_PENDING,
-  EDIT_ARTICLE_FILE_SUCCESS,
-  EDIT_ARTICLE_FILE_ERROR,
+  SELECT_ARTICLE_TO_EDIT,
+  SET_FILE_UPLOADED,
+  SET_IS_EXTERNAL_FILE,
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
-  RESET_SUBMIT,
 } from '../constants/types'
 
 export const saveArticleContent = (payload) => ({
@@ -151,8 +154,13 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
     console.log('Same file no change')
     return dispatch(submitArticleEdit(body))
   }
+  //Change type to external
+  else if(selectedFile.name && !article.filename) {
+    console.log('Change type to external')
+    formData.append('NewFile', selectedFile)
+  }
   //Change file
-  else if(selectedFile.name !== article.filename) {
+  else if(selectedFile.name !== article.filename  && articleIsExternalFile) {
     console.log('Change file')
     formData.append('FileToDelete', article.filename)
     formData.append('NewFile', selectedFile)
@@ -174,6 +182,37 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
     }))
   } catch (err) {
     dispatch(editArticleFileError(err))
+  }
+}
+
+const deleteArticleFilePending = () => ({
+  type: DELETE_ARTICLE_FILE_PENDING,
+})
+
+const deleteArticleFileSuccess = (payload) => ({
+  type: DELETE_ARTICLE_FILE_SUCCESS,
+  payload,
+})
+
+const deleteArticleFileError = (error) => ({
+  type: DELETE_ARTICLE_FILE_ERROR,
+  payload: error,
+})
+
+export const deleteArticleFile = (filename) => async (dispatch, getState) => {
+  dispatch(deleteArticleFilePending())
+  const { userReducer } = getState()
+  const { token } = userReducer
+  try {
+    const response = await axios.delete(`${APP_URL}/api/files/${filename}`, {
+      headers: {
+      'Authorization': `Bearer ${token}` 
+      }
+    })
+    dispatch(deleteArticleFileSuccess(response.data))
+    history.push('/')
+  } catch (err) {
+    dispatch(deleteArticleFileError(err))
   }
 }
 
@@ -252,7 +291,7 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
   dispatch(deleteArticlePending())
   const { userReducer } = getState()
   const { articleReducer } = getState()
-  const { location } = articleReducer
+  const { location, currentArticle } = articleReducer
   const { token } = userReducer
   try {
     await axios.delete(`${APP_URL}/api/article/${id}`, {
@@ -261,6 +300,9 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
       }
     })
     dispatch(deleteArticleSuccess())
+    if(currentArticle.filename) {
+      dispatch(deleteArticleFile(currentArticle.filename))
+    }
     history.push(location)
   } catch (err) {
     dispatch(deleteArticleError(err))

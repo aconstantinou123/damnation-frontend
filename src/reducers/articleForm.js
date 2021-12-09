@@ -2,6 +2,9 @@ import {
   DELETE_ARTICLE_PENDING,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE_ERROR,
+  DELETE_ARTICLE_FILE_PENDING,
+  DELETE_ARTICLE_FILE_SUCCESS,
+  DELETE_ARTICLE_FILE_ERROR,
   SET_FILE_UPLOADED,
   SET_IS_EXTERNAL_FILE,
   SAVE_ARTICLE_CONTENT,
@@ -46,6 +49,9 @@ const defaultState = {
   articleFileEditing: false,
   articleFileEdited: false,
   articleFileEditError: null,
+  articleFileDeleting: false,
+  articleFileDeleted: false,
+  articleFileDeleteError: false,
   selectedFile: null,
   articleFileError: null
 }
@@ -215,6 +221,27 @@ const createArticleReducer = (state = defaultState, action) => {
         articleDeletePending: false,
         articleDeleteSuccess: false,
         articleDeleteError: action.payload,
+      }
+    case DELETE_ARTICLE_FILE_PENDING:
+      return {
+        ...state,
+        articleFileDeleting: true,
+        articleFileDeleted: false,
+        articleFileDeleteError: null,
+      }
+    case DELETE_ARTICLE_FILE_SUCCESS:
+      return {
+        ...state,
+        articleFileDeleting: false,
+        articleFileDeleted: true,
+        articleFileDeleteError: null,
+      }
+    case DELETE_ARTICLE_FILE_ERROR:
+      return {
+        ...state,
+        articleFileDeleting: false,
+        articleFileDeleted: false,
+        articleFileDeleteError: action.payload,
       }
     default:
       return state
