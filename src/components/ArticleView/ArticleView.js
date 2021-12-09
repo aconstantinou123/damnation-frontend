@@ -38,13 +38,20 @@ const ArticleView = ({
   }
 
   const handleArticleLinkClicked = () => {
-    const data = `data:image/jpeg;charset=utf-8;base64,${externalFile}`
     const w = window.open('about:blank')
-    const image = new Image()
-    image.src = data
-    setTimeout(function(){
-      w.document.write(image.outerHTML)
-    }, 0)
+    if(article.filename.includes('pdf')) {
+      const data = `data:application/pdf;base64,${encodeURI(externalFile)}`
+      w.document.write(
+        `<iframe width='100%' height='100%' src='${data}'></iframe>`
+      )
+    } else {
+      const data = `data:image/jpeg;charset=utf-8;base64,${externalFile}`
+      const image = new Image()
+      image.src = data
+      setTimeout(function(){
+        w.document.write(image.outerHTML)
+      }, 0)
+    }
   }
 
   return (

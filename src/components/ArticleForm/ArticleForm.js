@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
-import FileUploadPage from '../FileUpload/FileUpload';
+import FileUploadPage from '../FileUpload/FileUpload'
 import history from '../../history'
 
 import './ArticleForm.css'
@@ -17,6 +17,7 @@ const ArticleForm = ({
   saveArticleContent,
   saveArticleFile,
   selectedFile,
+  externalFile,
   articleId,
   articleDate,
   submitArticle,
@@ -56,6 +57,23 @@ const ArticleForm = ({
     setIsExternalFile()
   }
 
+  const handleArticleLinkClicked = () => {
+    const w = window.open('about:blank')
+    if(articleFileName.includes('pdf')) {
+      const data = `data:application/pdf;base64,${encodeURI(externalFile)}`
+      w.document.write(
+        `<iframe width='100%' height='100%' src='${data}'></iframe>`
+      )
+    } else {
+      const data = `data:image/jpeg;charset=utf-8;base64,${externalFile}`
+      const image = new Image()
+      image.src = data
+      setTimeout(function(){
+        w.document.write(image.outerHTML)
+      }, 0)
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const body = {
@@ -72,7 +90,7 @@ const ArticleForm = ({
         filename: articleFileName || null,
       }
     }
-    if(articleIsExternalFile) {
+    if(articleIsExternalFile || articleFileName) {
       saveArticleFile(body)
     } else {
       submitArticle(body)
@@ -157,6 +175,14 @@ const ArticleForm = ({
         />
       </div>
       {
+        (externalFile && articleIsExternalFile) && (
+          <div className='current-file'>
+            <p>Current file:</p>
+            <p className='current-file-link' onClick={handleArticleLinkClicked}>{articleFileName} (Click to view)</p>
+          </div>
+        )
+      }
+      {
         !articleIsExternalFile ? (
           <div className='article-form-text-editor'>
             <div className='content-label'>
@@ -169,6 +195,9 @@ const ArticleForm = ({
           </div>
         ) : (
           <div className='article-form-text-editor'>
+            {
+              externalFile && <p>Select new file:</p>
+            }
             <FileUploadPage
               setFileUploaded={setFileUploaded}
               articleFileUploaded={articleFileUploaded}
@@ -184,7 +213,7 @@ const ArticleForm = ({
       }
       <div className='article-form-submit-container'>
         <input className='submit-button' type='submit' value='Submit'></input>
-        <button className='submit-button' onClick={() => history.goBack()}>Cancel</button>
+        <button type='button' className='submit-button' onClick={() => history.goBack()}>Cancel</button>
       </div>
     </form>
   );

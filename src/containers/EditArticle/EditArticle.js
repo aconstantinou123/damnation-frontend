@@ -9,13 +9,17 @@ import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
 
 const EditArticle = ({ 
+  setIsExternalFile,
+  setFileUploaded,
   saveArticleTitle,
   saveArticleAuthor,
   saveArticleImgUrl,
   saveArticleSummary,
   saveArticleIsMain,
   saveArticleContent,
+  editArticleFile,
   submitArticleEdit,
+  selectedFile,
   articleId,
   articleDate,
   articleTitle,
@@ -25,18 +29,26 @@ const EditArticle = ({
   articleIsMain,
   articleContent,
   articleError,
+  articleFileUploaded,
+  articleIsExternalFile,
+  articleFileName,
+  externalFile,
 }) => {
   return (
     <div className="edit-article-container">
       <ArticleForm
         formName='Edit article'
+        setIsExternalFile={setIsExternalFile}
+        setFileUploaded={setFileUploaded}
         saveArticleTitle={saveArticleTitle}
         saveArticleAuthor={saveArticleAuthor}
         saveArticleImgUrl={saveArticleImgUrl}
         saveArticleSummary={saveArticleSummary}
         saveArticleIsMain={saveArticleIsMain}
         saveArticleContent={saveArticleContent}
+        saveArticleFile={editArticleFile}
         submitArticle={submitArticleEdit}
+        selectedFile={selectedFile}
         articleId={articleId}
         articleDate={articleDate}
         articleTitle={articleTitle}
@@ -46,6 +58,10 @@ const EditArticle = ({
         articleIsMain={articleIsMain}
         articleContent={articleContent}
         articleError={articleError}
+        articleFileUploaded={articleFileUploaded}
+        articleIsExternalFile={articleIsExternalFile}
+        articleFileName={articleFileName}
+        externalFile={externalFile}
       />
     </div>
   )

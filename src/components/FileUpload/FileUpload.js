@@ -13,7 +13,7 @@ const FileUploadPage = ({
 	return(
    <div>
 			<input type="file" name="damnation-file" onChange={changeHandler} />
-			{articleFileUploaded ? (
+			{(articleFileUploaded && selectedFile) ? (
 				<div>
 					<p>Filename: {selectedFile.name}</p>
 					<p>Filetype: {selectedFile.type}</p>

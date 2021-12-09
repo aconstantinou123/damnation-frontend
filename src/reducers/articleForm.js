@@ -10,6 +10,9 @@ import {
   SAVE_ARTICLE_SUMMARY,
   SAVE_ARTICLE_IS_MAIN,
   SAVE_ARTICLE_IMG_URL,
+  EDIT_ARTICLE_FILE_PENDING,
+  EDIT_ARTICLE_FILE_SUCCESS,
+  EDIT_ARTICLE_FILE_ERROR,
   SAVE_ARTICLE_FILE_PENDING,
   SAVE_ARTICLE_FILE_SUCCESS,
   SAVE_ARTICLE_FILE_ERROR,
@@ -40,6 +43,9 @@ const defaultState = {
   articleFileSaving: false,
   articleFileSaved: false,
   articleFileName: '',
+  articleFileEditing: false,
+  articleFileEdited: false,
+  articleFileEditError: null,
   selectedFile: null,
   articleFileError: null
 }
@@ -112,6 +118,29 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileName: '',
         articleFileError: action.payload,
       }
+    case EDIT_ARTICLE_FILE_PENDING:
+      return {
+        ...state,
+        articleFileEditing: true,
+        articleFileEdited: false,
+        articleFileEditError: null,
+      }
+    case EDIT_ARTICLE_FILE_SUCCESS:
+      return {
+        ...state,
+        articleFileEditing: false,
+        articleFileEdited: true,
+        articleFileName: action.payload,
+        articleFileEditError: null,
+      }
+    case EDIT_ARTICLE_FILE_ERROR:
+      return {
+        ...state,
+        articleFileEditing: false,
+        articleFileEdited: false,
+        articleFileName: '',
+        articleFileEditError: action.payload,
+      }
     case SUBMIT_CREATE_ARTICLE_PENDING:
       return {
         ...state,
@@ -162,6 +191,9 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSummary: action.payload.summary,
         articleIsMain: action.payload.is_main,
         articleContent: action.payload.content,
+        articleFileName: action.payload.filename,
+        articleIsExternalFile: !!action.payload.filename,
+
       }
     case DELETE_ARTICLE_PENDING:
       return {

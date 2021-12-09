@@ -19,6 +19,7 @@ import {
   SET_LOCATION,
   SET_DATE,
   RESET_DATE,
+  SET_FILE_UPLOADED,
 } from '../constants/types'
 
 const defaultState = {
@@ -97,6 +98,14 @@ const articleReducer = (state = defaultState, action) => {
         externalFileFetched: false,
         externalFile: null,
         externalFileError: action.payload,
+      }
+    case SET_FILE_UPLOADED:
+      return {
+        ...state,
+        externalFileFetching: false,
+        externalFileFetched: false,
+        externalFile: null,
+        externalFileError: null,
       }
     case FETCH_MAIN_ARTICLE_PENDING:
       return {

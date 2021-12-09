@@ -18,6 +18,9 @@ import {
   SAVE_ARTICLE_FILE_PENDING,
   SAVE_ARTICLE_FILE_SUCCESS,
   SAVE_ARTICLE_FILE_ERROR,
+  EDIT_ARTICLE_FILE_PENDING,
+  EDIT_ARTICLE_FILE_SUCCESS,
+  EDIT_ARTICLE_FILE_ERROR,
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
@@ -112,6 +115,68 @@ export const saveArticleFile = (body) => async (dispatch, getState) => {
   }
 }
 
+const editArticleFilePending = () => ({
+  type: EDIT_ARTICLE_FILE_PENDING,
+})
+
+const editArticleFileSuccess = (payload) => ({
+  type: EDIT_ARTICLE_FILE_SUCCESS,
+  payload
+})
+
+const editArticleFileError = (error) => ({
+  type: EDIT_ARTICLE_FILE_ERROR,
+  payload: error,
+})
+
+export const editArticleFile = (body) => async (dispatch, getState) => {
+  dispatch(editArticleFilePending())
+  const { userReducer } = getState()
+  const { articleFormReducer } = getState()
+  const { token } = userReducer
+  const { article } = body
+  const { selectedFile, articleIsExternalFile } = articleFormReducer
+  const formData = new FormData()
+  //Missing file - shouldn't happen
+  if (!selectedFile && !article.filename) {
+    return dispatch(editArticleFileError('Missing file'))
+  }
+  //Delete file (switch article type) 
+  else if(article.filename && !articleIsExternalFile) {
+    formData.append('FileToDelete', article.filename)
+    console.log('Delete article and switch type')
+  }
+  //Same file
+  else if(!selectedFile && article.filename && articleIsExternalFile) {
+    console.log('Same file no change')
+    return dispatch(submitArticleEdit(body))
+  }
+  //Change file
+  else if(selectedFile.name !== article.filename) {
+    console.log('Change file')
+    formData.append('FileToDelete', article.filename)
+    formData.append('NewFile', selectedFile)
+  }
+  try {
+    const response = await axios.put(`${APP_URL}/api/files`, formData, {
+      headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
+      }
+    })
+    dispatch(editArticleFileSuccess(response.data.filename))
+    dispatch(submitArticleEdit({
+      ...body,
+      article: {
+        ...body.article,
+        filename: response.data.filename
+      }
+    }))
+  } catch (err) {
+    dispatch(editArticleFileError(err))
+  }
+}
+
 const submitArticlePending = () => ({
   type: SUBMIT_CREATE_ARTICLE_PENDING,
 })
@@ -153,8 +218,8 @@ export const submitArticleEdit = (body) => async (dispatch, getState) => {
   const { userReducer } = getState()
   const { token } = userReducer
   const { article } = body
-  const { content } = article
-  if (!content) {
+  const { content, filename } = article
+  if (!content && !filename) {
     return dispatch(submitArticleError('Article contents required'))
   }
   try {
