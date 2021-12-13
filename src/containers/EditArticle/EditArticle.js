@@ -33,6 +33,7 @@ const EditArticle = ({
   articleIsExternalFile,
   articleFileName,
   externalFile,
+  articleFileError,
 }) => {
   return (
     <div className="edit-article-container">
@@ -62,6 +63,7 @@ const EditArticle = ({
         articleIsExternalFile={articleIsExternalFile}
         articleFileName={articleFileName}
         externalFile={externalFile}
+        articleFileError={articleFileError}
       />
     </div>
   )

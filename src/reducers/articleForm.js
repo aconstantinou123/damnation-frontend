@@ -48,10 +48,8 @@ const defaultState = {
   articleFileName: '',
   articleFileEditing: false,
   articleFileEdited: false,
-  articleFileEditError: null,
   articleFileDeleting: false,
   articleFileDeleted: false,
-  articleFileDeleteError: false,
   selectedFile: null,
   articleFileError: null
 }
@@ -94,12 +92,15 @@ const createArticleReducer = (state = defaultState, action) => {
         articleIsExternalFile: !state.articleIsExternalFile,
         articleContent: null,
         selectedFile: null,
+        articleFileError: null,
+        articleError: null,
       }
     case SET_FILE_UPLOADED:
       return {
         ...state,
         selectedFile: action.payload,
         articleFileUploaded: true,
+        articleFileError: null,
       }
     case SAVE_ARTICLE_FILE_PENDING:
       return {
@@ -129,7 +130,7 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleFileEditing: true,
         articleFileEdited: false,
-        articleFileEditError: null,
+        articleFileError: null,
       }
     case EDIT_ARTICLE_FILE_SUCCESS:
       return {
@@ -137,15 +138,15 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileEditing: false,
         articleFileEdited: true,
         articleFileName: action.payload,
-        articleFileEditError: null,
+        articleFileError: null,
       }
     case EDIT_ARTICLE_FILE_ERROR:
       return {
         ...state,
         articleFileEditing: false,
         articleFileEdited: false,
-        articleFileName: '',
-        articleFileEditError: action.payload,
+        // articleFileName: '',
+        articleFileError: action.payload,
       }
     case SUBMIT_CREATE_ARTICLE_PENDING:
       return {
@@ -227,21 +228,21 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleFileDeleting: true,
         articleFileDeleted: false,
-        articleFileDeleteError: null,
+        articleFileError: null,
       }
     case DELETE_ARTICLE_FILE_SUCCESS:
       return {
         ...state,
         articleFileDeleting: false,
         articleFileDeleted: true,
-        articleFileDeleteError: null,
+        articleFileError: null,
       }
     case DELETE_ARTICLE_FILE_ERROR:
       return {
         ...state,
         articleFileDeleting: false,
         articleFileDeleted: false,
-        articleFileDeleteError: action.payload,
+        articleFileError: action.payload,
       }
     default:
       return state

@@ -32,6 +32,7 @@ const ArticleForm = ({
   articleFileUploaded,
   articleIsExternalFile,
   articleFileName,
+  articleFileError,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -209,6 +210,11 @@ const ArticleForm = ({
       {
         articleError && (
           <p className='article-error'>{articleError}</p>
+        )
+      }
+      {
+        articleFileError && (
+          <p className='article-error'>{articleFileError}</p>
         )
       }
       <div className='article-form-submit-container'>

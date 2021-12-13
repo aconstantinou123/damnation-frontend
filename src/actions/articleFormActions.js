@@ -114,7 +114,7 @@ export const saveArticleFile = (body) => async (dispatch, getState) => {
       }
     }))
   } catch (err) {
-    dispatch(saveArticleFileError(err))
+    dispatch(saveArticleFileError(err.response.data.message))
   }
 }
 
@@ -138,32 +138,41 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
   const { articleFormReducer } = getState()
   const { token } = userReducer
   const { article } = body
+  console.log(article)
   const { selectedFile, articleIsExternalFile } = articleFormReducer
   const formData = new FormData()
   //Missing file - shouldn't happen
   if (!selectedFile && !article.filename) {
     return dispatch(editArticleFileError('Missing file'))
   }
-  //Delete file (switch article type) 
-  else if(article.filename && !articleIsExternalFile) {
-    formData.append('FileToDelete', article.filename)
-    console.log('Delete article and switch type')
-  }
-  //Same file
-  else if(!selectedFile && article.filename && articleIsExternalFile) {
-    console.log('Same file no change')
-    return dispatch(submitArticleEdit(body))
-  }
-  //Change type to external
-  else if(selectedFile.name && !article.filename) {
-    console.log('Change type to external')
-    formData.append('NewFile', selectedFile)
-  }
-  //Change file
-  else if(selectedFile.name !== article.filename  && articleIsExternalFile) {
-    console.log('Change file')
-    formData.append('FileToDelete', article.filename)
-    formData.append('NewFile', selectedFile)
+  if(articleIsExternalFile) {
+    //Same file no change
+    if(!selectedFile && article.filename) {
+      console.log('Same file no change')
+      return dispatch(submitArticleEdit(body))
+    }
+    //Change type to external
+    else if(selectedFile.name && !article.filename) {
+      console.log('Change type to external')
+      formData.append('NewFile', selectedFile)
+    }
+    //Change external file
+    else if(selectedFile.name !== article.filename) {
+      console.log('Change external file')
+      formData.append('FileToDelete', article.filename)
+      formData.append('NewFile', selectedFile)
+    }
+    // User error same file selected
+    else if(selectedFile.name === article.filename) {
+      console.log('User error same file selected')
+      return dispatch(editArticleFileError('Same file selected'))
+    }
+  } else {
+     //Delete file (switch article type) 
+    if(article.filename) {
+      formData.append('FileToDelete', article.filename)
+      console.log('Delete article and switch type')
+    }
   }
   try {
     const response = await axios.put(`${APP_URL}/api/files`, formData, {
@@ -181,7 +190,7 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
       }
     }))
   } catch (err) {
-    dispatch(editArticleFileError(err))
+    dispatch(editArticleFileError(err.response.data.message))
   }
 }
 
