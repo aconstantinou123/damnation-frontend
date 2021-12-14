@@ -1,5 +1,6 @@
 .article-form {
    display: inline-block;
+   width: 500px;
 }
 
 .article-form-header-container {
@@ -94,4 +95,5 @@ textarea {
 .article-error {
   color: red;
   padding-top: 1rem;
+  padding-left: 1rem;
 }
