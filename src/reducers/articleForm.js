@@ -145,7 +145,6 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleFileEditing: false,
         articleFileEdited: false,
-        // articleFileName: '',
         articleFileError: action.payload,
       }
     case SUBMIT_CREATE_ARTICLE_PENDING:
@@ -165,6 +164,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleImgUrl: '',
         articleSummary: '',
         articleIsMain: false,
+        articleIsExternalFile: false,
         articleContent: null,
         articleSubmitting: false,
         articleSubmitted: true,

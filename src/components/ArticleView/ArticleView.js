@@ -75,7 +75,7 @@ const ArticleView = ({
             article.content ? (
               <ArticleContent articleContent={article.content}/>
             ) : (
-              <Button onClick={handleArticleLinkClicked} name='View Article'/>
+              <p className='article-link' onClick={handleArticleLinkClicked}>{article.author} has provided Damnation their work in a special format. Please click here to view it</p>
             )
           }
         </div>

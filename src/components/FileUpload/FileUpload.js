@@ -12,19 +12,17 @@ const FileUploadPage = ({
 
 	return(
    <div>
-			<input type="file" name="damnation-file" onChange={changeHandler} />
+		 	<label htmlFor='file-upload' className='custom-file-upload'>
+   	 		Choose file
+			</label>
+			<input id='file-upload' type='file' name='damnation-file' onChange={changeHandler} />
 			{(articleFileUploaded && selectedFile) ? (
 				<div>
-					<p>Filename: {selectedFile.name}</p>
-					<p>Filetype: {selectedFile.type}</p>
-					<p>Size in bytes: {selectedFile.size}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p>
+					<p className='file-details'>Filename: {selectedFile.name}</p>
+					<p className='file-details'>Filetype: {selectedFile.type}</p>
 				</div>
 			) : (
-				<p>Select a file to show details</p>
+				<p className='file-details'>Select a file to show details</p>
 			)}
 		</div>
 	)

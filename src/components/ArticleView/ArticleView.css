@@ -15,6 +15,14 @@
   justify-content: center;
 }
 
+.article-link {
+  padding-top: 2rem;
+}
+
+.article-link:hover {
+  color: #5f5f5f;
+}
+
 @media screen and (max-width: 768px) {
   .article-view-content {
     padding: 2rem;

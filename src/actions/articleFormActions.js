@@ -138,7 +138,6 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
   const { articleFormReducer } = getState()
   const { token } = userReducer
   const { article } = body
-  console.log(article)
   const { selectedFile, articleIsExternalFile } = articleFormReducer
   const formData = new FormData()
   //Missing file - shouldn't happen

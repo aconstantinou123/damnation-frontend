@@ -195,7 +195,7 @@ const ArticleForm = ({
               />
           </div>
         ) : (
-          <div className='article-form-text-editor'>
+          <div className='file-upload-container'>
             {
               externalFile && <p>Select new file:</p>
             }
