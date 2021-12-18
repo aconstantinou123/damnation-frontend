@@ -21,27 +21,20 @@ const Article = ({
   user,
   currentArticle,
   fetchArticle,
-  fetchExternalFile,
   externalFile,
   resetSubmit,
   location,
+  externalFileFetching,
+  articleFetching,
 }) => {
 
   const { id } = useParams()
   useEffect(() => {
-    if (!currentArticle) {
+    if (!currentArticle && !articleFetching) {
       fetchArticle(id);
     }
     
-  }, [fetchArticle, currentArticle, id]);
-
-  useEffect(() => {
-    if (currentArticle && currentArticle.filename) {
-      fetchExternalFile(currentArticle.filename)
-    }
-    
-  }, [currentArticle, fetchExternalFile]);
-
+  }, [articleFetching, fetchArticle, currentArticle, id]);
 
   useEffect(() => {
     if (articleSubmitted) {
@@ -57,6 +50,7 @@ const Article = ({
           {
             articleFetched || currentArticle
             ? <ArticleView 
+                externalFileFetching={externalFileFetching}
                 article={currentArticle}
                 user={user}
                 externalFile={externalFile}

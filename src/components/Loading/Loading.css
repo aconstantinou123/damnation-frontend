@@ -6,6 +6,15 @@
   align-items: center;
 }
 
+.loading-container-small {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loading-img {
   width: 5rem;
   height: 5rem;

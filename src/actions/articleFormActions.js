@@ -147,30 +147,30 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
   if(articleIsExternalFile) {
     //Same file no change
     if(!selectedFile && article.filename) {
-      console.log('Same file no change')
+      // console.log('Same file no change')
       return dispatch(submitArticleEdit(body))
     }
     //Change type to external
     else if(selectedFile.name && !article.filename) {
-      console.log('Change type to external')
+      // console.log('Change type to external')
       formData.append('NewFile', selectedFile)
     }
     //Change external file
     else if(selectedFile.name !== article.filename) {
-      console.log('Change external file')
+      // console.log('Change external file')
       formData.append('FileToDelete', article.filename)
       formData.append('NewFile', selectedFile)
     }
     // User error same file selected
     else if(selectedFile.name === article.filename) {
-      console.log('User error same file selected')
+      // console.log('User error same file selected')
       return dispatch(editArticleFileError('Same file selected'))
     }
   } else {
      //Delete file (switch article type) 
     if(article.filename) {
       formData.append('FileToDelete', article.filename)
-      console.log('Delete article and switch type')
+      // console.log('Delete article and switch type')
     }
   }
   try {

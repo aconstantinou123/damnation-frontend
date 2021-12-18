@@ -1,11 +1,12 @@
+import { useState } from 'react'
 import ArticleContent from '../ArticleContent/ArticleContent'
 import Button from '../Button/Button'
+import Loading from '../Loading/Loading'
+import Modal from '../Modal/Modal'
 
 import history from '../../history'
 
 import './ArticleView.css'
-import { useState } from 'react'
-import Modal from '../Modal/Modal'
 
 const ArticleView = ({ 
   article,
@@ -13,7 +14,8 @@ const ArticleView = ({
   user,
   deleteArticle,
   location,
-  externalFile
+  externalFile,
+  externalFileFetching,
 }) => {
   const [showModal, setShowModal] = useState(false)
   const handleEditClicked = () => {
@@ -54,6 +56,26 @@ const ArticleView = ({
     }
   }
 
+  const renderArticleType = () => {
+    if(article.content){
+      return <ArticleContent articleContent={article.content}/>
+    } else if(externalFileFetching){
+      return <Loading isSmall/>
+    } else if(article.filename.includes('mp3') || article.filename.includes('wav')) {
+      const audioString = `data:audio/mp3;base64,${externalFile}`
+      return (<div className='media-container'>
+              <audio className='audio-player' controls src={audioString} />
+            </div>)
+    } else if(article.filename.includes('mp4')) {
+      const audioString = `data:video/mp4;base64,${externalFile}`
+      return (<div className='media-container'>
+              <video className='video-player' controls src={audioString} />
+            </div>)
+    }
+    return <p className='article-link' onClick={handleArticleLinkClicked}>{article.author} has 
+    provided Damnation their work in a special format. Please click here to view it</p>
+  }
+
   return (
     <div className="article-view" key={article.id}>
         <Button onClick={handleBackClicked} name='Back'/>
@@ -71,13 +93,7 @@ const ArticleView = ({
           <div>
             <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
           </div>
-          {
-            article.content ? (
-              <ArticleContent articleContent={article.content}/>
-            ) : (
-              <p className='article-link' onClick={handleArticleLinkClicked}>{article.author} has provided Damnation their work in a special format. Please click here to view it</p>
-            )
-          }
+          {renderArticleType()}
         </div>
       </div>
       

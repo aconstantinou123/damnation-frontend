@@ -114,10 +114,17 @@ export const setCurrentPage = (payload) => ({
   payload,
 })
 
-export const setArticleToView = (payload) => ({
+export const setArticleContent = (payload) => ({
   type: SET_ARTICLE_TO_VIEW,
   payload,
 })
+
+export const setArticleToView = (article) => async (dispatch) => {
+  dispatch(setArticleContent(article))
+  if(article.filename) {
+    dispatch(fetchExternalFile(article.filename))
+  }
+}
 
 const articleFetching = () => ({
   type: FETCH_ARTICLE_PENDING,
@@ -138,6 +145,9 @@ export const fetchArticle = (id) => async (dispatch) => {
   try {
     const response = await axios.get(`${APP_URL}/api/article/${id}`)
     dispatch(articleFetched(response.data.data))
+    if(response.data.data.filename){
+      dispatch(fetchExternalFile(response.data.data.filename))
+    }
   } catch (err) {
     dispatch(articleError(err))
   }
