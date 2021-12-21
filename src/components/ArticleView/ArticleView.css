@@ -17,14 +17,17 @@
 
 .article-link {
   padding-top: 2rem;
+  font-size: 19px;
 }
 
-.article-link:hover {
-  color: #5f5f5f;
+.article-highlight {
+  padding-top: 2rem;
+  font-size: 19px;
+  color:#4682B4;
 }
 
-.media-container {
-  /* min-width: 60vw; */
+.article-highlight:hover {
+  color:#ADD8E6;
 }
 
 .audio-player {

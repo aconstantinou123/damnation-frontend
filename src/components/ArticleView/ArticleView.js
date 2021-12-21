@@ -72,8 +72,8 @@ const ArticleView = ({
               <video className='video-player' controls src={audioString} />
             </div>)
     }
-    return <p className='article-link' onClick={handleArticleLinkClicked}>{article.author} has 
-    provided Damnation their work in a special format. Please click here to view it</p>
+    return <p className='article-link'>{article.author} has 
+    provided Damnation their work in a special format. <span className='article-highlight' onClick={handleArticleLinkClicked}>Please click here to view it</span></p>
   }
 
   return (
