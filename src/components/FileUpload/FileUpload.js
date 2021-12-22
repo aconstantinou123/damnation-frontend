@@ -4,6 +4,7 @@ const FileUploadPage = ({
   setFileUploaded,
   articleFileUploaded,
   selectedFile,
+	articleFileSubmitting,
  }) => {
 
 	const changeHandler = (event) => {
@@ -12,10 +13,16 @@ const FileUploadPage = ({
 
 	return(
    <div>
-		 	<label htmlFor='file-upload' className='custom-file-upload'>
-   	 		Choose file
-			</label>
-			<input id='file-upload' type='file' name='damnation-file' onChange={changeHandler} />
+		 {
+			 !articleFileSubmitting
+			 ? <>
+					<label htmlFor='file-upload' className='custom-file-upload'>
+					Choose file
+					</label>
+					<input id='file-upload' type='file' name='damnation-file' onChange={changeHandler} />
+			 </>
+			 : <></>
+		 }
 			{(articleFileUploaded && selectedFile) ? (
 				<div>
 					<p className='file-details'>Filename: {selectedFile.name}</p>

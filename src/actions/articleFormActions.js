@@ -111,6 +111,7 @@ export const saveArticleFile = (body) => async (dispatch, getState) => {
       'Content-Type': 'multipart/form-data',
       },
       onUploadProgress: data => dispatch(setUploadProgress((data.loaded / data.total) * 100)),
+      timeout: 600000,
     })
     dispatch(saveArticleFileSuccess(response.data.filename))
     dispatch(submitArticleCreate({
@@ -121,7 +122,9 @@ export const saveArticleFile = (body) => async (dispatch, getState) => {
       }
     }))
   } catch (err) {
-    dispatch(saveArticleFileError(err.response.data.message))
+    err.response
+      ? dispatch(saveArticleFileError(err.response.data.message))
+      : dispatch(saveArticleFileError(err.message.replace(/^\w/, (c) => c.toUpperCase())))
   }
 }
 
@@ -154,30 +157,25 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
   if(articleIsExternalFile) {
     //Same file no change
     if(!selectedFile && article.filename) {
-      // console.log('Same file no change')
       return dispatch(submitArticleEdit(body))
     }
     //Change type to external
     else if(selectedFile.name && !article.filename) {
-      // console.log('Change type to external')
       formData.append('NewFile', selectedFile)
     }
     //Change external file
     else if(selectedFile.name !== article.filename) {
-      // console.log('Change external file')
       formData.append('FileToDelete', article.filename)
       formData.append('NewFile', selectedFile)
     }
     // User error same file selected
     else if(selectedFile.name === article.filename) {
-      // console.log('User error same file selected')
       return dispatch(editArticleFileError('Same file selected'))
     }
   } else {
      //Delete file (switch article type) 
     if(article.filename) {
       formData.append('FileToDelete', article.filename)
-      // console.log('Delete article and switch type')
     }
   }
   try {
@@ -187,6 +185,7 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
       'Content-Type': 'multipart/form-data',
       },
       onUploadProgress: data => dispatch(setUploadProgress((data.loaded / data.total) * 100)),
+      timeout: 600000,
     })
     dispatch(editArticleFileSuccess(response.data.filename))
     dispatch(submitArticleEdit({
@@ -197,7 +196,9 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
       }
     }))
   } catch (err) {
-    dispatch(editArticleFileError(err.response.data.message))
+    err.response
+      ? dispatch(editArticleFileError(err.response.data.message))
+      : dispatch(editArticleFileError(err.message.replace(/^\w/, (c) => c.toUpperCase())))
   }
 }
 

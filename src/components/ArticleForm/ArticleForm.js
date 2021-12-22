@@ -203,6 +203,7 @@ const ArticleForm = ({
               externalFile && <p>Select new file:</p>
             }
             <FileUploadPage
+              articleFileSubmitting={articleFileSubmitting}
               setFileUploaded={setFileUploaded}
               articleFileUploaded={articleFileUploaded}
               selectedFile={selectedFile}
@@ -226,7 +227,9 @@ const ArticleForm = ({
 
           ? <div className='file-upload-container'>
               {
-                uploadProgress &&  <p>Uploading file: {Math.round(uploadProgress)}%</p>
+                uploadProgress
+                ? <p>Uploading file: {Math.round(uploadProgress)}%</p>
+                : <></>
               }
               <div className='file-upload-progress-container'>
                 <div className='file-upload-progress' style={ { width: `${uploadProgress}%` } }></div>
@@ -234,8 +237,8 @@ const ArticleForm = ({
               </div>
             </div>
           : <>
-              <input className='submit-button' type='submit' value='Submit'></input>
-              <button type='button' className='submit-button' onClick={() => history.goBack()}>Cancel</button>
+              <input className='submit-button-form' type='submit' value='Submit'></input>
+              <button type='button' className='submit-button-form' onClick={() => history.goBack()}>Cancel</button>
             </>
         }
       </div>
