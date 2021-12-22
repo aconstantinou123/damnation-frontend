@@ -35,6 +35,7 @@ const CreateArticle = ({
   articleFileError,
   articleSubmitting,
   articleFileSaving,
+  uploadProgress,
 }) => {
   return (
     <div className="create-article-container">
@@ -66,6 +67,7 @@ const CreateArticle = ({
         articleFileError={articleFileError}
         articleSubmitting={articleSubmitting}
         articleFileSubmitting={articleFileSaving}
+        uploadProgress={uploadProgress}
       />
     </div>
   )

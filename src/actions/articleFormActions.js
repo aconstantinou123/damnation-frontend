@@ -28,7 +28,13 @@ import {
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
+  SET_UPLOAD_PROGRESS,
 } from '../constants/types'
+
+const setUploadProgress = (payload) => ({
+  type: SET_UPLOAD_PROGRESS,
+  payload,
+})
 
 export const saveArticleContent = (payload) => ({
   type: SAVE_ARTICLE_CONTENT,
@@ -103,7 +109,8 @@ export const saveArticleFile = (body) => async (dispatch, getState) => {
       headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'multipart/form-data',
-      }
+      },
+      onUploadProgress: data => dispatch(setUploadProgress((data.loaded / data.total) * 100)),
     })
     dispatch(saveArticleFileSuccess(response.data.filename))
     dispatch(submitArticleCreate({
@@ -178,7 +185,8 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
       headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'multipart/form-data',
-      }
+      },
+      onUploadProgress: data => dispatch(setUploadProgress((data.loaded / data.total) * 100)),
     })
     dispatch(editArticleFileSuccess(response.data.filename))
     dispatch(submitArticleEdit({

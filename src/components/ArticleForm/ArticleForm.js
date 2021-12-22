@@ -2,7 +2,6 @@ import moment from 'moment'
 
 import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
 import FileUploadPage from '../FileUpload/FileUpload'
-import Loading from '../Loading/Loading'
 import history from '../../history'
 
 import './ArticleForm.css'
@@ -36,6 +35,7 @@ const ArticleForm = ({
   articleFileError,
   articleSubmitting,
   articleFileSubmitting,
+  uploadProgress,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -223,7 +223,16 @@ const ArticleForm = ({
       <div className='article-form-submit-container'>
         {
           (articleFileSubmitting || articleSubmitting)
-          ? <Loading isSmall/>
+
+          ? <div className='file-upload-container'>
+              {
+                uploadProgress &&  <p>Uploading file: {Math.round(uploadProgress)}%</p>
+              }
+              <div className='file-upload-progress-container'>
+                <div className='file-upload-progress' style={ { width: `${uploadProgress}%` } }></div>
+                <div className='file-upload-total' style={ { width: `${100 - uploadProgress}%` } }></div>
+              </div>
+            </div>
           : <>
               <input className='submit-button' type='submit' value='Submit'></input>
               <button type='button' className='submit-button' onClick={() => history.goBack()}>Cancel</button>

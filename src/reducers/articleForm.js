@@ -20,6 +20,7 @@ import {
   SAVE_ARTICLE_FILE_SUCCESS,
   SAVE_ARTICLE_FILE_ERROR,
   SELECT_ARTICLE_TO_EDIT,
+  SET_UPLOAD_PROGRESS,
   SUBMIT_CREATE_ARTICLE_PENDING,
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
@@ -51,11 +52,17 @@ const defaultState = {
   articleFileDeleting: false,
   articleFileDeleted: false,
   selectedFile: null,
-  articleFileError: null
+  articleFileError: null,
+  uploadProgress: 0,
 }
 
 const createArticleReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case SET_UPLOAD_PROGRESS:
+      return {
+        ...state,
+        uploadProgress: action.payload,
+      }
     case SAVE_ARTICLE_TITLE:
       return {
         ...state,
@@ -108,6 +115,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileSaving: true,
         articleFileSaved: false,
         articleFileError: null,
+        uploadProgress: 0,
       }
     case SAVE_ARTICLE_FILE_SUCCESS:
       return {
@@ -116,6 +124,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileSaved: true,
         articleFileName: action.payload,
         articleFileError: null,
+        uploadProgress: 0,
       }
     case SAVE_ARTICLE_FILE_ERROR:
       return {
@@ -124,6 +133,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileSaved: false,
         articleFileName: '',
         articleFileError: action.payload,
+        uploadProgress: 0,
       }
     case EDIT_ARTICLE_FILE_PENDING:
       return {
@@ -131,6 +141,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileEditing: true,
         articleFileEdited: false,
         articleFileError: null,
+        uploadProgress: 0,
       }
     case EDIT_ARTICLE_FILE_SUCCESS:
       return {
@@ -139,6 +150,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileEdited: true,
         articleFileName: action.payload,
         articleFileError: null,
+        uploadProgress: 0,
       }
     case EDIT_ARTICLE_FILE_ERROR:
       return {
@@ -146,6 +158,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleFileEditing: false,
         articleFileEdited: false,
         articleFileError: action.payload,
+        uploadProgress: 0,
       }
     case SUBMIT_CREATE_ARTICLE_PENDING:
       return {

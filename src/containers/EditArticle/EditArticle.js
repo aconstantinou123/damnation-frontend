@@ -36,6 +36,7 @@ const EditArticle = ({
   articleFileError,
   articleSubmitting,
   articleFileEditing,
+  uploadProgress,
 }) => {
   return (
     <div className="edit-article-container">
@@ -68,6 +69,7 @@ const EditArticle = ({
         articleFileError={articleFileError}
         articleSubmitting={articleSubmitting}
         articleFileSubmitting={articleFileEditing}
+        uploadProgress={uploadProgress}
       />
     </div>
   )
