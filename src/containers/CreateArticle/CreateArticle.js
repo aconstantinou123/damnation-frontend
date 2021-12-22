@@ -33,6 +33,8 @@ const CreateArticle = ({
   articleIsExternalFile,
   articleFileName,
   articleFileError,
+  articleSubmitting,
+  articleFileSaving,
 }) => {
   return (
     <div className="create-article-container">
@@ -62,6 +64,8 @@ const CreateArticle = ({
         articleIsExternalFile={articleIsExternalFile}
         articleFileName={articleFileName}
         articleFileError={articleFileError}
+        articleSubmitting={articleSubmitting}
+        articleFileSubmitting={articleFileSaving}
       />
     </div>
   )

@@ -2,6 +2,7 @@ import moment from 'moment'
 
 import ArticleTextEditor from '../ArticleTextEditor/ArticleTextEditor'
 import FileUploadPage from '../FileUpload/FileUpload'
+import Loading from '../Loading/Loading'
 import history from '../../history'
 
 import './ArticleForm.css'
@@ -33,6 +34,8 @@ const ArticleForm = ({
   articleIsExternalFile,
   articleFileName,
   articleFileError,
+  articleSubmitting,
+  articleFileSubmitting,
 }) => {
   const onTitleChange = (e) => {
     saveArticleTitle(e.target.value)
@@ -218,8 +221,14 @@ const ArticleForm = ({
         )
       }
       <div className='article-form-submit-container'>
-        <input className='submit-button' type='submit' value='Submit'></input>
-        <button type='button' className='submit-button' onClick={() => history.goBack()}>Cancel</button>
+        {
+          (articleFileSubmitting || articleSubmitting)
+          ? <Loading isSmall/>
+          : <>
+              <input className='submit-button' type='submit' value='Submit'></input>
+              <button type='button' className='submit-button' onClick={() => history.goBack()}>Cancel</button>
+            </>
+        }
       </div>
     </form>
   );

@@ -34,6 +34,8 @@ const EditArticle = ({
   articleFileName,
   externalFile,
   articleFileError,
+  articleSubmitting,
+  articleFileEditing,
 }) => {
   return (
     <div className="edit-article-container">
@@ -64,6 +66,8 @@ const EditArticle = ({
         articleFileName={articleFileName}
         externalFile={externalFile}
         articleFileError={articleFileError}
+        articleSubmitting={articleSubmitting}
+        articleFileSubmitting={articleFileEditing}
       />
     </div>
   )
