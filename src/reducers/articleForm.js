@@ -25,6 +25,7 @@ import {
   SUBMIT_CREATE_ARTICLE_SUCCESS,
   SUBMIT_CREATE_ARTICLE_ERROR,
   RESET_SUBMIT,
+  RESET_ARTICLE_FORM,
 } from '../constants/types'
 
 const defaultState = {
@@ -199,6 +200,31 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSubmitting: false,
         articleSubmitted: false,
         articleError: null,
+      }
+    case RESET_ARTICLE_FORM:
+      return {
+        ...state,
+        articleId: null,
+        articleDate: '',
+        articleTitle: '',
+        articleAuthor: '',
+        articleImgUrl: '',
+        articleSummary: '',
+        articleIsExternalFile: false,
+        articleIsMain: false,
+        articleContent: null,
+        articleSubmitting: false,
+        articleSubmitted: false, 
+        articleError: null,
+        articleFileUploaded: false,
+        articleFileSaving: false,
+        articleFileSaved: false,
+        articleFileName: '',
+        articleFileEditing: false,
+        articleFileEdited: false,
+        selectedFile: null,
+        articleFileError: null,
+        uploadProgress: 0,
       }
     case SELECT_ARTICLE_TO_EDIT:
       return {

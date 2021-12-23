@@ -121,7 +121,8 @@ export const setArticleContent = (payload) => ({
 
 export const setArticleToView = (article) => async (dispatch) => {
   dispatch(setArticleContent(article))
-  if(article.filename) {
+  if(article.filename && 
+    !['mp4', 'mp3', 'wav'].some(x => article.filename.includes(x))) {
     dispatch(fetchExternalFile(article.filename))
   }
 }
@@ -145,7 +146,8 @@ export const fetchArticle = (id) => async (dispatch) => {
   try {
     const response = await axios.get(`${APP_URL}/api/article/${id}`)
     dispatch(articleFetched(response.data.data))
-    if(response.data.data.filename){
+    if(response.data.data.filename && 
+      !['mp4', 'mp3', 'wav'].some(x => response.data.data.filename.includes(x))){
       dispatch(fetchExternalFile(response.data.data.filename))
     }
   } catch (err) {

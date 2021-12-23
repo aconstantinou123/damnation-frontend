@@ -5,6 +5,7 @@ import Loading from '../Loading/Loading'
 import Modal from '../Modal/Modal'
 
 import history from '../../history'
+import { APP_URL } from '../../constants/types'
 
 import './ArticleView.css'
 
@@ -62,18 +63,36 @@ const ArticleView = ({
     } else if(externalFileFetching){
       return <Loading isSmall/>
     } else if(article.filename.includes('mp3') || article.filename.includes('wav')) {
-      const audioString = `data:audio/mp3;base64,${externalFile}`
-      return (<div className='media-container'>
-              <audio className='audio-player' controls src={audioString} />
-            </div>)
+      const mimeType = `audio/${article.filename.split('.')[1]}`
+      return (
+        <div className='media-container'>
+          <audio 
+            className='audio-player' 
+            controls 
+            src={`${APP_URL}/api/files/${article.filename}`} 
+            type={mimeType}
+          />
+        </div>
+      )
     } else if(article.filename.includes('mp4')) {
-      const audioString = `data:video/mp4;base64,${externalFile}`
-      return (<div className='media-container'>
-              <video className='video-player' controls src={audioString} />
-            </div>)
+      const mimeType = `video/${article.filename.split('.')[1]}`
+      return (
+        <div className='media-container'>
+          <video 
+            className='video-player' 
+            controls 
+            src={`${APP_URL}/api/files/${article.filename}`} 
+            type={mimeType} 
+          />
+        </div>
+      )
     }
-    return <p className='article-link'>{article.author} has 
-    provided Damnation their work in a special format. <span className='article-highlight' onClick={handleArticleLinkClicked}>Please click here to view it</span></p>
+    const externalFileText = `${article.author} has provided Damnation their work in a special format. `
+    return (
+      <p className='article-link'>{externalFileText}
+        <span className='article-highlight' onClick={handleArticleLinkClicked}>Please click here to view it</span>
+      </p>
+    )
   }
 
   return (

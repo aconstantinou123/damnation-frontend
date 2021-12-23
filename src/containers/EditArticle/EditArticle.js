@@ -1,9 +1,10 @@
-import { connect } from "react-redux"
-import { bindActionCreators } from "redux"
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import "./EditArticle.css";
+import './EditArticle.css';
 
-import ArticleForm from "../../components/ArticleForm/ArticleForm"
+import ArticleForm from '../../components/ArticleForm/ArticleForm'
 
 import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
@@ -37,9 +38,15 @@ const EditArticle = ({
   articleSubmitting,
   articleFileEditing,
   uploadProgress,
+  resetArticleForm,
 }) => {
+  useEffect(() => {
+    return () => {
+      resetArticleForm()
+    }
+  },[resetArticleForm])
   return (
-    <div className="edit-article-container">
+    <div className='edit-article-container'>
       <ArticleForm
         formName='Edit article'
         setIsExternalFile={setIsExternalFile}

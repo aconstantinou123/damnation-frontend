@@ -12,6 +12,7 @@ import {
   EDIT_ARTICLE_FILE_PENDING,
   EDIT_ARTICLE_FILE_SUCCESS,
   EDIT_ARTICLE_FILE_ERROR,
+  RESET_ARTICLE_FORM,
   RESET_SUBMIT,
   SAVE_ARTICLE_CONTENT,
   SAVE_ARTICLE_TITLE,
@@ -143,7 +144,6 @@ const editArticleFileError = (error) => ({
 })
 
 export const editArticleFile = (body) => async (dispatch, getState) => {
-  dispatch(editArticleFilePending())
   const { userReducer } = getState()
   const { articleFormReducer } = getState()
   const { token } = userReducer
@@ -161,10 +161,12 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
     }
     //Change type to external
     else if(selectedFile.name && !article.filename) {
+      dispatch(editArticleFilePending())
       formData.append('NewFile', selectedFile)
     }
     //Change external file
     else if(selectedFile.name !== article.filename) {
+      dispatch(editArticleFilePending())
       formData.append('FileToDelete', article.filename)
       formData.append('NewFile', selectedFile)
     }
@@ -175,6 +177,7 @@ export const editArticleFile = (body) => async (dispatch, getState) => {
   } else {
      //Delete file (switch article type) 
     if(article.filename) {
+      dispatch(editArticleFilePending())
       formData.append('FileToDelete', article.filename)
     }
   }
@@ -328,4 +331,8 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
 
 export const resetSubmit = () => ({
   type: RESET_SUBMIT,
+})
+
+export const resetArticleForm = () => ({
+  type: RESET_ARTICLE_FORM,
 })

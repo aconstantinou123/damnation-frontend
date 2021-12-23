@@ -1,9 +1,10 @@
-import { connect } from "react-redux"
-import { bindActionCreators } from "redux"
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import "./CreateArticle.css";
+import './CreateArticle.css'
 
-import ArticleForm from "../../components/ArticleForm/ArticleForm"
+import ArticleForm from '../../components/ArticleForm/ArticleForm'
 
 import * as articleActions from '../../actions/articleActions'
 import * as articleFormActions from '../../actions/articleFormActions'
@@ -36,7 +37,13 @@ const CreateArticle = ({
   articleSubmitting,
   articleFileSaving,
   uploadProgress,
+  resetArticleForm,
 }) => {
+  useEffect(() => {
+    return () => {
+      resetArticleForm()
+    }
+  }, [resetArticleForm])
   return (
     <div className="create-article-container">
       <ArticleForm
