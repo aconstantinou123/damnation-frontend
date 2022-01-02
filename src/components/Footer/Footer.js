@@ -1,9 +1,12 @@
 import './Footer.css'
 
-const Footer = () => (
-  <footer>
-    <p>&copy; 2021 Damnation</p>
-  </footer>
-)
+const Footer = () => {
+  const year = new Date().getFullYear() 
+  return (
+    <footer>
+      <p>&copy; {year} Damnation</p>
+    </footer>
+  )
+}
 
 export default  Footer
