@@ -12,7 +12,7 @@ const FileUploadPage = ({
 	}
 
 	return(
-   <div>
+   <div className='file-upload-component'>
 		 {
 			 !articleFileSubmitting
 			 ? <>

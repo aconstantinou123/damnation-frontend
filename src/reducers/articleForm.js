@@ -8,6 +8,7 @@ import {
   SET_FILE_UPLOADED,
   SET_IS_EXTERNAL_FILE,
   SAVE_ARTICLE_CONTENT,
+  SAVE_ARTICLE_EXTRA_INFO,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
   SAVE_ARTICLE_SUMMARY,
@@ -38,6 +39,7 @@ const defaultState = {
   articleIsExternalFile: false,
   articleIsMain: false,
   articleContent: null,
+  articleExtraInfo: null,
   articleSubmitting: false,
   articleSubmitted: false, 
   articleError: null,
@@ -94,11 +96,17 @@ const createArticleReducer = (state = defaultState, action) => {
         ...state,
         articleContent: action.payload,
       }
+    case SAVE_ARTICLE_EXTRA_INFO:
+      return {
+        ...state,
+        articleExtraInfo: action.payload,
+      }
     case SET_IS_EXTERNAL_FILE:
       return {
         ...state,
         articleIsExternalFile: !state.articleIsExternalFile,
         articleContent: null,
+        articleExtraInfo: null,
         selectedFile: null,
         articleFileError: null,
         articleError: null,
@@ -180,6 +188,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleIsMain: false,
         articleIsExternalFile: false,
         articleContent: null,
+        articleExtraInfo: null,
         articleSubmitting: false,
         articleSubmitted: true,
         articleError: null,
@@ -213,6 +222,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleIsExternalFile: false,
         articleIsMain: false,
         articleContent: null,
+        articleExtraInfo: null,
         articleSubmitting: false,
         articleSubmitted: false, 
         articleError: null,
@@ -237,6 +247,7 @@ const createArticleReducer = (state = defaultState, action) => {
         articleSummary: action.payload.summary,
         articleIsMain: action.payload.is_main,
         articleContent: action.payload.content,
+        articleExtraInfo: action.payload.extra_info,
         articleFileName: action.payload.filename,
         articleIsExternalFile: !!action.payload.filename,
 

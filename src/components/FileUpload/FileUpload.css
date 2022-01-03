@@ -12,6 +12,10 @@ input[type="file"] {
   box-shadow: 5px 5px 5px;
 }
 
+.file-upload-component {
+  padding-bottom: 2rem;
+}
+
 .custom-file-upload:hover {
   color: white;
 }

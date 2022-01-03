@@ -113,6 +113,9 @@ const ArticleView = ({
             <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
           </div>
           {renderArticleType()}
+          {
+            article.extra_info && <ArticleContent articleContent={article.extra_info}/>
+          }
         </div>
       </div>
       

@@ -15,6 +15,7 @@ import {
   RESET_ARTICLE_FORM,
   RESET_SUBMIT,
   SAVE_ARTICLE_CONTENT,
+  SAVE_ARTICLE_EXTRA_INFO,
   SAVE_ARTICLE_TITLE,
   SAVE_ARTICLE_AUTHOR,
   SAVE_ARTICLE_IMG_URL,
@@ -39,6 +40,11 @@ const setUploadProgress = (payload) => ({
 
 export const saveArticleContent = (payload) => ({
   type: SAVE_ARTICLE_CONTENT,
+  payload
+})
+
+export const saveArticleExtraInfo = (payload) => ({
+  type: SAVE_ARTICLE_EXTRA_INFO,
   payload
 })
 

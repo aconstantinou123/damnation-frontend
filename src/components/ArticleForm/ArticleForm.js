@@ -16,6 +16,7 @@ const ArticleForm = ({
   saveArticleIsMain,
   saveArticleContent,
   saveArticleFile,
+  saveArticleExtraInfo,
   selectedFile,
   externalFile,
   articleId,
@@ -27,6 +28,7 @@ const ArticleForm = ({
   articleSummary,
   articleIsMain,
   articleContent,
+  articleExtraInfo,
   formName,
   articleError,
   articleFileUploaded,
@@ -90,6 +92,7 @@ const ArticleForm = ({
         date: articleDate || moment().format('Do MMMM YYYY'),
         summary: articleSummary,
         is_main: articleIsMain,
+        extra_info: articleExtraInfo || null,
         content: articleContent || null,
         filename: articleFileName || null,
       }
@@ -202,12 +205,21 @@ const ArticleForm = ({
             {
               externalFile && <p>Select new file:</p>
             }
-            <FileUploadPage
-              articleFileSubmitting={articleFileSubmitting}
-              setFileUploaded={setFileUploaded}
-              articleFileUploaded={articleFileUploaded}
-              selectedFile={selectedFile}
-            />
+            <>
+              <FileUploadPage
+                articleFileSubmitting={articleFileSubmitting}
+                setFileUploaded={setFileUploaded}
+                articleFileUploaded={articleFileUploaded}
+                selectedFile={selectedFile}
+              />
+              <div className='content-label'>
+                <p>Extra Information</p>
+              </div>
+              <ArticleTextEditor 
+                saveArticleContent={saveArticleExtraInfo}
+                articleContent={articleExtraInfo}
+              />
+            </>
           </div>
         )
       }

@@ -18,6 +18,7 @@ const CreateArticle = ({
   saveArticleSummary,
   saveArticleIsMain,
   saveArticleContent,
+  saveArticleExtraInfo,
   saveArticleFile,
   submitArticleCreate,
   selectedFile,
@@ -29,6 +30,7 @@ const CreateArticle = ({
   articleSummary,
   articleIsMain,
   articleContent,
+  articleExtraInfo,
   articleError,
   articleFileUploaded,
   articleIsExternalFile,
@@ -56,6 +58,7 @@ const CreateArticle = ({
         saveArticleSummary={saveArticleSummary}
         saveArticleIsMain={saveArticleIsMain}
         saveArticleContent={saveArticleContent}
+        saveArticleExtraInfo={saveArticleExtraInfo}
         saveArticleFile={saveArticleFile}
         submitArticle={submitArticleCreate}
         selectedFile={selectedFile}
@@ -67,6 +70,7 @@ const CreateArticle = ({
         articleSummary={articleSummary}
         articleIsMain={articleIsMain}
         articleContent={articleContent}
+        articleExtraInfo={articleExtraInfo}
         articleError={articleError}
         articleFileUploaded={articleFileUploaded}
         articleIsExternalFile={articleIsExternalFile}
