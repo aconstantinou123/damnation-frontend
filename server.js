@@ -6,6 +6,8 @@ const app = express()
 
 const port = 3000
 
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
+
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(logger('common'))
   

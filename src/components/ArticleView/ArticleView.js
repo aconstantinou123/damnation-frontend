@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import ArticleContent from '../ArticleContent/ArticleContent'
 import Button from '../Button/Button'
 import Loading from '../Loading/Loading'
@@ -95,40 +96,53 @@ const ArticleView = ({
     )
   }
 
+  
+
   return (
-    <div className="article-view" key={article.id}>
+      <div className='article-view' key={article.id}>
+        <Helmet>
+            <meta property="og:title" content={article.title}/>
+            <meta property="og:description" content={article.summary}/>
+            <meta property="og:image" itemProp="image" content={article.img_url}/>
+            <meta property="og:url" content={location.href}/>
+            <meta property="og:type" content="website"/>
+            <meta name="twitter:card" content="summary_large_image"/>
+            <meta name="twitter:title" content={article.title}/>
+            <meta name="twitter:description" content={article.summary}/>
+            <meta name="twitter:image" content={article.img_url}/>
+        </Helmet>
         <Button onClick={handleBackClicked} name='Back'/>
-        {
-          user &&
-          <>
-            <Button onClick={handleEditClicked} name='Edit Article'/>
-            <Button onClick={handleDeleteClicked} name='Delete Article'/>
-          </>
-        }
-      <div className='article-view-content-container'>
-        <div className='article-view-content'>
-          <h3>{article.title}</h3>
-          <p>By {article.author} {article.date}</p>  
-          <div>
-            <img className="article-view-img" src={article.img_url} alt={article.img_alt} />
-          </div>
-          {renderArticleType()}
           {
-            article.extra_info && <ArticleContent articleContent={article.extra_info}/>
+            user &&
+            <>
+              <Button onClick={handleEditClicked} name='Edit Article'/>
+              <Button onClick={handleDeleteClicked} name='Delete Article'/>
+            </>
           }
+        <div className='article-view-content-container'>
+          <div className='article-view-content'>
+            <h3>{article.title}</h3>
+            <p>By {article.author} {article.date}</p>  
+            <div>
+              <img className='article-view-img' src={article.img_url} alt={article.img_alt} />
+            </div>
+            {renderArticleType()}
+            {
+              article.extra_info && <ArticleContent articleContent={article.extra_info}/>
+            }
+          </div>
         </div>
+        
+        {
+          showModal &&
+          <Modal
+            handleClose={handleModalClose}
+            modalAction={handleModalAction}
+            text='Are you sure?'    
+          />
+        }
       </div>
-      
-      {
-        showModal &&
-        <Modal
-          handleClose={handleModalClose}
-          modalAction={handleModalAction}
-          text='Are you sure?'    
-        />
-      }
-    </div>
-  )
+    )
 }
 
 export default ArticleView
