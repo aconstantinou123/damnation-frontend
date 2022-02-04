@@ -101,6 +101,8 @@ const ArticleView = ({
   return (
       <div className='article-view' key={article.id}>
         <Helmet>
+            <title>{article.title}</title>
+            <meta name="Description" content={article.summary}/>
             <meta property="og:title" content={article.title}/>
             <meta property="og:description" content={article.summary}/>
             <meta property="og:image" itemProp="image" content={article.img_url}/>

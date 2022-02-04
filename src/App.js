@@ -4,6 +4,11 @@ import {
   Route,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { Helmet } from 'react-helmet'
+
+import {
+  APP_URL
+} from './constants/types'
 
 import LandingPage from './containers/LandingPage/LandingPage'
 import About from './containers/About/About'
@@ -28,10 +33,27 @@ import './App.css'
 
 store.dispatch(persistLogin())
 
+const damnationTitle = 'Damnation'
+const damnationDescription = 'live, laugh, love'
+const damnationLogoPath = `${APP_URL}/assets/damnation.png`
+
 const App = () => {
   return (
     <Provider store={store}>
       <Router history={history}>
+        <Helmet>
+              <title>{damnationTitle}</title>
+              <meta name="Description" content={damnationDescription}/>
+              <meta property="og:title" content={damnationTitle}/>
+              <meta property="og:description" content={damnationDescription}/>
+              <meta property="og:image" itemProp="image" content={damnationLogoPath}/>
+              <meta property="og:url" content={history.location.href}/>
+              <meta property="og:type" content="website"/>
+              <meta name="twitter:card" content="summary_large_image"/>
+              <meta name="twitter:title" content={damnationTitle}/>
+              <meta name="twitter:description" content={damnationDescription}/>
+              <meta name="twitter:image" content={damnationLogoPath}/>
+        </Helmet>
         <Switch>
           <Route path='/login' component={Login}/>
           <Route path='/logout' component={Logout}/>
